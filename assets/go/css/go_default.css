@@ -1,0 +1,241 @@
+.lab h2 {
+    font-size: 1.4em;
+    text-align: center;
+
+}
+.hidden {
+    display: none;
+}
+
+.row {
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.clear {
+    clear: both;
+}
+
+/* Start Menu */
+
+    #menu-id-1 li.active {
+        background-color: #2674ac;
+    }
+    #menu-id-1 i {
+        padding-right: 5px;
+        font-size: 1.3em;
+    }
+    #menu-id-1 ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        padding-right: 10px;
+    }
+
+    #menu-id-1 li {
+       float: right;
+    }
+
+    #menu-id-1 li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+    }
+
+    #menu-id-1 li a:hover {
+        background-color: #2674ac;
+    }
+    #menu-id-1 li a:active {
+        background-color: #2674ac;
+    }
+
+    /*#menu-id-2 li:hover .menu-contents, #menu-id-2 li a:active .menu-contents {*/
+    /*#menu-id-2 li:hover .menu-contents {
+        margin-left: -3px;
+    }*/
+    #menu-id-2 .menu-contents {
+        padding-top: 15px;
+    }
+    #menu-id-2 i {
+        padding-right: 15px;
+        font-size: 1.3em;
+    }
+    #menu-id-2 {
+        border-left: 1px solid #9f9f9f;
+        margin-left: 25px;
+        margin-top: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: #297db9;
+        margin-bottom: 40px;
+    }
+    #menu-id-2 li {
+        list-style-type: none;
+        padding-left: 25px;
+        margin-left: -42px;   
+        margin-bottom: 10px; 
+    }
+
+    #menu-id-2 li:hover {
+        border-left: 3px solid #297db9;
+        background-color: #e6f4fa;   
+        cursor: pointer;
+    }
+    #menu-id-2 a {
+        height: 50px;
+        text-decoration: none;  
+        color: #297db9;
+        display: block;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    #menu-id-2 li.active {
+        border-left: 3px solid #297db9;
+        background-color: #e6f4fa;
+    }
+
+/* End Menu */
+
+
+
+/* Main Content Header */
+
+    .actions {
+    	margin: 20px 0px 40px 3px;
+    }
+    .search {
+        padding-top: 22px;
+    }
+    .main-content-top-pad {
+        padding-top: 32px;
+        margin-bottom: -50px;
+    }    
+    button.actions {
+        margin: 15px 0px 5px 15px;
+        float: right;      
+    }
+    .flash {
+/*        margin-left: 25px;*/
+    }
+
+/* End Main Content Header */
+
+
+.published {
+	color: #5cb85c;
+	margin-top: -3px;
+    font-size: 1.3em;
+    padding-left: 13px;
+    cursor: pointer;
+}
+.not-published {
+	color: #d9534f;	
+	margin-top: -3px;	
+    font-size: 1.3em;
+    padding-left: 13px;    
+    cursor: pointer;    
+}
+
+
+.center {
+	text-align: center;
+}
+.left-pad-20 {
+	padding-left: 20px;
+}
+.bottom-pad-40 {
+    padding-bottom: 40px;
+}
+.top-pad-30 {
+    padding-top: 30px;
+}
+.top-pad-40 {
+    padding-top: 40px;
+}
+.top-margin-40 {
+    margin-top: 40px;
+}
+.right-pad-7 {
+    padding-right: 7px;
+}
+#header {
+    background-color: #297db9;
+    height: 62px;
+}
+.welcome {
+    font-size: 1.5em;
+    color: #fff;
+    padding: 15px 0px 0px 45px;
+}
+
+#logo {
+    text-align: left;
+    padding-top: 40px;
+    padding-left: 34px;
+    padding-bottom: 25px;
+}
+.logo {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;    
+}
+.img-responsive {
+    margin: 0 auto;
+}
+
+/* Start Footer */
+
+    #footer {
+        background-color: #232323;
+        color: #fff;
+        padding-top: 24px;
+        padding-right: 5px; 
+        height: 72px;
+
+    }
+    .copyright {
+        text-align: right;
+        padding-right: 30px;
+    }
+
+/* End Footer */
+
+.form-group {
+    border: 0;
+}
+.detailRow {
+    font-weight: bold;
+    padding: 0px;
+}
+.even {
+    background-color: #f9f9f9;
+    padding: 12px 0px;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;    
+}
+.micro-1 {
+    font-size: .7em;
+    padding-left: 15px;
+}
+[class*="has-error-"], [class*=" has-error-"] {
+    border: 1px solid #a94442;
+    background-color: #fbeded;
+}
+
+.has-error {
+    border: 1px solid #ff0500;
+    background-color: #ffbbba;
+}
+
+
+
+
