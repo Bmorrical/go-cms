@@ -22,14 +22,14 @@ class GO_Lab extends GO_Controller
      *  Construct
      */    
 
-	public function __construct($post){
+    public function __construct($post){
         $this->ci = get_instance();
         $this->post = $post;
-		$this->ci->config->load('go_config');
-		$this->ci->load->helper('url');	
-		$this->ci->load->dbforge();
+        $this->ci->config->load('go_config');
+        $this->ci->load->helper('url'); 
+        $this->ci->load->dbforge();
         $this->go_lab();
-	}	
+    }   
 
     /**
      *  Requires Documentation
@@ -393,9 +393,9 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t\t($" . "this->session->userdata('display_status') == 1) ? $" . "new_status = 0 : $" . "new_status = 1;\r\n";
                 $txt .=          "\t\t\tforeach ($" . "post as $" . "key => $" . "value) {\r\n";
                 $txt .=          "\t\t\t\t$" . "data = array(\r\n";
-                $txt .=          "\t\t\t\t\t'Status' 	=> $" . "new_status,\r\n";
+                $txt .=          "\t\t\t\t\t'Status'    => $" . "new_status,\r\n";
                 $txt .=          "\t\t\t\t\t'Updated'   => date('Y-m-d H:i:s'),\r\n";
-                $txt .=          "\t\t\t\t\t'UpdatedBy' => $" . "this->session->userdata('user_id')\r\n";			
+                $txt .=          "\t\t\t\t\t'UpdatedBy' => $" . "this->session->userdata('user_id')\r\n";           
                 $txt .=          "\t\t\t\t);\r\n";
                 $txt .=          "\t\t\t\t$" . "this->db->where('ID', $" . "key);\r\n";
                 $txt .=          "\t\t\t\t$" . "this->db->update('" . $this->post['table-name'] . "', $" . "data);\r\n";
