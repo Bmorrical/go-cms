@@ -44,7 +44,7 @@ $config['go_admin_login_default_route'] = '/admin/dashboard'; // after Admin log
 $config['go_home_login_default_route'] = '/index'; // after Home login, which route should be served
 $config['go_logo_default_route'] = 'admin/dashboard'; // when clicking logo, which route should be served, no starting slash
 $config['go_logo_location'] = '';
-$config['go_company_name'] = 'go-cms';
+$config['go_company_name'] = '{Your Company Name Here}';
 $config['go_logo-email-path'] = '//your-website.com/assets/images/logo.png';
 
 $config['go_dev_admin_login_username'] = "super-admin";
