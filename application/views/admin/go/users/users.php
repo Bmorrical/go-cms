@@ -1,4 +1,16 @@
 <?php
+	//////////////////////////////// core file ///////////////////////////////
+	///////////////////////////////// go-cms /////////////////////////////////
+
+		/**
+		 *  This is a core go-cms file.  Do not edit if you plan to
+		 *  ever update your go-cms version.  Changes would be lost.
+		 */
+
+	//////////////////////////////// core file ///////////////////////////////
+	///////////////////////////////// go-cms /////////////////////////////////
+?>
+<?php
 	$this_page_singular = 'user'; // defined for text html
 	$this_page_plural = 'users'; 
 	$this_page_results = $users; // defined as result array back from controller

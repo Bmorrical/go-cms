@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ///////////////////////////////// go-cms /////////////////////////////////
 
 	/**
-	 *  This is a core go-cms file.  Do not edit if you plan
+	 *  This is a core go-cms file.  Do not edit if you plan to
 	 *  ever update your go-cms version.  Changes would be lost.
 	 */
 
