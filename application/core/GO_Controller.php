@@ -119,7 +119,7 @@ class GO_Admin_Controller extends GO_Controller
 		public function login() {
 			if($this->input->get('go') == $this->config->item('go_login_key')) {
 				if (!empty($_POST)) {
-					$this->admin->verify_login($_POST, $admin = 1);
+					new GO_Login($_POST, "admin");
 				} else {
 					$queries = null;
 					$this->go_load_page(
@@ -142,6 +142,9 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function logout() {
+			$this->session->unset_userdata('admin');
+            // codebase should be refactored with extra "admin" key in sessions array above and in go_login.php
+            // leaving lower for now as not to break login 			
 			$this->session->unset_userdata('logged_in');
 			$this->session->unset_userdata('user_id');
 			$this->session->unset_userdata('name');

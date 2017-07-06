@@ -19,7 +19,7 @@ class GO_Update extends GO_Controller
      *  Construct
      */    
 
-	public function __construct()) {
+	public function __construct() {
 	}	
 
 }
