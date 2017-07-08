@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ///////////////////////////////// go-cms /////////////////////////////////
 
     /**
-     *  This is a core go-cms file.  Do not edit if you plan
+     *  This is a core go-cms file.  Do not edit if you plan to
      *  ever update your go-cms version.  Changes would be lost.
      */
 
@@ -57,11 +57,11 @@ class GO_Login extends GO_Controller
 	public function process_home_login() {
 
         $query = $this->ci->db
-            ->select('ID, FirstName, LastName, UserName, Password, Address, Address_2, City, State, Zip, Phone, Email')
+            ->select('ID, Firstname, Lastname, Username, Password, UserTypeID')
             ->where('Username', $this->post['username'])
             ->where('Status', 1)
             ->limit(1)           
-            ->get('clients');
+            ->get('go_users');
 
         if($query->num_rows() == 1){ 
 
@@ -80,7 +80,7 @@ class GO_Login extends GO_Controller
                     $this->ci->session->set_userdata(array(
                         'session_id' => session_id(),
                         'home' => array(
-                            'session_type'     => $return[0]['UserTypeID']
+                            'session_type' => $return[0]['UserTypeID']
                         )
                     ));
 
@@ -113,7 +113,8 @@ class GO_Login extends GO_Controller
                 ->where('UserTypeID', 1)
                 ->or_where('UserTypeID', 2)
             ->group_end()
-            ->where('Status', 1)            
+            ->where('Status', 1)
+            ->limit(1)            
             ->get('go_users');
 
         if($query->num_rows() == 1){ 
@@ -129,16 +130,16 @@ class GO_Login extends GO_Controller
                     'session_id' => session_id(),   
                     'admin' => array(
 	                    'logged_in' => true,
-	                    'user_id'   => $array[0]['ID'],
-	                    'name'      => $array[0]['Firstname'] . " " . $array[0]['Lastname'],
+	                    'user_id' => $array[0]['ID'],
+	                    'name' => $array[0]['Firstname'] . " " . $array[0]['Lastname'],
 	                    'user_type' => $array[0]['UserTypeID']
                     ),    
                     // codebase should be refactored with extra "admin" key in sessions array above
                     // leaving lower for now as not to break login
                     // also update GO_Controller::logout();
                     'logged_in' => true,
-                    'user_id'   => $array[0]['ID'],
-                    'name'      => $array[0]['Firstname'] . " " . $array[0]['Lastname'],
+                    'user_id' => $array[0]['ID'],
+                    'name' => $array[0]['Firstname'] . " " . $array[0]['Lastname'],
                     'user_type' => $array[0]['UserTypeID']
                 ));
 

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ///////////////////////////////// go-cms /////////////////////////////////
 
 	/**
-	 *  This is a core go-cms file.  Do not edit if you plan
+	 *  Requires Documentation to
 	 *  ever update your go-cms version.  Changes would be lost.
 	 */
 
@@ -113,7 +113,7 @@ class GO_Admin_Controller extends GO_Controller
 	// Start Login/Logout
 
 		/**
-		 *  Requires Documentation
+		 *  Login User
 		 */
 
 		public function login() {
@@ -138,7 +138,7 @@ class GO_Admin_Controller extends GO_Controller
 		}	
 
 		/**
-		 *  Requires Documentation
+		 *  Logout User
 		 */
 
 		public function logout() {

@@ -1,3 +1,15 @@
+<?php
+	//////////////////////////////// core file ///////////////////////////////
+	///////////////////////////////// go-cms /////////////////////////////////
+
+		/**
+		 *  This is a core go-cms file.  Do not edit if you plan to
+		 *  ever update your go-cms version.  Changes would be lost.
+		 */
+
+	//////////////////////////////// core file ///////////////////////////////
+	///////////////////////////////// go-cms /////////////////////////////////
+?>
 <script>
 	var menu_item_id = "<?= $this->session->userdata('menu_item_id'); ?>"; // gets set in controller sizes()
 	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
