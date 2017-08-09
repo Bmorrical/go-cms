@@ -11,6 +11,9 @@
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
 <div class="col-md-3">
+	<div id="side-toggle">
+		<i class="fa fa-bars"> Menu</i>
+	</div>
 	<div id="logo">
 		<?php if($this->config->item('logo_location') != "") : ?>
 			<a href="<?= base_url() . $this->config->item('logo_default_route'); ?>">

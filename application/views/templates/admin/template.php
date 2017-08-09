@@ -13,13 +13,27 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_normalize.css">		
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_default.css">	
+		
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#toggle-btn').click(function(){
+					$('.top_menu_ul').slideToggle('fast');
+				});
+				$('#side-toggle').click(function(){
+					$('.side_menu_ul').slideToggle('fast');
+				})
+			})
+		</script>
 				
 		<title><?php echo htmlspecialchars($title); ?></title>
+
+
 
 		<?php 
 			$this->load->view('templates/admin/header'); 
