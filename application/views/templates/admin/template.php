@@ -19,27 +19,12 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_normalize.css">		
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_default.css">	
 		
-		
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$('#toggle-btn').click(function(){
-					$('.top_menu_ul').slideToggle('fast');
-				});
-				$('#side-toggle').click(function(){
-					$('.side_menu_ul').slideToggle('fast');
-				})
-			})
-		</script>
-				
 		<title><?php echo htmlspecialchars($title); ?></title>
-
-
 
 		<?php 
 			$this->load->view('templates/admin/header'); 
 			$this->load->view($page, $queries);
 			$this->load->view('templates/admin/footer'); 
 		?>
-
 	</body>
 </html>

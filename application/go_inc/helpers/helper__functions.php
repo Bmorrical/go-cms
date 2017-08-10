@@ -78,9 +78,6 @@ function go_get_menu_items($menu_id) {
         foreach($query->result() as $result){
             if($count == 1) {
                 $return .= "<div id='menu-id-" . $result->MenuID . "'>"; // setup parent DIV and UL
-
-                //$return .= "<ul>"; 
-                
                 if($menu_id == 1){
                     $return .= "<ul class='top_menu_ul'>"; 
                 }elseif($menu_id == 2){
@@ -88,7 +85,6 @@ function go_get_menu_items($menu_id) {
                 }else{
                     $return .= "<ul>"; 
                 }
-                
             }
             $return .= "<li class='menu-" . $result->ActiveClass . "'>";  // set active class for menu
             if($result->MenuItemURL != "") { // setup child LI's

@@ -44,3 +44,19 @@
 // var_dump($this->session->userdata);
 
 ?>
+<script>
+		$(window).on('load', function(){
+			$('#toggle-btn').click(function(){
+						if ($(window).width() <= 980) {
+							var li_element = $('.top_menu_ul li') ;
+							for(var i = ( li_element.length - 1 ) ; i >= 0 ;  i-- ){
+								$('.top_menu_ul').append(li_element[i]);
+							}
+						}
+						$('.top_menu_ul').slideToggle('fast');
+			});
+			$('#side-toggle').click(function(){
+						$('.side_menu_ul').slideToggle('fast');
+			}
+	  });
+</script>
