@@ -3,10 +3,6 @@
 	var menuActiveClass = "<?= $this->session->userdata('menu_active_class'); ?>"; // gets set in GO_CONTROLLER/go_load_page()
 
 	$(window).on('load', function(){
-		positionFooter();
-		$('li[class^="menu-"] .active').removeClass('active');
-		if(menuActiveClass != "") $('.menu-' + menuActiveClass).addClass('active');
-
 		$('#toggle-btn').click(function(){
 			if ($(window).width() <= 980) {
 				var li_element = $('.top_menu_ul li') ;
@@ -18,7 +14,11 @@
 		});
 		$('#side-toggle').click(function(){
 			$('.side_menu_ul').slideToggle('fast');
-		}
+		});
+
+		positionFooter();
+		$('li[class^="menu-"] .active').removeClass('active');
+		if(menuActiveClass != "") $('.menu-' + menuActiveClass).addClass('active');
 	});
 
 	$(window).on('resize', function() {
