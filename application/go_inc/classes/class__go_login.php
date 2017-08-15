@@ -154,11 +154,11 @@ class GO_Login extends GO_Controller
                 redirect($this->ci->config->item('go_admin_login_default_route'), 'refresh');
             } 
             else {
-                redirect(base_url() . 'login?go=' . $this->ci->config->item('go_login_key'));
+                redirect(base_url() . 'admin/login?go=' . $this->ci->config->item('go_login_key'));
             }
         } 
         else {
-            redirect(base_url() . 'login?go=' . $this->ci->config->item('go_login_key'));
+            redirect(base_url() . 'admin/login?go=' . $this->ci->config->item('go_login_key'));
         }
 	}
 }
