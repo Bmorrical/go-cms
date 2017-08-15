@@ -15,9 +15,9 @@
 		<i class="fa fa-bars"> Menu</i>
 	</div>
 	<div id="logo">
-		<?php if($this->config->item('logo_location') != "") : ?>
+		<?php if($this->config->item('go_logo_location') != "") : ?>
 			<a href="<?= base_url() . $this->config->item('logo_default_route'); ?>">
-				<img class="img-responsive" style="margin-left: 0px;" src="<?php echo base_url() . 'assets/' . $this->config->item('logo_location'); ?>">
+				<img class="img-responsive" style="text-align: center;" src="<?php echo base_url() . 'assets/' . $this->config->item('go_logo_location'); ?>">
 			</a>
 		<?php endif; ?>
 	</div>	
