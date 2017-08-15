@@ -13,7 +13,7 @@ $config['go_base_folder'] = 'go-cms/'; // If any, such as localhost/{base-folder
 $config['go_debug'] = 0; // ? true : false
 $config['go_debug_white_bg'] = 1;  // if using a dark theme
 $config['go_environment'] = 'DEVELOPMENT'; // DEVELOPMENT, STAGING, PRODUCTION
-$config['go_base_url'] = ((isset($_SERVER['HTTPS'])) ? 'https://' : 'http://') . 'localhost/' . $config['go_base_folder']; // Base URL
+$config['base_url'] = ((isset($_SERVER['HTTPS'])) ? 'https://' : 'http://') . 'localhost/' . $config['go_base_folder']; // Base URL
 
 $_SERVER['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $config['go_base_folder']; // localhost needs this for extra folder
 
