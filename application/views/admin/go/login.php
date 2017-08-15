@@ -55,12 +55,9 @@
 	</div><!-- end row -->
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4 login-copyright">
-
 			<p>&copy; <?php echo date('Y') . " " . $this->config->item('go_company_name'); ?> | All Rights Reserved</p>
-			<?php if($this->config->item('go_environment') == 'DEVELOPMENT') : ?>
-				<?php echo "<p><a href='http://go-cms.org' target='_blank'>go-cms</a> | <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a> v" . CI_VERSION . "</p>"; ?>
-			<?php endif; ?>
-
+			<?php echo "<p>Powered by <a href='http://go-cms.org' target='_blank'>go-cms</a> built on <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a> v." . CI_VERSION . "</p>"; 
+			?>
 		</div>
 	</div>
 </div>
