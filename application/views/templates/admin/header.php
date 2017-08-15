@@ -10,6 +10,9 @@
 						<?php echo "Welcome, " . $this->session->userdata('name'); ?>
 					</div>
 					<div class="col-md-9">
+						<div id="toggle-btn">
+							<i class="fa fa-bars"></i>
+						</div>
 						<?php go_get_menu_items(1); ?>
 					</div>
 				</div>
