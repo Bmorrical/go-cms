@@ -319,10 +319,12 @@ class GO_Home_Controller extends GO_Controller
 	}
 
 	/**
-	 *  Requires Documentation
+	 *  This is the homepage router function to load the base of the website.
 	 */
 
-	public function index() {
+	public function index() {	
+		$data = array();
+		$this->go_load_page(array('page'=>'home/homepage','title'=>'The Homepage','template'=>'home','activeClass'=>'homepage','data'=>$data));	
 	}
 
 }
