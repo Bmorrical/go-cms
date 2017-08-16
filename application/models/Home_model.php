@@ -7,11 +7,4 @@ class Home_model extends GO_Home_model {
 		parent::__construct();
 	}
 
-	public function logout() {
-		$this->db->where('SessionID', $this->session->userdata('session_id'));
-		$this->db->delete('cart');				
-		unset($_SESSION['home']);
-		redirect(base_url() . 'login', 'refresh');
-	}
-
 }
