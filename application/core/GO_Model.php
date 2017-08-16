@@ -181,7 +181,40 @@ class GO_Admin_model extends GO_model
         }
 
         return $return;
-    }    
+    }
+
+    /*
+    *
+    * Get Current Version of Go CMS Version
+    *
+    * @return $currentVersion
+    *
+    */
+
+    public function go_get_version(){
+
+      $currentVersion = $this->db->select()
+        ->where('meta_key','current_version')
+        ->get('go_system_info');
+
+      return $currentVersion->row();
+    }
+
+    /*
+    *
+    * Set Version of Go CMS to updated Version
+    *
+    * @return boolean
+    *
+    */
+
+    public function go_set_version($newVersion){
+
+      $currentVersion = $this->db->where('meta_key','current_version')
+        ->update('go_system_info',["meta_value" => $newVersion]);
+
+      return true;
+    }
 
 }
 

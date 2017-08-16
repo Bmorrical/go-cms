@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
-
 	/**
 	 *  Requires Documentation to
 	 *  ever update your go-cms version.  Changes would be lost.
@@ -12,6 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
 
+use GuzzleHttp\Client;
+
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
 
 class GO_Controller extends CI_Controller 
 {
@@ -290,8 +293,22 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function config() {
+
+
+
 			$this->go_verify_user_session();
-			$queries = null;
+			$queries = array(
+          'currentVersion' => $this->admin->go_get_version(),
+        );
+
+     //echo $queries['currentVersion']->meta_value+0.1;die;
+
+      $go_has_update = $this->go_check_for_updates($queries['currentVersion']->meta_value+0.1);
+
+      if($go_has_update){
+        $queries['updateVersion'] = $queries['currentVersion']->meta_value+0.1;
+      }
+
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/config/config',
@@ -304,6 +321,34 @@ class GO_Admin_Controller extends GO_Controller
 		}
 
 	// End Config
+
+  /*
+  *
+  * Check for new Updates for Go CMS
+  *
+  * @params int $versionToCheck 
+  *
+  * @return boolean
+  *
+  */
+
+  public function go_check_for_updates($versionToCheck){
+
+    try {
+      $client = new Client([
+      // Base URI is used with relative requests
+      'base_uri' => 'https://raw.githubusercontent.com/hemantyuva/go-cms-versions/version'.$versionToCheck.'/',
+      ]);
+       $response = $client->request('GET','version.txt');
+    } catch (RequestException $e) {
+
+      return false;
+
+    }
+   
+   return true;
+
+  } 
 
 }
 
