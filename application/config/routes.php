@@ -63,3 +63,4 @@ $route['admin/dashboard'] = 'admin/dashboard';
 $route['admin/users'] = 'admin/users'; // not technically required, because the controller/method matches file/method 
 $route['admin/user/edit'] = 'admin/user_edit'; 
 $route['admin/user/add'] = 'admin/user_add';
+
