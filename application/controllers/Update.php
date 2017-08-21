@@ -10,45 +10,45 @@ class Update extends GO_Controller {
 
   public function updator(){
 
-    try {
-    $client = new Client([
-    // Base URI is used with relative requests
-    'base_uri' => 'https://raw.githubusercontent.com/hussaindev53/Task-Manager/master/',
-    ]);
-     $response = $client->request('GET','abcd.php');
-} catch (RequestException $e) {
-  
-    echo Psr7\str($e->getRequest());
-    if ($e->hasResponse()) {
-      
+    /*try {
+      $client = new Client([
+      // Base URI is used with relative requests
+      'base_uri' => 'https://raw.githubusercontent.com/hemantyuva/go-cms-versions/version1.1/',
+      ]);
+       $response = $client->request('GET','version.txt');
+    } catch (RequestException $e) {
+
+      echo Psr7\str($e->getRequest());
+      if ($e->hasResponse()) {
         echo Psr7\str($e->getResponse());
-    }
-}
+      }
+    }*/
   
-    /*$client = new Client([
-    // Base URI is used with relative requests
-    'base_uri' => 'https://raw.githubusercontent.com/hussaindev53/Task-Manager/master/',
-    ]);
+    $client = new Client([
+      // Base URI is used with relative requests
+      'base_uri' => 'https://raw.githubusercontent.com/hemantyuva/go-cms-versions/version'.$this->input->post('updateVersion').'/',
+      ]);
+    $response = $client->request('GET','version.txt');
 
-     $response = $client->request('GET','abcd.php');
-     echo $response->getStatusCode();die;
+    //echo $response->getBody();die;
 
-    $fileToRead = fopen(FCPATH."version.txt","r") or die("Unable to open file");
+    $fileNames = explode(',',trim($response->getBody()));
 
-    while(!feof($fileToRead)){
-
-      $fileName = trim(fgets($fileToRead));
+    foreach($fileNames as $fileName){
 
       $response = $client->request('GET',$fileName);
 
-      $fileToWrite = fopen(FCPATH."updatedFiles/".$fileName, 'w') or die('Unable to Open a file');
+      $fileToWrite = fopen(FCPATH.$fileName, 'w') or die('Unable to Open a file');
 
       fwrite($fileToWrite, $response->getBody());
 
       fclose($fileToWrite);
     }
 
-    fclose($fileToRead);*/
+    $this->admin->go_set_version($this->input->post('updateVersion'));
+
+    echo json_encode(["status" => "success", "message" => "Updation successfully completed"]);
+
   }
 
 }
