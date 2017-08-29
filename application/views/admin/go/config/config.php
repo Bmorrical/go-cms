@@ -18,39 +18,51 @@
                 <div class="col-md-3">
                     <h1>Configuration</h1>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <!-- <button name="save" class="btn btn-primary actions" type="submit" form="form1">Save</button> 
-                        <a href="<?php echo base_url(); ?>admin/dashboard"><button type="button" class="btn btn-primary actions">Cancel</button></a>-->
-                    </div>
-                </div>
             </div>
-            <form id="form1" class="" method="post" action="<?php echo base_url() . 'admin/'; ?>">
-                <?php // include_once(APPPATH . 'views/admin/go/users/form.php'); ?>
-            </form>
-            <?php if(isset($updateVersion)): ?>
-              <div class="col-md-12">
-
-                <div class="alert alert-info update-message">
-                  
-                    GO CMS update <strong>version <?php echo $updateVersion ?></strong> is now available
-                  
-                    <a onclick="go_updator(<?php echo $updateVersion ?>)" class="btn btn-success">Update Now</a>
-
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Current Version</label>
                 </div>
-
-              </div>
-            <?php endif ?>
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Current Version</label>
+                <div class="col-md-4">
+                    <span id="current-version-number"></span>
                 </div>
-                <div class="col-md-6">
-                  <span id="current-version-number"><?php echo $currentVersion->meta_value ?></span>
+                <div class="col-md-4">
+                    <div id="update-block"></div>
                 </div>
-              </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    var current_version = "<?= $currentVersion->Tag; ?>";
+
+    $(window).on("load", function() {
+        $("#current-version-number").text(current_version);
+        $("#update-block").hide().append(
+            $("<a>", {id: "update-btn", class: "btn btn-success", text: "Update Now"}).on("click", function() {
+                $.ajax({
+                    url         : "https://api.go-cms.org/request/get-build",
+                    type        : 'GET',
+                    success     : function(d) { 
+                        console.log('d',d); 
+                    }
+                }) 
+            })
+        )
+        $.ajax({
+            url         : "https://api.go-cms.org/request/get-version",
+            type        : 'GET',
+            dataType: 'jsonp',
+            success     : function(d) { 
+                alert('success' + d); 
+                // if(d > current_version) {
+                //     $("#update-block").show();
+                // }
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+             }            
+        })            
+    });
+</script>

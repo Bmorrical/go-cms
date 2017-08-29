@@ -193,11 +193,12 @@ class GO_Admin_model extends GO_model
 
     public function go_get_version(){
 
-      $currentVersion = $this->db->select()
-        ->where('meta_key','current_version')
-        ->get('go_system_info');
+        $result = $this->db
+            ->select()
+            ->where('ID', 1)
+            ->get('go_version');
 
-      return $currentVersion->row();
+        return $result->row();
     }
 
     /*

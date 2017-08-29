@@ -1,3 +1,0 @@
-server.php
-artisan
-composer.json
