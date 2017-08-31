@@ -89,6 +89,7 @@
                                     files: data
                                 },
                                 success     : function(d) {     
+                                    $("#current-version-number").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
                                     $("#update-block-success").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
                                 }
                             });                         
