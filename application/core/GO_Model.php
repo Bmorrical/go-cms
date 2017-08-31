@@ -211,14 +211,16 @@ class GO_Admin_model extends GO_model
 
         foreach($post["files"] as $file) {
 
-            $file_array = explode("/", $file);
-            $filename = end($file_array); // get last array element
+            $file = preg_replace("/\r|\n/", "", $file);
 
             // Read
-            $new_file = file_get_contents("https://raw.githubusercontent.com/Bmorrical/go-cms/" . $latest_version . "/" . $filename);
+
+            $the_file = "https://api.go-cms.org/request/get-file?file=" . urlencode($file);
+            $new_file = file_get_contents($the_file);
 
             // Write
             file_put_contents(FCPATH . $file, $new_file);
+           
            
         }
 
@@ -231,7 +233,6 @@ class GO_Admin_model extends GO_model
             return $return["message"] = "Success";
 
     }
-
 
     /**
      *  Gets agent IP for request
