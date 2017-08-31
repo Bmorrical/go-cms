@@ -228,7 +228,6 @@ class GO_Admin_model extends GO_model
             $this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
 
             $return = array();
-            sleep(3);
             return $return["message"] = "Success";
 
     }
