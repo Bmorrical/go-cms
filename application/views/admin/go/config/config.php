@@ -25,6 +25,7 @@
         padding-top: 5px;
         padding-bottom: 5px;
     }
+
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -38,19 +39,19 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-6 config-row">
+                        <div class="col-md-6 config-row center">
                             go-cms <span id="current-version-number"></span> 
                         </div>
                         <div class="col-md-6">
-                            <div id="update-block"></div>
+                            <div id="update-block" class="center"></div>
                         </div>
                     </div>
                     <div class="row even">
-                        <div class="col-md-6">
-                            CodeIgniter v <?= CI_VERSION; ?> 
+                        <div class="col-md-6 center">
+                            CodeIgniter v<?= CI_VERSION; ?> 
                         </div>
                         <div class="col-md-6">
-                            <a href="https://www.codeigniter.com/userguide3/installation/upgrading.html" target="_blank"><button class="btn btn-success btn-xs">Check For Update</button></a>
+                            <a href="https://www.codeigniter.com/userguide3/installation/upgrading.html" target="_blank"><button class="btn btn-success btn-xs center-block">Check For Update</button></a>
                         </div>
                     </div>  
                 </div>
@@ -66,7 +67,7 @@
 
     $(window).on("load", function() {
 
-        $("#current-version-number").html("&nbsp;&nbsp;v " + current_version);
+        $("#current-version-number").html("&nbsp;&nbsp;v" + current_version);
 
         var waiting = new $.Deferred();
 
@@ -89,7 +90,7 @@
             $.when(waiting).done(function() {
                 // If new version is available     
                 $("#update-block").append(
-                    $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success btn-xs", text: "Update Now"}).on("click", function() {
+                    $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success btn-xs center-block", text: "Update Now"}).on("click", function() {
                         $(this).remove();
                         $("#update-block").append(
                             $("<div>", {id: "update-block-success", html: "<i class='fa fa-spinner fa-spin fa-fw'></i> &nbsp;Working..."})
@@ -105,7 +106,7 @@
                                     files: data
                                 },
                                 success     : function(d) {     
-                                    $("#current-version-number").html("&nbsp;&nbsp;v " + latest_version);
+                                    $("#current-version-number").html("&nbsp;&nbsp;v" + latest_version);
                                     $("#update-block-success").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
                                 }
                             });                         

@@ -131,7 +131,7 @@ CREATE TABLE `go_users` (
 
 LOCK TABLES `go_users` WRITE;
 /*!40000 ALTER TABLE `go_users` DISABLE KEYS */;
-INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-08-31 01:02:57'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
+INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-08-31 16:38:18'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `go_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `go_version` (
 
 LOCK TABLES `go_version` WRITE;
 /*!40000 ALTER TABLE `go_version` DISABLE KEYS */;
-INSERT INTO `go_version` VALUES (1,1.00);
+INSERT INTO `go_version` VALUES (1,1.01);
 /*!40000 ALTER TABLE `go_version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -168,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-31 11:03:01
+-- Dump completed on 2017-08-31 13:30:05
