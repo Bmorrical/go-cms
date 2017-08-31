@@ -144,7 +144,7 @@ DROP TABLE IF EXISTS `go_version`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `go_version` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Tag` float NOT NULL,
+  `Tag` decimal(10,2) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -155,7 +155,7 @@ CREATE TABLE `go_version` (
 
 LOCK TABLES `go_version` WRITE;
 /*!40000 ALTER TABLE `go_version` DISABLE KEYS */;
-INSERT INTO `go_version` VALUES (1,0.1);
+INSERT INTO `go_version` VALUES (1,1.00);
 /*!40000 ALTER TABLE `go_version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -168,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-30 21:50:13
+-- Dump completed on 2017-08-31 11:03:01
