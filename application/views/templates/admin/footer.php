@@ -33,29 +33,7 @@
             if(footerTop < docHeight) $('#footer').css('margin-top', -24 + (docHeight - footerTop) + 'px');
         }       
     }
-  function go_updator(updateVersion){
-
-    $.ajax({
-
-      url:'<?php echo base_url("Update/updator") ?>',
-      method: 'POST',
-      beforeSend: function(){
-        $(".update-message").removeClass("alert-info");
-        $(".update-message").addClass("alert-danger");
-        $(".update-message").html('<h1>Updating <i class="fa fa-spinner fa-spin" aria-hidden="true"></i></h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Caution:</strong> Do not Close the browser or this Tab until updation is completed');
-
-      },
-      data: 'updateVersion='+updateVersion, 
-      success:function(response){
-        $(".update-message").removeClass("alert-danger");
-        $(".update-message").addClass("alert-success");
-        $(".update-message").html('GO CMS is updated to Version '+updateVersion);
-        $("#current-version-number").html(updateVersion);
-      }
-
-    });
-
-  }  
+ 
 </script>
 
 <?php 
