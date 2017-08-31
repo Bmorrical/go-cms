@@ -211,9 +211,6 @@ class GO_Admin_model extends GO_model
 
         foreach($post["files"] as $file) {
 
-            // $file_array = explode("/", $file);
-            // $filename = end($file_array); // get last array element
-
             $file = preg_replace("/\r|\n/", "", $file);
 
             // Read
@@ -228,7 +225,7 @@ class GO_Admin_model extends GO_model
 
         // update the current version
             
-            //$this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
+            $this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
 
             $return = array();
             sleep(3);
