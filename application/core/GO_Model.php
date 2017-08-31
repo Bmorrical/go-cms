@@ -201,6 +201,58 @@ class GO_Admin_model extends GO_model
         return $result->row();
     }
 
+    /**
+     *  Update the go-cms core
+     */
+
+    public function go_update($post) {
+
+        $latest_version = (float)$post["latest_version"];
+
+        foreach($post["files"] as $file) {
+
+            // $file_array = explode("/", $file);
+            // $filename = end($file_array); // get last array element
+
+            $file = preg_replace("/\r|\n/", "", $file);
+
+            // Read
+
+            $the_file = "https://api.go-cms.org/request/get-file?file=" . urlencode($file);
+            $new_file = file_get_contents($the_file);
+
+            // Write
+            file_put_contents(FCPATH . $file, $new_file);
+           
+        }
+
+        // update the current version
+            
+            //$this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
+
+            $return = array();
+            sleep(3);
+            return $return["message"] = "Success";
+
+    }
+
+    /**
+     *  Gets agent IP for request
+     */
+
+    public function go_get_agent_ip() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED'])) $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR'])) $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else $ipaddress = 'UNKNOWN';
+        return $ipaddress;
+    }       
+
     /*
     *
     * Set Version of Go CMS to updated Version
