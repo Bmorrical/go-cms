@@ -221,7 +221,6 @@ class GO_Admin_model extends GO_model
             // Write
             file_put_contents(FCPATH . $file, $new_file);
            
-           
         }
 
         // update the current version
