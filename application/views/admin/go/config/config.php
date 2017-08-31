@@ -1,14 +1,14 @@
 <?php
-    //////////////////////////////// core file ///////////////////////////////
-    ///////////////////////////////// go-cms /////////////////////////////////
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
 
-        /**
-         *  This is a core go-cms file.  Do not edit if you plan to
-         *  ever update your go-cms version.  Changes would be lost.
-         */
+    /**
+     *  This is a core go-cms file.  Do not edit if you plan to
+     *  ever update your go-cms version.  Changes would be lost.
+     */
 
-    //////////////////////////////// core file ///////////////////////////////
-    ///////////////////////////////// go-cms /////////////////////////////////
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
 ?>
 <style>
     .fa-check-circle {
@@ -17,9 +17,13 @@
     .fa-spinner {
         color: #297db9;
     }
-    #update-btn {
-        margin-top: -8px;
-        width: 125px;
+    .config-row {
+        height: 30px;
+    }
+    .btn {
+        width: 150px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 </style>
 <div class="container-fluid">
@@ -32,13 +36,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
-                    go-cms <span id="current-version-number"></span> 
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-6 config-row">
+                            go-cms <span id="current-version-number"></span> 
+                        </div>
+                        <div class="col-md-6">
+                            <div id="update-block"></div>
+                        </div>
+                    </div>
+                    <div class="row even">
+                        <div class="col-md-6">
+                            CodeIgniter v <?= CI_VERSION; ?> 
+                        </div>
+                        <div class="col-md-6">
+                            <a href="https://www.codeigniter.com/userguide3/installation/upgrading.html" target="_blank"><button class="btn btn-success btn-xs">Check For Update</button></a>
+                        </div>
+                    </div>  
                 </div>
-                <div class="col-md-10">
-                    <div id="update-block"></div>
-                </div>
-            </div>
+            </div>          
         </div>
     </div>
 </div>
@@ -73,7 +89,7 @@
             $.when(waiting).done(function() {
                 // If new version is available     
                 $("#update-block").append(
-                    $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success", text: "Update Now"}).on("click", function() {
+                    $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success btn-xs", text: "Update Now"}).on("click", function() {
                         $(this).remove();
                         $("#update-block").append(
                             $("<div>", {id: "update-block-success", html: "<i class='fa fa-spinner fa-spin fa-fw'></i> &nbsp;Working..."})

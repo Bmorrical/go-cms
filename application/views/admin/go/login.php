@@ -1,14 +1,14 @@
 <?php
-	//////////////////////////////// core file ///////////////////////////////
-	///////////////////////////////// go-cms /////////////////////////////////
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
 
-		/**
-		 *  This is a core go-cms file.  Do not edit if you plan to
-		 *  ever update your go-cms version.  Changes would be lost.
-		 */
+	/**
+	 *  This is a core go-cms file.  Do not edit if you plan to
+	 *  ever update your go-cms version.  Changes would be lost.
+	 */
 
-	//////////////////////////////// core file ///////////////////////////////
-	///////////////////////////////// go-cms /////////////////////////////////
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
 ?>
 <style>
 	body {
@@ -56,7 +56,7 @@
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4 login-copyright">
 			<p>&copy; <?php echo date('Y') . " " . $this->config->item('go_company_name'); ?> | All Rights Reserved</p>
-			<?php echo "<p>Powered by <a href='http://go-cms.org' target='_blank'>go-cms</a> built on <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a> v." . CI_VERSION . "</p>"; 
+			<?php echo "<p>Powered by <a href='http://go-cms.org' target='_blank'>go-cms</a> built on <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a></p>"; 
 			?>
 		</div>
 	</div>
