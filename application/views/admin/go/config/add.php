@@ -17,7 +17,7 @@
 	} 
 ?>
 <script>
-	$(window).load(function(){
+	$(window).on('load', function(){
 		$('#menu-id-1 li:nth-child(2)').css('backgroundColor', '#2674ac');
 	});
 </script>

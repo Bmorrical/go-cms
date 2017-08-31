@@ -14,7 +14,7 @@
 	var menu_item_id = "<?= $this->session->userdata('menu_item_id'); ?>"; // gets set in controller sizes()
 	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
 	var base_url = '<?= base_url(); ?>';
-	$(window).load(function(){
+	$(window).on('load', function(){
 		$('#status').val(display_status).prop('selected', true); // set Active/Inactive drop down
 		if(display_status == 0) {
 			var d = $('#toggleDisplay');

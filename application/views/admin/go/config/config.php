@@ -33,7 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-md-2">
-                    go-cms &nbsp;&nbsp;v <span id="current-version-number"></span> 
+                    go-cms <span id="current-version-number"></span> 
                 </div>
                 <div class="col-md-10">
                     <div id="update-block"></div>
@@ -50,7 +50,7 @@
 
     $(window).on("load", function() {
 
-        $("#current-version-number").text(current_version);
+        $("#current-version-number").html("&nbsp;&nbsp;v " + current_version);
 
         var waiting = new $.Deferred();
 
@@ -89,7 +89,7 @@
                                     files: data
                                 },
                                 success     : function(d) {     
-                                    $("#current-version-number").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
+                                    $("#current-version-number").html("&nbsp;&nbsp;v " + current_version);
                                     $("#update-block-success").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
                                 }
                             });                         
