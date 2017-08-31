@@ -1,3 +1,17 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
+    /**
+     *  Requires Documentation to
+     *  ever update your go-cms version.  Changes would be lost.
+     */
+
+//////////////////////////////// core file ///////////////////////////////
+///////////////////////////////// go-cms /////////////////////////////////
+
+?>
 <script>
     var showfooter = 0;
     var menuActiveClass = "<?= $this->session->userdata('menu_active_class'); ?>"; // gets set in GO_CONTROLLER/go_load_page()
