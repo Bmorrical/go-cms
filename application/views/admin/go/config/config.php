@@ -10,6 +10,18 @@
     //////////////////////////////// core file ///////////////////////////////
     ///////////////////////////////// go-cms /////////////////////////////////
 ?>
+<style>
+    .fa-check-circle {
+        color: #a6e22e;
+    }
+    .fa-spinner {
+        color: #297db9;
+    }
+    #update-btn {
+        margin-top: -8px;
+        width: 125px;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>
@@ -20,13 +32,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <label>Current Version</label>
+                <div class="col-md-2">
+                    go-cms &nbsp;&nbsp;v <span id="current-version-number"></span> 
                 </div>
-                <div class="col-md-4">
-                    <span id="current-version-number"></span>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-10">
                     <div id="update-block"></div>
                 </div>
             </div>
@@ -35,34 +44,58 @@
 </div>
 
 <script>
+    var base_url = '<?= base_url(); ?>';
     var current_version = "<?= $currentVersion->Tag; ?>";
+    var latest_version;
 
     $(window).on("load", function() {
+
         $("#current-version-number").text(current_version);
-        $("#update-block").hide().append(
-            $("<a>", {id: "update-btn", class: "btn btn-success", text: "Update Now"}).on("click", function() {
-                $.ajax({
-                    url         : "https://api.go-cms.org/request/get-build",
-                    type        : 'GET',
-                    success     : function(d) { 
-                        console.log('d',d); 
-                    }
-                }) 
+
+        var waiting = new $.Deferred();
+
+        // Get current go-cms version from api
+
+            $.getJSON('https://api.go-cms.org/request/get-version', function(data) {
+                if(parseFloat(data[0].Tag) > parseFloat(current_version)) {
+                    latest_version = data[0].Tag;
+                    waiting.resolve();
+                } else {
+                    $("#update-block").append(
+                        $("<div>", {id: "update-block-success", html: "<i class='fa fa-check-circle'></i> &nbsp;Up to date"})
+                    )
+                }
+            });   
+             
+
+        // If new version is available 
+
+            $.when(waiting).done(function() {
+                // If new version is available     
+                $("#update-block").append(
+                    $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success", text: "Update Now"}).on("click", function() {
+                        $(this).remove();
+                        $("#update-block").append(
+                            $("<div>", {id: "update-block-success", html: "<i class='fa fa-spinner fa-spin fa-fw'></i> &nbsp;Working..."})
+                        )
+
+                        $.getJSON('https://api.go-cms.org/request/get-build?tag=' + latest_version, function(data) {
+                            $.ajax({
+                                url         : base_url + 'admin/ajax_go_update',
+                                type        : 'POST',
+                                dataType    : 'JSON',
+                                data        : {
+                                    latest_version: latest_version,
+                                    files: data
+                                },
+                                success     : function(d) {     
+                                    $("#update-block-success").html("<i class='fa fa-check-circle'></i> &nbsp;Up to date");
+                                }
+                            });                         
+                        });
+                    })
+                )
             })
-        )
-        $.ajax({
-            url         : "https://api.go-cms.org/request/get-version",
-            type        : 'GET',
-            dataType: 'jsonp',
-            success     : function(d) { 
-                alert('success' + d); 
-                // if(d > current_version) {
-                //     $("#update-block").show();
-                // }
-            },
-            error: function(xhr, status, error) {
-                alert(xhr.responseText);
-             }            
-        })            
     });
+
 </script>
