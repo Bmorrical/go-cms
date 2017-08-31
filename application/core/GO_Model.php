@@ -236,7 +236,6 @@ class GO_Admin_model extends GO_model
 
     }
 
-
     /**
      *  Gets agent IP for request
      */
