@@ -125,6 +125,16 @@ class GO_Lab extends GO_Controller
                 mkdir(APPPATH . 'views/admin/' . $this->post['class-name-plural'], 0775, true);
             }
 
+            if (!file_exists(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers')) {
+                mkdir(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers', 0775, true);
+            }
+
+            $helper_file = file_get_contents(APPPATH . 'views/admin/helpers/main_content_add_edit_header.php');
+            file_put_contents(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers/', $helper_file);
+
+            $helper_file = file_get_contents(APPPATH . 'views/admin/helpers/main_content_header.php');
+            file_put_contents(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers/', $helper_file);
+
         // Make index.html
             $file = fopen(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . "/index.html", "w");
                 $txt  = "";
@@ -155,7 +165,7 @@ class GO_Lab extends GO_Controller
                 $txt .=         "\t\t<?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>\r\n";
                 $txt .=         "\t\t<div class='col-md-9'>\r\n";
                 $txt .=             "\t\t\t<?php\r\n";
-                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/helpers/main_content_header.php');\r\n";
+                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/" . $this->post['class-name-plural'] . "helpers/main_content_header.php');\r\n";
                 $txt .=                 "\t\t\t\tif(!empty($" . "this_page_results['rows'])) { ?>\r\n";
                 $txt .=                     "\t\t\t\t\t<div class='row detailRow'>\r\n";
                 $txt .=                         "\t\t\t\t\t\t<div class='col-md-1 center'>\r\n";
@@ -234,7 +244,7 @@ class GO_Lab extends GO_Controller
                 $txt .=         "\t\t<?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>\r\n";
                 $txt .=         "\t\t<div class='col-md-9'>\r\n";
                 $txt .=             "\t\t\t<?php\r\n";
-                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/helpers/main_content_add_edit_header.php');\r\n";
+                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/" . $this->post['class-name-plural'] . "helpers/main_content_add_edit_header.php');\r\n";
                 $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/" . $this->post['class-name-plural'] . "/form.php');\r\n";
                 $txt .=             "\t\t\t?>\r\n";
                 $txt .=                "\t\t\t\t</form>\r\n";
@@ -261,7 +271,7 @@ class GO_Lab extends GO_Controller
                 $txt .=         "\t\t<?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>\r\n";
                 $txt .=         "\t\t<div class='col-md-9'>\r\n";
                 $txt .=             "\t\t\t<?php\r\n";
-                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/helpers/main_content_add_edit_header.php');\r\n";
+                $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/" . $this->post['class-name-plural'] . "helpers/main_content_add_edit_header.php');\r\n";
                 $txt .=                 "\t\t\t\tinclude_once(APPPATH . 'views/admin/" . $this->post['class-name-plural'] . "/form.php');\r\n";
                 $txt .=             "\t\t\t?>\r\n";
                 $txt .=                "\t\t\t\t</form>\r\n";
