@@ -93,7 +93,7 @@
                     $("<button>", {value: "Submit", id: "update-btn", class: "btn btn-success btn-xs center-block", text: "Update Now"}).on("click", function() {
                         $(this).remove();
                         $("#update-block").append(
-                            $("<div>", {id: "update-block-success", html: "<i class='fa fa-spinner fa-spin fa-fw'></i> &nbsp;Working..."})
+                            $("<div>", {id: "update-block-success", html: "<i class='fa fa-spinner fa-spin fa-fw'></i> &nbsp;Working - please wait..."})
                         )
 
                         $.getJSON('https://api.go-cms.org/request/get-build?tag=' + latest_version, function(data) {
