@@ -16,7 +16,7 @@ $config['go_login_key'] = 'cms'; // ?go=key
 $config['go_debug'] = 0; // ? true : false
 $config['go_debug_white_bg'] = 1;  // if using a dark theme
 $config['go_environment'] = 'DEVELOPMENT'; // DEVELOPMENT, STAGING, PRODUCTION
-$config['base_url'] = 'localhost/' . $config['go_base_folder']; // Base URL
+$config['base_url'] = 'http://localhost/' . $config['go_base_folder']; // Base URL
 
 $_SERVER['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $config['go_base_folder']; // localhost needs this for extra folder
 

@@ -13,7 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ///////////////////////////////// go-cms /////////////////////////////////
 
 ?>
-
 <!DOCTYPE html> 
 	<head>
 		<meta charset="utf-8">
@@ -26,11 +25,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/go/dropzone/dropzone.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_normalize.css">		
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_default.css">	
-		
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_normalize.css">	
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/dropzone/dropzone.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_default.css">		
+
 		<title><?php echo htmlspecialchars($title); ?></title>
 
 		<?php 
