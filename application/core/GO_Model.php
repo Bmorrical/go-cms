@@ -36,7 +36,6 @@ class GO_Admin_model extends GO_model
         parent::__construct();
     }    
     
-
     /**
      *  Requires Documentation
      */

@@ -7,4 +7,20 @@ class Home_model extends GO_Home_model {
 		parent::__construct();
 	}
 
+	/**
+	 *  This function fires in home login process, so that additional application 
+	 *  specific logic can be injected at login runtime.
+	 */
+	public function login_helper($data) {
+		return false;
+	}
+
+	/**
+	 *  Home Logout
+	 */
+	public function logout() {			
+		$_SESSION = array();
+		session_destroy();
+		redirect(base_url() . 'login', 'refresh');
+	}
 }

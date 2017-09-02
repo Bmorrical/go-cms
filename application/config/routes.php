@@ -56,11 +56,10 @@ $route['default_controller'] = 'home';
 $route['404_override'] = ''; 
 $route['translate_uri_dashes'] = TRUE;
 
-$route['login'] = 'home/login'; 
+$route['login'] = 'home/sign_in';
 $route['logout'] = 'home/logout';
 
 $route['admin/dashboard'] = 'admin/dashboard';
 $route['admin/users'] = 'admin/users'; // not technically required, because the controller/method matches file/method 
 $route['admin/user/edit'] = 'admin/user_edit'; 
 $route['admin/user/add'] = 'admin/user_add';
-

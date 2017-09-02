@@ -8,4 +8,14 @@ class Home extends GO_Home_Controller {
 		$this->load->model('home_model','home');
 	}
 
+	public function login_helper($data) {
+
+	}
+
+	public function logout() {			
+		$_SESSION = array();
+		session_destroy();
+		redirect(base_url() . 'login', 'refresh');
+	}
+
 }

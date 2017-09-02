@@ -40,6 +40,7 @@ class GO_Controller extends CI_Controller
 
 	public function go_load_page($params = array()) 
 	{
+
 	    if(!isset($params["page"]) || $params["page"] == "") { 
 	        show_404(); 
 	        return; 
@@ -70,20 +71,77 @@ class GO_Controller extends CI_Controller
 	/**
 	 *  Requires Update - When front end is added to go-cms.
 	 */
-	public function go_verify_user_session() {
-		if(!$this->session->has_userdata('logged_in')) {
+	public function go_verify_user_session($route = "admin") {
+
+		switch($route) {
+			case 1: // admin
+				if(!$_SESSION['admin']) {
+					if($this->input->cookie("go-cms")) $this->login(); // has a cookie, new the ?go=key within cookie expiration
+					else show_404();
+				} 
+			break;
+			case 2: // home
+				if(!$_SESSION['home']) $this->login();
+			break;
+		}
+	}	
+
+	/**
+	 *  Login User
+	 */
+
+	public function sign_in() {
+		if ($this->session->userdata('session_id')) $this->logout(); // user had a session, just log them out and start over
+		if (!empty($_POST)) new GO_Login($_POST, "home");
+		else $this->go_load_page(
+			array(
+				'page' => 'home/go/login',
+				'title' => 'Login',
+				'template' => 'home',
+				'activeClass' => 'sign-in',
+				'queries' => null
+			)
+		);		
+	}
+
+	public function login() {
+		if ($this->session->userdata('session_id')) $this->logout(); // user had a session, just log them out and start over
+		if($this->input->cookie("go-cms") || ($this->input->get('go') == $this->config->item('go_login_key'))) {
+			if (!empty($_POST)) {
+				new GO_Login($_POST, "admin");
+			} else {
+				$queries = null;
+				$this->go_load_page(
+					array(
+						'page' => 'admin/go/login',
+						'title' => 'Login',
+						'template' => 'admin',
+						'activeClass' => 'dashboard',
+						'queries' => $queries
+					)
+				);
+			}
+		} else {
 			show_404();
 		}
-
-		// switch($route) {
-		// 	case 1: // admin
-		// 		break;
-		// 	case 2: // home
-		// 		$session_vars = $this->session->userdata('home');
-		// 		if(!isset($session_vars['client_logged_in']) && $session_vars['client_logged_in'] != true) header('Location:' . base_url());
-		// 		break;
-		// }
 	}	
+
+	/**
+	 *  Logout User
+	 */
+
+	public function logout() {
+
+		$_SESSION = array();
+		session_destroy();
+
+		if($this->input->get('go') == $this->config->item('go_login_key')) {
+			redirect(base_url() . 'admin/login?go=' . $this->config->item('go_login_key'), 'refresh');
+		} else {
+			redirect(base_url() . 'login', 'refresh');
+		}
+
+	}
 
 }
 
@@ -107,53 +165,6 @@ class GO_Admin_Controller extends GO_Controller
 		redirect($this->config->item("go_admin_login_default_route"), 'refresh');
 	}
 
-	// Start Login/Logout
-
-		/**
-		 *  Login User
-		 */
-
-		public function login() {
-			if($this->input->get('go') == $this->config->item('go_login_key')) {
-				if (!empty($_POST)) {
-					new GO_Login($_POST, "admin");
-				} else {
-					$queries = null;
-					$this->go_load_page(
-						array(
-							'page' => 'admin/go/login',
-							'title' => 'Login',
-							'template' => 'admin',
-							'activeClass' => 'dashboard',
-							'queries' => $queries
-						)
-					);
-				}
-			} else {
-				redirect($this->config->item('redirect_url'), 'refresh');
-			}
-		}	
-
-		/**
-		 *  Logout User
-		 */
-
-		public function logout() {
-			$this->session->unset_userdata('admin');
-            // codebase should be refactored with extra "admin" key in sessions array above and in go_login.php
-            // leaving lower for now as not to break login 			
-			$this->session->unset_userdata('logged_in');
-			$this->session->unset_userdata('user_id');
-			$this->session->unset_userdata('name');
-			$this->session->unset_userdata('user_type');
-			$this->session->unset_userdata('menu_item_id');
-			$this->session->unset_userdata('display_status');
-			if($this->input->get('go') == $this->config->item('go_login_key')) {
-				redirect(base_url() . 'admin/login?go=' . $this->config->item('go_login_key'), 'refresh');
-			} else {
-				show_404();
-			}
-		}
 
 	// End Login/Logout
 	// Start Dashboard
@@ -164,7 +175,7 @@ class GO_Admin_Controller extends GO_Controller
 
 		public function dashboard() 
 		{
-			$this->go_verify_user_session();
+			$this->go_verify_user_session("home");
 			$queries = null;
 			$this->go_load_page(
 				array(
@@ -330,11 +341,16 @@ class GO_Home_Controller extends GO_Controller
 
 	/**
 	 *  This is the homepage router function to load the base of the website.
+	 *  By default you are taken to /login for request of /index.  This can be overridden in go_config.php param go_redirect_url
 	 */
 
-	public function index() {	
-		$data = array();
-		$this->go_load_page(array('page'=>'home/homepage','title'=>'The Homepage','template'=>'home','activeClass'=>'homepage','data'=>$data));	
+	public function index() {
+		if(null != $this->config->item('go_redirect_url')) redirect($this->config->item('go_redirect_url'), 'refresh');
+		else $this->sign_in();
 	}
+
+	// public function home_login() {
+	// 	$this->login();
+	// }
 
 }

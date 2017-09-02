@@ -10,7 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 $config['go_base_folder'] = 'go-cms/'; // If any, such as localhost/{base-folder}/ (requires trailing slash)
-$config['go_redirect_url'] = 'localhost/go-cms'; // for when not hitting ?go=key
 $config['go_login_key'] = 'cms'; // ?go=key
 
 $config['go_debug'] = 0; // ? true : false
@@ -42,6 +41,8 @@ $config['go_logo_default_route'] = 'admin/dashboard'; // when clicking logo, whi
 $config['go_logo_location'] = '';
 $config['go_company_name'] = '{Your Company Name Here}';
 $config['go_logo-email-path'] = '//your-website.com/assets/images/logo.png';
+
+$config['go_redirect_url'] = null; // null will redirect requests to /index to login, otherwise specify here where requests to /index should go
 
 $config['go_dev_admin_login_username'] = "super-admin";
 $config['go_dev_admin_login_password'] = "secret";
