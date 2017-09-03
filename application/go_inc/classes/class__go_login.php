@@ -78,7 +78,8 @@ class GO_Login extends GO_Controller
 
         $user = $query->row();
 
-        if($user && password_verify($this->post['password'], $user->Password)) {
+        if($user) {
+            if(password_verify($this->post['password'], $user->Password)) {
 
                 $this->ci->session->set_userdata(array(
                     'session_id'=> session_id(),
