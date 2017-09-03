@@ -57,6 +57,18 @@ class GO_Login extends GO_Controller
 
     public function process_home_login() {
 
+        /**
+         *  This function is found in Home_model.php and offers a place to inject a custom process into the login 
+         *  or a place to return additional meta-data about the logged in user.
+         *
+         *  You can also override the rest of the login process as custom, by simply finishing the login process 
+         *  in login_helper().
+         */
+
+            $helper_data = $this->home->login_helper($this->post);   
+
+        /** End Helper */      
+
         $query = $this->ci->db
             ->select('*')
             ->where('Username', $this->post['username'])
@@ -66,21 +78,7 @@ class GO_Login extends GO_Controller
 
         $user = $query->row();
 
-        if($user) {
-
-            /**
-             *  This function is found in Home_model.php and offers a place to inject a custom process into the login 
-             *  or a place to return additional meta-data about the logged in user.
-             *
-             *  You can also override the rest of the login process as custom, by simply finishing the login process 
-             *  in login_helper().
-             */
-
-                $helper_data = $this->home->login_helper($user, $this->post);   
-
-            /** End Helper */      
-
-            if(password_verify($this->post['password'], $user->Password)) {
+        if($user && password_verify($this->post['password'], $user->Password)) {
 
                 $this->ci->session->set_userdata(array(
                     'session_id'=> session_id(),
