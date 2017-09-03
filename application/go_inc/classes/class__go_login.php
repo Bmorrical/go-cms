@@ -141,7 +141,7 @@ class GO_Login extends GO_Controller
              */
 
                 // On hold, can't get admin to hook to go_model, works ok for Home
-                    $helper_data = $this->ci->admin->login_helper($user, $this->post);   
+                    // $helper_data = $this->ci->admin->login_helper($user, $this->post);   
 
             /** End Helper */                
 

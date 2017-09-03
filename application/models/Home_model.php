@@ -19,8 +19,7 @@ class Home_model extends GO_Home_model {
 	 *  Home Logout
 	 */
 	public function logout() {			
-		$_SESSION = array();
-		session_destroy();
+		unset($_SESSION['home']);
 		redirect(base_url() . 'login', 'refresh');
 	}
 }
