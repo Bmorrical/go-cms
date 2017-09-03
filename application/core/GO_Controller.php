@@ -95,7 +95,7 @@ class GO_Controller extends CI_Controller
 		if (!empty($_POST)) new GO_Login($_POST, "home");
 		else $this->go_load_page(
 			array(
-				'page' => 'home/go/login',
+				'page' => 'home/login',
 				'title' => 'Login',
 				'template' => 'home',
 				'activeClass' => 'sign-in',
