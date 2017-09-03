@@ -76,7 +76,7 @@ class GO_Login extends GO_Controller
              *  in login_helper().
              */
 
-                $helper_data = $this->home->login_helper();   
+                $helper_data = $this->home->login_helper($user);   
 
             /** End Helper */      
 

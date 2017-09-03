@@ -11,7 +11,7 @@ class Home_model extends GO_Home_model {
 	 *  This function fires in home login process, so that additional application 
 	 *  specific logic can be injected at login runtime.
 	 */
-	public function login_helper($data) {
+	public function login_helper($user = false) {
 		return false;
 	}
 
