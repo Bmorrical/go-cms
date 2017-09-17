@@ -16,10 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
      *  LICENSE INFORMATION AND DOCUMENTATION: https://github.com/swiftmailer/swiftmailer
      */
 
-    require_once(APPPATH.'third_party/swiftmailer-6.0.1/lib/swift_required.php');
 
-class GO_Postal
-{
+class GO_Postal {
 
     public $ci;
     public $data;
@@ -34,25 +32,18 @@ class GO_Postal
      *
      */
 
-    /**
-     *  Construct
-     */
-
     public function __construct($data){
+        require_once(APPPATH.'third_party/swiftmailer/lib/swift_required.php');
         $this->ci = get_instance();
         $this->data = $data;
-        $this->admin_emails = $this->ci->config->item('enable_go_postal_admin_emails');
+        $this->admin_emails = $this->ci->config->item('go_enable_go_postal_admin_emails');
 
         $this->init_postman();
     }
 
-    /**
-     *  Requires Documentation
-     */
-
     public function init_postman() {
 
-        if($this->ci->config->item('environment') === 'PRODUCTION') {
+        if($this->ci->config->item('go_environment') === 'PRODUCTION') {
             $transport = Swift_SmtpTransport::newInstance(
                 $this->ci->config->item('go_smtp_production_host'), 
                 $this->ci->config->item('go_smtp_production_port'), 
@@ -60,7 +51,7 @@ class GO_Postal
             )->setUsername($this->ci->config->item('go_company_email'))
              ->setPassword($this->ci->config->item('go_company_email_password'));
         } 
-        elseif ($this->ci->config->item('environment') === 'DEVELOPMENT') {
+        elseif ($this->ci->config->item('go_environment') === 'DEVELOPMENT') {
             $transport = Swift_SmtpTransport::newInstance(
                 $this->ci->config->item('go_smtp_development_host'), 
                 $this->ci->config->item('go_smtp_development_port'), 
@@ -99,16 +90,12 @@ class GO_Postal
         return 1;
     }
 
-    /**
-     *  Requires Documentation
-     */
-    
     public function template() {
        $return = ' 
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <head>
                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-               <title>' . $this->ci->config->item('company_name') . '</title>
+               <title>'.$this->ci->config->item('company_name').'</title>
                <style type="text/css">
                     a {color: #4A72AF;}
                     body {background-color: #e4e4e4;}
@@ -145,7 +132,7 @@ class GO_Postal
                                     <td>
                                         <table id="header" cellpadding="10" cellspacing="0" align="center" bgcolor="ffffff">
                                             <tr>
-                                                <td width="570" align="center" bgcolor="ffffff"><img src="' . $this->ci->config->item('logo-email-path') . '"></td>
+                                                <td width="570" align="center" bgcolor="ffffff"><img src="'.$this->ci->config->item('go_logo_email_path').'"></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -155,7 +142,7 @@ class GO_Postal
                             <table id="main" width="600" align="center" cellpadding="0" cellspacing="15" bgcolor="ffffff">
                                 <tr>
                                     <td align="center">
-                                        <h3>' . $this->data["Subject"] . '</h3>
+                                        <h3>'.$this->data["Subject"].'</h3>
                                     </td>
                                 </tr>
                                 <tr>

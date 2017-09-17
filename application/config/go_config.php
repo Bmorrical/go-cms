@@ -40,7 +40,7 @@ $config['go_home_login_default_route'] = '/index'; // after Home login, which ro
 $config['go_logo_default_route'] = 'admin/dashboard'; // when clicking logo, which route should be served, no starting slash
 $config['go_logo_location'] = '';
 $config['go_company_name'] = '{Your Company Name Here}';
-$config['go_logo-email-path'] = '//your-website.com/assets/images/logo.png';
+$config['go_logo_email_path'] = '//your-website.com/assets/images/logo.png';
 
 $config['go_redirect_url'] = null; // null will redirect requests to /index to login, otherwise specify here where requests to /index should go
 

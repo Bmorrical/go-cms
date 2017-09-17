@@ -1,4 +1,5 @@
 /application/config/go_config.php
 /application/config/database.php
+/application/third_party/swiftmailer/*
 /tmp
 .htaccess
