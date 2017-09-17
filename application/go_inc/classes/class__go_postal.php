@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     require_once(APPPATH.'third_party/swiftmailer-6.0.1/lib/swift_required.php');
 
-class GO_Postman 
+class GO_Postal
 {
 
     public $ci;
@@ -41,7 +41,7 @@ class GO_Postman
     public function __construct($data){
         $this->ci = get_instance();
         $this->data = $data;
-        $this->admin_emails = $this->ci->config->item('enable_go_postman_admin_emails');
+        $this->admin_emails = $this->ci->config->item('enable_go_postal_admin_emails');
 
         $this->init_postman();
     }
@@ -54,19 +54,19 @@ class GO_Postman
 
         if($this->ci->config->item('environment') === 'PRODUCTION') {
             $transport = Swift_SmtpTransport::newInstance(
-                $this->ci->config->item('smtp_production_host'), 
-                $this->ci->config->item('smtp_production_port'), 
-                $this->ci->config->item('smtp_production_crpt')
-            )->setUsername($this->ci->config->item('company_email'))
-             ->setPassword($this->ci->config->item('company_email_password'));
+                $this->ci->config->item('go_smtp_production_host'), 
+                $this->ci->config->item('go_smtp_production_port'), 
+                $this->ci->config->item('go_smtp_production_crpt')
+            )->setUsername($this->ci->config->item('go_company_email'))
+             ->setPassword($this->ci->config->item('go_company_email_password'));
         } 
         elseif ($this->ci->config->item('environment') === 'DEVELOPMENT') {
             $transport = Swift_SmtpTransport::newInstance(
-                $this->ci->config->item('smtp_development_host'), 
-                $this->ci->config->item('smtp_development_port'), 
-                $this->ci->config->item('smtp_development_crpt')
-            )->setUsername($this->ci->config->item('company_email'))
-             ->setPassword($this->ci->config->item('company_email_password'));
+                $this->ci->config->item('go_smtp_development_host'), 
+                $this->ci->config->item('go_smtp_development_port'), 
+                $this->ci->config->item('go_smtp_development_crpt')
+            )->setUsername($this->ci->config->item('go_company_email'))
+             ->setPassword($this->ci->config->item('go_company_email_password'));
         } 
         else return;
         
@@ -78,7 +78,7 @@ class GO_Postman
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {        
                 $mailer = Swift_Mailer::newInstance($transport);
                 $message = Swift_Message::newInstance($this->data["Subject"])
-                    ->setFrom(array($this->ci->config->item('company_email') => $this->ci->config->item('company_name')))
+                    ->setFrom(array($this->ci->config->item('go_company_email') => $this->ci->config->item('go_company_name')))
                     ->setTo($email)
                     ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
                 $mailer->send($message);            
@@ -86,11 +86,11 @@ class GO_Postman
         }
 
         if(true == $this->admin_emails) {
-            $email = $this->ci->config->item('admin_email');
+            $email = $this->ci->config->item('go_admin_email');
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {        
                 $mailer = Swift_Mailer::newInstance($transport);
                 $message = Swift_Message::newInstance($this->data["Subject"])
-                    ->setFrom(array($this->ci->config->item('company_email') => $this->ci->config->item('company_name')))
+                    ->setFrom(array($this->ci->config->item('go_company_email') => $this->ci->config->item('go_company_name')))
                     ->setTo($email)
                     ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
                 $mailer->send($message);            
