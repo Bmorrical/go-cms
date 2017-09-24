@@ -16,7 +16,7 @@
 	</div>
 	<div id="logo">
 		<?php if($this->config->item('go_logo_location') != "") : ?>
-			<a href="<?= base_url() . $this->config->item('logo_default_route'); ?>">
+			<a href="<?= $_SERVER['DOCUMENT_ROOT']; ?>">
 				<img class="img-responsive" style="text-align: center;" src="<?php echo base_url() . 'assets/' . $this->config->item('go_logo_location'); ?>">
 			</a>
 		<?php endif; ?>
