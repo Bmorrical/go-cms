@@ -16,7 +16,7 @@
 	</div>
 	<div id="logo">
 		<?php if($this->config->item('go_logo_location') != "") : ?>
-			<a href="<?= $config['base_url']; ?>" target="_blank">
+			<a href="<?= $this->config->item('base_url'); ?>" target="_blank">
 				<img class="img-responsive" style="text-align: center;" src="<?php echo base_url() . 'assets/' . $this->config->item('go_logo_location'); ?>">
 			</a>
 		<?php endif; ?>
