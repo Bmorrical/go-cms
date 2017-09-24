@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     mode: "exact",
     elements : "Content",
     branding: false,
-    width:"613px",
+    width:"100%",
     height:"250px",
     menubar : false,
     /* theme of the editor */     
