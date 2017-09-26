@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     branding: false,
     width:"100%",
     height:"250px",
-    menubar : false,
+    //menubar : false, // code edit icon
     /* theme of the editor */     
     skin: "lightgray",
 
