@@ -355,10 +355,20 @@ class GO_Home_Controller extends GO_Controller
 	 */
 
 	public function page($route) {
+
+        $query = $this->db
+            ->select('MetaTitle')
+            ->where('Status', 1)
+            ->where('Slug', $route)
+            ->limit(1)
+            ->get('go_pages');
+
+        $row = $query->row();
+
 		$this->go_load_page(
 			array(
 				'page' => 'home/go_router',
-				'title' => '...dynamic...',
+				'title' => $row->MetaTitle,
 				'template' => 'home',
 				'activeClass' => '$route',
 				'queries' => null

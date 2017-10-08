@@ -85,6 +85,8 @@ DROP TABLE IF EXISTS `go_pages`;
 CREATE TABLE `go_pages` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(255) NOT NULL,
+  `MetaTitle` varchar(255) DEFAULT NULL,
+  `H1` varchar(255) DEFAULT NULL,
   `Slug` varchar(255) NOT NULL,
   `Content` text NOT NULL,
   `Status` int(1) NOT NULL DEFAULT '1',
@@ -93,7 +95,8 @@ CREATE TABLE `go_pages` (
   `CreatedBy` int(11) DEFAULT NULL,
   `Updated` datetime DEFAULT NULL,
   `UpdatedBy` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `secondary` (`Slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,7 +165,7 @@ CREATE TABLE `go_users` (
 
 LOCK TABLES `go_users` WRITE;
 /*!40000 ALTER TABLE `go_users` DISABLE KEYS */;
-INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-08 20:38:27'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
+INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-08 23:08:36'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `go_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-08 16:18:37
+-- Dump completed on 2017-10-08 18:22:40

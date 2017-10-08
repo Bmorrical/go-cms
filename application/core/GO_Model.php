@@ -299,7 +299,7 @@ class GO_Home_model extends GO_model
         $cleaned_route = $cleanup[0];
 
         $query = $this->db
-            ->select('ID,Slug,Content')
+            ->select('ID,Slug,Content,MetaTitle,H1')
             ->where('Status', 1)
             ->where('Slug', $cleaned_route)
             ->limit(1)
@@ -307,7 +307,7 @@ class GO_Home_model extends GO_model
 
         $row = $query->row();
 
-        if($row) return $row->H1 . $row->Content;
+        if($row) return "<h1>" . $row->H1 . "</h1>" . $row->Content;
         else return "<h1>Page Not Found</h1><p>404 error</p>";
     }
         
