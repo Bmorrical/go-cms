@@ -10,16 +10,23 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
-<div class="container-fluid">
-	<div class="row">
+	<?php
+// Start Page Config
+    	$this_page_singular = 'page'; // defined for text html
+    	$this_page_plural = 'pages';
+    	$this_page_type = 'edit';
+    	$this_page_results = $page; // defined as result array back from controller
+// End Page Config
+	?>
+<div class='container-fluid'>
+	<div class='row'>
 		<?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>
-		<div class="col-md-9 main-content-top-pad">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>Dashboard</h1>
-					<p>Welcome to go-cms.
-				</div>
-			</div>
+		<div class='col-md-9'>
+			<?php
+				include_once(APPPATH . 'views/admin/pages/helpers/main_content_add_edit_header.php');
+				include_once(APPPATH . 'views/admin/pages/form.php');
+			?>
+				</form>
 		</div>
 	</div>
 </div>

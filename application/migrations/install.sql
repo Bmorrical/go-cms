@@ -36,7 +36,7 @@ CREATE TABLE `go_menu_items` (
   PRIMARY KEY (`MenuItemID`),
   KEY `menu_items__menues_idx` (`MenuID`),
   CONSTRAINT `menu_items__menues` FOREIGN KEY (`MenuID`) REFERENCES `go_menus` (`MenuID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `go_menu_items` (
 
 LOCK TABLES `go_menu_items` WRITE;
 /*!40000 ALTER TABLE `go_menu_items` DISABLE KEYS */;
-INSERT INTO `go_menu_items` VALUES (1,1,'Logout','admin/logout',1,1,'fa fa-sign-out',NULL,1,1),(2,1,'Config','admin/config',1,2,'fa fa-wrench','config',1,1),(3,1,'Users','admin/users',1,3,'fa fa-lock','users',1,1),(4,1,'Lab','admin/lab',1,4,'fa fa-flask','lab',1,1),(5,2,'Dashboard','admin/dashboard',1,1,'fa fa-home','dashboard',1,1);
+INSERT INTO `go_menu_items` VALUES (1,1,'Logout','admin/logout',1,1,'fa fa-sign-out',NULL,1,1),(2,1,'Config','admin/config',1,2,'fa fa-wrench','config',1,1),(3,1,'Users','admin/users',1,3,'fa fa-lock','users',1,1),(4,1,'Lab','admin/lab',1,4,'fa fa-flask','lab',1,1),(5,2,'Dashboard','admin/dashboard',1,1,'fa fa-home','dashboard',1,1),(6,2,'Pages','admin/pages',1,2,'fa fa-users','pages',1,1);
 /*!40000 ALTER TABLE `go_menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,6 +73,37 @@ LOCK TABLES `go_menus` WRITE;
 /*!40000 ALTER TABLE `go_menus` DISABLE KEYS */;
 INSERT INTO `go_menus` VALUES (1,'Top',1,1),(2,'Left',1,1);
 /*!40000 ALTER TABLE `go_menus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `go_pages`
+--
+
+DROP TABLE IF EXISTS `go_pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `go_pages` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(255) NOT NULL,
+  `Slug` varchar(255) NOT NULL,
+  `Content` varchar(255) NOT NULL,
+  `Status` int(1) NOT NULL DEFAULT '1',
+  `Order` int(11) DEFAULT NULL,
+  `Created` datetime DEFAULT NULL,
+  `CreatedBy` int(11) DEFAULT NULL,
+  `Updated` datetime DEFAULT NULL,
+  `UpdatedBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `go_pages`
+--
+
+LOCK TABLES `go_pages` WRITE;
+/*!40000 ALTER TABLE `go_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `go_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -131,7 +162,7 @@ CREATE TABLE `go_users` (
 
 LOCK TABLES `go_users` WRITE;
 /*!40000 ALTER TABLE `go_users` DISABLE KEYS */;
-INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-08-31 16:38:18'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
+INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-08 20:38:27'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `go_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-31 13:30:05
+-- Dump completed on 2017-10-08 15:55:31
