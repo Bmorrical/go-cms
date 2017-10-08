@@ -86,7 +86,7 @@ CREATE TABLE `go_pages` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(255) NOT NULL,
   `Slug` varchar(255) NOT NULL,
-  `Content` varchar(255) NOT NULL,
+  `Content` text NOT NULL,
   `Status` int(1) NOT NULL DEFAULT '1',
   `Order` int(11) DEFAULT NULL,
   `Created` datetime DEFAULT NULL,
@@ -199,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-08 15:55:31
+-- Dump completed on 2017-10-08 16:18:37

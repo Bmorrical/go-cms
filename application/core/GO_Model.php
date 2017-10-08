@@ -218,6 +218,15 @@ class GO_Admin_model extends GO_model
             $new_file = file_get_contents($the_file);
 
             // Write
+
+            // NEEDS A CHECK HERE BECAUSE IF THE FOLDER ISN'T PRESENT, THEN file_put_contents() DOESNT WORK
+            
+                // $path = explode('.', string)
+                // if (!is_dir('upload/promotions/' . $month)) {
+                //   // dir doesn't exist, make it
+                //   mkdir('upload/promotions/' . $month);
+                // }            
+
             file_put_contents(FCPATH . $file, $new_file);
            
         }
