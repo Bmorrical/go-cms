@@ -19,21 +19,12 @@ $config['base_url'] = 'http://localhost/' . $config['go_base_folder']; // Base U
 
 $_SERVER['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $config['go_base_folder']; // localhost needs this for extra folder
 
-/**
- * These are Development configurations.  Production configs are in go_config.php
- */
-
 $config['go_admin_email'] = 'your_email@email.com'; // DEVELOPMENT Admin Email
 $config['go_enable_go_postman_admin_emails'] = true;  // System should dispatch Admin emails
 
 // SMTP 
 $config['go_company_email'] = 'your_email@email.com';
 $config['go_company_email_password'] = '###########';
-
-// If not Gmail, then update the host parameters below
-$config['go_smtp_development_host'] = "smtp.gmail.com";
-$config['go_smtp_development_port'] = 465;
-$config['go_smtp_development_crpt'] = "SSL";
 
 $config['go_admin_login_default_route'] = '/admin/dashboard'; // after Admin login, which route should be served
 $config['go_home_login_default_route'] = '/index'; // after Home login, which route should be served
@@ -47,14 +38,14 @@ $config['go_redirect_url'] = null; // null will redirect requests to /index to l
 $config['go_dev_admin_login_username'] = "super-admin";
 $config['go_dev_admin_login_password'] = "secret";
 
-/**
- * These are Production configurations.  Development configs are in config.php
- */
- 
 // If not Gmail, then update the host parameters below
 $config['go_smtp_development_host'] = "smtp.gmail.com";
 $config['go_smtp_development_port'] = 465;
 $config['go_smtp_development_crpt'] = "SSL";
+
+$config['go_smtp_production_host'] = "smtp.gmail.com";
+$config['go_smtp_production_port'] = 465;
+$config['go_smtp_production_crpt'] = "SSL";
 
 /////////////////////////////////  end  //////////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////

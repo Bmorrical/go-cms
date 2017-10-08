@@ -69,7 +69,7 @@ function go_get_menu_items($menu_id) {
     $return = "";
     $count = 1;
     $query = $ci->db
-        ->select('MenuItemID, MenuID, MenuItemName, MenuItemURL, Icon, ActiveClass')
+        ->select('MenuItemID, MenuID, MenuItemName, MenuItemURL, Level, Icon, ActiveClass')
         ->where('MenuID', $menu_id)
         ->where('Status', 1)
         ->order_by('Order', "asc")
@@ -86,18 +86,21 @@ function go_get_menu_items($menu_id) {
                     $return .= "<ul>"; 
                 }
             }
-            $return .= "<li class='menu-" . $result->ActiveClass . "'>";  // set active class for menu
-            if($result->MenuItemURL != "") { // setup child LI's
-                ($result->MenuItemID == 1) ? $key = '?go=' . $ci->config->item('go_login_key') : $key = "";
-                if($result->Icon != "" || !is_null($result->Icon)) {
-                    $return .= "<a class='menu-contents menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'><i class='" .  $result->Icon . "'></i> " . $result->MenuItemName . "</a>";
+
+            if($result->Level >= $_SESSION['admin']['user_type']) { // Page has miniumum level to restrict or allows acceess
+                $return .= "<li class='menu-" . $result->ActiveClass . "'>";  // set active class for menu
+                if($result->MenuItemURL != "") { // setup child LI's
+                    ($result->MenuItemID == 1) ? $key = '?go=' . $ci->config->item('go_login_key') : $key = "";
+                    if($result->Icon != "" || !is_null($result->Icon)) {
+                        $return .= "<a class='menu-contents menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'><i class='" .  $result->Icon . "'></i> " . $result->MenuItemName . "</a>";
+                    } else {
+                        $return .= "<a class='menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'>" . $result->MenuItemName . "</a>";
+                    }
                 } else {
-                    $return .= "<a class='menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'>" . $result->MenuItemName . "</a>";
+                    $return .= $result->MenuItemName;
                 }
-            } else {
-                $return .= $result->MenuItemName;
+                $return .= "</li>";
             }
-            $return .= "</li>";
             $count++;
         }
 
@@ -106,3 +109,4 @@ function go_get_menu_items($menu_id) {
     echo $return;
 
 }
+
