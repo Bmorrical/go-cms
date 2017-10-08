@@ -339,6 +339,7 @@ class GO_Home_Controller extends GO_Controller
 		parent::__construct();
 	}
 
+
 	/**
 	 *  This is the homepage router function to load the base of the website.
 	 *  By default you are taken to /login for request of /index.  This can be overridden in go_config.php param go_redirect_url
@@ -349,8 +350,20 @@ class GO_Home_Controller extends GO_Controller
 		else $this->sign_in();
 	}
 
-	// public function home_login() {
-	// 	$this->login();
-	// }
+	/**
+	 *  This is the slug router function to load the pages of the website.
+	 */
+
+	public function page($route) {
+		$this->go_load_page(
+			array(
+				'page' => 'home/go_router',
+				'title' => '...dynamic...',
+				'template' => 'home',
+				'activeClass' => '$route',
+				'queries' => null
+			)
+		);		
+	}
 
 }

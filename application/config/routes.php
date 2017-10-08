@@ -56,6 +56,8 @@ $route['default_controller'] = 'home';
 $route['404_override'] = ''; 
 $route['translate_uri_dashes'] = TRUE;
 
+$route['(:any)'] = 'home/page/$1'; // any home route, to home/page/$url
+
 $route['login'] = 'home/sign_in';
 $route['logout'] = 'home/logout';
 

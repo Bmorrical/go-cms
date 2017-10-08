@@ -285,4 +285,30 @@ class GO_Home_model extends GO_model
     public function __construct(){
         parent::__construct();
     }    
+
+    /**
+     *  Pages Router for Home
+     */
+    
+    public function go_router() {
+
+        $last = explode("/", $_SERVER['REQUEST_URI']);
+        $route = end($last);
+
+        $cleanup = explode("?", $route);
+        $cleaned_route = $cleanup[0];
+
+        $query = $this->db
+            ->select('ID,Slug,Content')
+            ->where('Status', 1)
+            ->where('Slug', $cleaned_route)
+            ->limit(1)
+            ->get('go_pages');
+
+        $row = $query->row();
+
+        if($row) return $row->Content;
+        else return "<h1>Page Not Found</h1><p>404 error</p>";
+    }
+        
 }
