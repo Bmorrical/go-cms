@@ -12,7 +12,7 @@
 ?>
 <div class='row'>
 	<div class='col-md-1 right'>
-		Title
+		Page Title
 	</div>
 	<div class='col-md-5'>
 		<input class='form-control' name='Title' type='text' value='<?php if(isset($page['values']['Title'])) echo $page['values']['Title']; ?>'>
@@ -23,6 +23,20 @@
 	<div class='col-md-5'>
 		<input class='form-control' name='Slug' type='text' value='<?php if(isset($page['values']['Slug'])) echo $page['values']['Slug']; ?>'>
 	</div>
+</div>
+<div class='row'>
+	<div class='col-md-1 right'>
+		H1 Title
+	</div>
+	<div class='col-md-5'>
+		<input class='form-control' name='H1' type='text' value='<?php if(isset($page['values']['H1'])) echo $page['values']['H1']; ?>'>
+	</div>	
+	<div class='col-md-1 right'>
+		Meta Title
+	</div>
+	<div class='col-md-5'>
+		<input class='form-control' name='MetaTitle' type='text' value='<?php if(isset($page['values']['MetaTitle'])) echo $page['values']['MetaTitle']; ?>'>
+	</div>	
 </div>
 <div class='row'>
 	<div class='col-md-1 right'>

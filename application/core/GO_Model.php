@@ -307,7 +307,7 @@ class GO_Home_model extends GO_model
 
         $row = $query->row();
 
-        if($row) return $row->Content;
+        if($row) return $row->H1 . $row->Content;
         else return "<h1>Page Not Found</h1><p>404 error</p>";
     }
         

@@ -105,7 +105,7 @@ class Pages_model extends GO_Admin_model {
 
 			if($id != 0) {
 			$query = $this->db
-				->select('ID,Title,Slug,Content')
+				->select('ID,Title,MetaTitle,H1,Slug,Content')
 				->where('ID', $id)
 				->limit(1)
 				->get('go_pages');
