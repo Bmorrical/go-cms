@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-9 copyright">
-                    <p>&copy; <?php echo date('Y') . " " . $this->config->item('company_name'); ?> | All Rights Reserved</p>
+                    <p>&copy; <?php echo date('Y') . " " . $this->config->item('go_company_name'); ?> | All Rights Reserved</p>
                 </div>
             </div>
         </div>

@@ -109,7 +109,7 @@ class GO_Postal {
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <head>
                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-               <title>'.$this->ci->config->item('company_name').'</title>
+               <title>'.$this->ci->config->item('go_company_name').'</title>
                <style type="text/css">
                     a {color: #4A72AF;}
                     body {background-color: #e4e4e4;}

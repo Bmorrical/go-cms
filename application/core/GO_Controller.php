@@ -73,16 +73,24 @@ class GO_Controller extends CI_Controller
 	 */
 	public function go_verify_user_session($route = "admin") {
 
+		echo "<pre>";
+		var_dump($_SESSION);
+		exit;
+
 		switch($route) {
 			case 1: // admin
-				if(!$_SESSION['admin']) {
-					if($this->input->cookie("go-cms")) $this->login(); // has a cookie, new the ?go=key within cookie expiration
-					else show_404();
-				} 
+			
+			
+				if($_SESSION['admin']) {
+					// has a cookie, knew the ?go=key within cookie expiration
+					if($this->input->cookie($this->config->item('go_admin_login_cookie'))) $this->login(); 
+				} else show_404();
 			break;
 			case 2: // home
 				if(!$_SESSION['home']) $this->login();
 			break;
+			default:
+				//show_404();
 		}
 	}	
 
@@ -196,7 +204,7 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function users() {
-			$this->go_verify_user_session();
+			$this->go_verify_user_session("admin");
 			$queries = array(
 				'users' => $this->admin->go_get_users()
 			);	
@@ -277,8 +285,8 @@ class GO_Admin_Controller extends GO_Controller
 				new GO_Lab($this->input->post());
 			}
 			$queries = array(
-					'menus' => $this->admin->lab_get_menus()
-				);
+				'menus' => $this->admin->lab_get_menus()
+			);
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/lab/lab',
@@ -339,15 +347,13 @@ class GO_Home_Controller extends GO_Controller
 		parent::__construct();
 	}
 
-
 	/**
 	 *  This is the homepage router function to load the base of the website.
 	 *  By default you are taken to /login for request of /index.  This can be overridden in go_config.php param go_redirect_url
 	 */
 
 	public function index() {
-		if(null != $this->config->item('go_redirect_url')) redirect($this->config->item('go_redirect_url'), 'refresh');
-		else $this->sign_in();
+		redirect($this->config->item('go_redirect_url'), 'refresh'); // home route from application/config/go_config.php 
 	}
 
 	/**
@@ -365,13 +371,14 @@ class GO_Home_Controller extends GO_Controller
 
         $row = $query->row();
 
+		$this->load->model('home_model','home');
 		$this->go_load_page(
 			array(
 				'page' => 'home/go_router',
-				'title' => $row->MetaTitle,
+				'title' => (!empty($row->MetaTitle)) ? $row->MetaTitle : "",
 				'template' => 'home',
 				'activeClass' => '$route',
-				'queries' => null
+				'queries' => $this->home->queries($route)
 			)
 		);		
 	}

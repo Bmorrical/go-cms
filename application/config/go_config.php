@@ -22,6 +22,8 @@ $_SERVER['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $config['go_base_f
 $config['go_admin_email'] = 'your_email@email.com'; // DEVELOPMENT Admin Email
 $config['go_enable_go_postman_admin_emails'] = true;  // System should dispatch Admin emails
 
+$config['go_admin_login_cookie'] = "Ixbf24x";  // some random varchar, used in cookie for validating if you need ?go=cms on admin
+
 // SMTP 
 $config['go_company_email'] = 'your_email@email.com';
 $config['go_company_email_password'] = '###########';
@@ -33,7 +35,7 @@ $config['go_logo_location'] = '';
 $config['go_company_name'] = '{Your Company Name Here}';
 $config['go_logo_email_path'] = '//your-website.com/assets/images/logo.png';
 
-$config['go_redirect_url'] = null; // null will redirect requests to /index to login, otherwise specify here where requests to /index should go
+$config['go_redirect_url'] = 'home';  // change the starting route
 
 $config['go_dev_admin_login_username'] = "super-admin";
 $config['go_dev_admin_login_password'] = "secret";

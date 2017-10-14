@@ -3,13 +3,16 @@ RewriteEngine On
 
 ## Installation directories
 
-# Localhost with directory
-RewriteBase /go-cms/
+## Localhost with directory ##
 
-# Production
+RewriteBase /go-cms/
+Redirect 301 /go-cms/index.php/home http://localhost/go-cms/home
+
+## Production ##
 # RewriteBase /
 
-# Allow any files or directories that exist to be displayed directly
+## Allow any files or directories that exist to be displayed directly ##
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 

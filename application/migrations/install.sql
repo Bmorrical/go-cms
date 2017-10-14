@@ -97,7 +97,7 @@ CREATE TABLE `go_pages` (
   `UpdatedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `secondary` (`Slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,6 +106,7 @@ CREATE TABLE `go_pages` (
 
 LOCK TABLES `go_pages` WRITE;
 /*!40000 ALTER TABLE `go_pages` DISABLE KEYS */;
+INSERT INTO `go_pages` VALUES (1,'Home','','','home','<p style=\"text-align: center;\">&nbsp;</p>\r\n<p style=\"text-align: center;\">go-cms</p>\r\n<p style=\"text-align: center;\">building, better, together.</p>',1,NULL,'2017-10-14 12:08:41',1,'2017-10-14 12:37:38',1),(2,'Wiki','','','wiki','<p style=\"text-align: center;\"><a href=\"https://go-cms.org\">https://go-cms.org</a></p>',1,NULL,'2017-10-14 12:26:13',1,'2017-10-14 12:34:42',1);
 /*!40000 ALTER TABLE `go_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +166,7 @@ CREATE TABLE `go_users` (
 
 LOCK TABLES `go_users` WRITE;
 /*!40000 ALTER TABLE `go_users` DISABLE KEYS */;
-INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-08 23:08:36'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
+INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-14 12:59:54'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `go_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-08 18:22:40
+-- Dump completed on 2017-10-14  8:23:27

@@ -15,6 +15,25 @@ class Home_model extends GO_Home_model {
 		return false;
 	}
 
+    /**
+     *  Data queries for page load, any datasets for which you want to return result sets
+     *  should have a matching route below and your requested data
+     *
+     *  @return array
+     */
+    public function queries($route) {
+        switch ($route) {
+            case 'home':
+                return array(
+                    'data' => "None Today!"
+                );
+                break;
+            default:
+                return array();
+                break;
+        }
+    }	
+
 	/**
 	 *  Home Logout
 	 */
@@ -22,4 +41,5 @@ class Home_model extends GO_Home_model {
 		unset($_SESSION['home']);
 		redirect(base_url() . 'login', 'refresh');
 	}
+
 }
