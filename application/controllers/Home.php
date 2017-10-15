@@ -13,8 +13,7 @@ class Home extends GO_Home_Controller {
 	}
 
 	public function logout() {			
-		$_SESSION = array();
-		session_destroy();
+		if(!empty($_SESSION['home'])) unset($_SESSION['home']);
 		redirect(base_url() . 'login', 'refresh');
 	}
 

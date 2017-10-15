@@ -115,11 +115,7 @@ class GO_Controller extends CI_Controller
 
 	public function logout() {
 
-		// if(!empty($_SESSION['admin'])) {
-		//nneds some more work here
-		// }
-		$_SESSION = array();
-		session_destroy();
+		if(!empty($_SESSION['admin'])) unset($_SESSION['admin']);
 
 		if($this->input->get('go') == $this->config->item('go_login_key')) {
 			redirect(base_url() . 'admin/login?go=' . $this->config->item('go_login_key'), 'refresh');
