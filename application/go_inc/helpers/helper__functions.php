@@ -13,6 +13,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ///////////////////////////////// go-cms /////////////////////////////////
 
 /**
+ *  If not a valid session, take user to login page
+ */
+
+function go_verify_user_session($route = "admin") {
+
+    $ci = get_instance();
+
+    switch($route) {
+        case 'admin' : // Admin Route
+            if(empty($_SESSION['admin']) || $ci->input->cookie("go-admin-hash") !== $_SESSION['admin']['hash']) {
+                redirect(base_url() . "admin/login");
+            }
+            break;
+        case 'home' : // Home route
+            if(empty($_SESSION['home']) || $ci->input->cookie("go-home-hash") !== $_SESSION['home']['hash']) {
+                redirect(base_url() . $config['go_home_login_route']);
+            } 
+            break;
+        default : 
+            show_404();
+    }
+
+}
+
+/**
  *  Creates a var_dump to the browser of debug data
  * 
  *  @param $exit string | Should the script exit() after the arguments or continue parsing

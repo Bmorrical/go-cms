@@ -18,8 +18,7 @@ class GO_Controller extends CI_Controller
 	 *  Construct
 	 */ 
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 
 		$this->config->load('go_config');
@@ -38,8 +37,7 @@ class GO_Controller extends CI_Controller
 	 *  @param $params array
 	 */
 
-	public function go_load_page($params = array()) 
-	{
+	public function go_load_page($params = array()) {
 
 	    if(!isset($params["page"]) || $params["page"] == "") { 
 	        show_404(); 
@@ -66,32 +64,6 @@ class GO_Controller extends CI_Controller
 	    $this->load->view("templates/" . $params["template"] . "/template",$params);
 
 	}   
-
-
-	/**
-	 *  Requires Update - When front end is added to go-cms.
-	 */
-	public function go_verify_user_session($route = "admin") {
-
-		echo "<pre>";
-		var_dump($_SESSION);
-		exit;
-
-		switch($route) {
-			case 1: // admin
-
-				if($_SESSION['admin']) {
-					// has a cookie, knew the ?go=key within cookie expiration
-					if($this->input->cookie($this->config->item('go_admin_login_cookie'))) $this->login(); 
-				} else show_404();
-			break;
-			case 2: // home
-				if(!$_SESSION['home']) $this->login();
-			break;
-			default:
-				//show_404();
-		}
-	}	
 
 	/**
 	 *  Login User
@@ -143,6 +115,9 @@ class GO_Controller extends CI_Controller
 
 	public function logout() {
 
+		// if(!empty($_SESSION['admin'])) {
+		//nneds some more work here
+		// }
 		$_SESSION = array();
 		session_destroy();
 
@@ -184,9 +159,10 @@ class GO_Admin_Controller extends GO_Controller
 		 *  Requires Documentation
 		 */
 
-		public function dashboard() 
-		{
-			$this->go_verify_user_session("home");
+		public function dashboard() {
+
+			go_verify_user_session("admin");
+
 			$queries = null;
 			$this->go_load_page(
 				array(
@@ -207,7 +183,9 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function users() {
-			$this->go_verify_user_session("admin");
+
+			go_verify_user_session("admin");
+
 			$queries = array(
 				'users' => $this->admin->go_get_users()
 			);	
@@ -227,13 +205,17 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function user_edit() {
-			$this->go_verify_user_session();
+
+			go_verify_user_session("admin");
+
 			if($_POST) {
 				$this->admin->put_user($_POST); 
 			}
+
 			$queries = array(
 				'user' => $this->admin->go_get_user($this->input->get('id'))
 			);	
+
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/users/edit',
@@ -250,11 +232,15 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function user_add() {
-			$this->go_verify_user_session();
+
+			go_verify_user_session("admin");
+
 			$queries = null;
+
 			if($_POST) {
 				$this->admin->post_user($_POST);
 			} 
+
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/users/add',
@@ -271,25 +257,29 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function put_user() {
-			$this->go_verify_user_session();		
+			go_verify_user_session("admin");	
 			$this->admin->put_user($_POST);
 		}
 
 	// End Users
-	// Start Go Lab
+	// Start Go Lab()
 
 		/**
 		 *  Requires Documentation
 		 */
 
 		public function lab() {
-			$this->go_verify_user_session();
+
+			go_verify_user_session("admin");
+
 			if($_POST) { 		
 				new GO_Lab($this->input->post());
 			}
+
 			$queries = array(
 				'menus' => $this->admin->lab_get_menus()
 			);
+
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/lab/lab',
@@ -310,7 +300,8 @@ class GO_Admin_Controller extends GO_Controller
 
 		public function config() {
 
-			$this->go_verify_user_session();
+			go_verify_user_session("admin");
+
 			$queries = array(
 	          'currentVersion' => $this->admin->go_get_version(),
 	        );

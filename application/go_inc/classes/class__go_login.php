@@ -213,7 +213,7 @@ class GO_Login extends GO_Controller
                  *  within the last 7 days, take them to the login page instead of show_404();
                  */
 
-                    // setting is on in application/config/go_config.php      
+                    /** Setting is on in application/config/go_config.php */
 
                         if(!empty($this->ci->config->item('go_admin_login_cookie'))) {
 
@@ -223,7 +223,7 @@ class GO_Login extends GO_Controller
                                     60*60*24*7*35 // 35 days, needs to be a config
                                 );
                         }  
-                exit;
+
                 redirect($this->ci->config->item('go_admin_login_default_route'), 'refresh');
             } 
             else {
