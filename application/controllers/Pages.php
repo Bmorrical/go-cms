@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
-	/**
-	 *  Requires Documentation to
-	 *  ever update your go-cms version.  Changes would be lost.
-	 */
+
+    /**
+     *  This is a core go-cms file.  Do not edit if you plan to
+     *  ever update your go-cms version.  Changes would be lost.
+     */
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
@@ -15,7 +16,13 @@ class Pages extends GO_Admin_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		if(!$this->session->has_userdata('logged_in')) show_404();
+
+		/** Validate the user should be able to access this resource */
+		
+	        if(empty($_SESSION['admin']) || $this->input->cookie("go-admin-hash") !== $_SESSION['admin']['hash']) {
+	            redirect(base_url() . "admin/login");
+	        }
+
 		$this->load->model('pages_model','page');
 
 	}
