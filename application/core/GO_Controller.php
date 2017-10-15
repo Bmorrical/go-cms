@@ -79,8 +79,7 @@ class GO_Controller extends CI_Controller
 
 		switch($route) {
 			case 1: // admin
-			
-			
+
 				if($_SESSION['admin']) {
 					// has a cookie, knew the ?go=key within cookie expiration
 					if($this->input->cookie($this->config->item('go_admin_login_cookie'))) $this->login(); 
@@ -113,8 +112,11 @@ class GO_Controller extends CI_Controller
 	}
 
 	public function login() {
-		if ($this->session->userdata('session_id')) $this->logout(); // user had a session, just log them out and start over
-		if($this->input->cookie("go-cms") || ($this->input->get('go') == $this->config->item('go_login_key'))) {
+
+		if(
+			$this->input->get('go') == $this->config->item('go_login_key') || // used the ?go={key} param in the URL string
+			$this->input->cookie("go-vetted-" . md5($this->config->item('go_admin_login_cookie'))) // had already signed in previously
+		){
 			if (!empty($_POST)) {
 				new GO_Login($_POST, "admin");
 			} else {
@@ -129,7 +131,8 @@ class GO_Controller extends CI_Controller
 					)
 				);
 			}
-		} else {
+		} 
+		else {
 			show_404();
 		}
 	}	

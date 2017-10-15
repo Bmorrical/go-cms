@@ -79,55 +79,47 @@ class GO_Login extends GO_Controller
         $user = $query->row();
 
         if($user) {
+
             if(password_verify($this->post['password'], $user->Password)) {
 
-                $session_id = session_id();
-
                 $this->ci->session->set_userdata(array(
+                    'session_id' => session_id(),
                     'home' => array(
-                        'logged_in' => true,
                         'user_id' => $user->ID,
                         'session_type' => $user->UserTypeID,
-                        'first_name' => $user->FirstName,
-                        'last_name' => $user->LastName,
+                        'first_name' => $user->Firstname,
+                        'last_name' => $user->Lastname,
                         'user_type' => $user->UserTypeID,
                         'created' => $user->Created,
                         'updated' => $user->Updated,
                         'last_login' => $user->LastLogin,
-                        'session_id' => $session_id
-                    )
+                        'hash' => md5(uniqid(rand(), true)) // some random hash that we can refer to
+                    )    
                 ));
 
-                $this->ci->db
-                    ->where('ID', $user->ID)
-                    ->update('clients', array('LastLogin' => date('Y-m-d H:i:s'))); 
-
                 /**
-                 *  Set a cookie here so that we can refer back if someone has known the ?go=key at some point
-                 *  within the last 7 days, take them to the login page instead of show_404();
-                 */
+                *  Set session cookie, which allows us to run front-end and back-end
+                *  go-cms user sessions in the same browser on one php session
+                */
 
-                    // cookie is not already set
+                    $this->ci->input->set_cookie(
+                        "go-home-hash", 
+                        $_SESSION['home']['hash'], 
+                        60*60*24*7 // 1 week, needs to be a config, but will be terminated by SESSION length anyways
+                    );                
 
-                    if(!$this->ci->input->cookie($this->ci->config->item('go_admin_login_cookie'))) {
 
-                        // setting is on in application/config/go_config.php
+                /** Update users table with login meta-data */
 
-                        if(!empty($this->ci->config->item('go_admin_login_cookie'))) { 
+                    $TS = date('Y-m-d H:i:s'); 
+                    $vars = array(
+                        'LastLogin' => $TS
+                    );
 
-                            // bake that cookie!!  Cookie MONSTER NOM NOM NOM
+                    $this->ci->db
+                        ->where('ID', $user->ID)
+                        ->update('go_users', $vars); 
 
-                            $this->ci->input->set_cookie(
-                                $this->ci->config->item('go_admin_login_cookie') . "-home_session", 
-                                $session_id, 
-                                60*60*24*7 // 1 week, needs to be a config
-                            );
-
-                            // from here we need to check on every page request that the user cookie session matches the $_SESSION, if so
-                            // then the users cookie matches the session, therefor it's a valid session.  This also allows us to segregate
-                            // the sessions, else you can't really run the front and backend sesions without stepping on each other.
-                        }
-                    }                    
 
                 redirect(base_url() . $this->ci->config->item('go_home_login_default_route')); // Good, login
 
@@ -172,15 +164,13 @@ class GO_Login extends GO_Controller
                 // On hold, can't get admin to hook to go_model, works ok for Home
                     // $helper_data = $this->ci->admin->login_helper($user, $this->post);   
 
-            /** End Helper */                
+            /** End Helper */              
 
             if(password_verify($this->post['password'], $user->Password)) {
 
-                $session_id = session_id();
-
-                $this->ci->session->set_userdata(array(   
+                $this->ci->session->set_userdata(array(
+                    'session_id' => session_id(),
                     'admin' => array(
-                        'logged_in' => true,
                         'user_id' => $user->ID,
                         'session_type' => $user->UserTypeID,
                         'first_name' => $user->Firstname,
@@ -189,50 +179,51 @@ class GO_Login extends GO_Controller
                         'created' => $user->Created,
                         'updated' => $user->Updated,
                         'last_login' => $user->LastLogin,
-                        'session_id' => $session_id 
+                        'hash' => md5(uniqid(rand(), true)) // some random hash that we can refer to
                     )    
                 ));
 
-                $TS = date('Y-m-d H:i:s'); 
-                $vars = array(
-                    'LastLogin' => $TS
-                );
 
-                $this->ci->db
-                    ->where('ID', $user->ID)
-                    ->update('go_users', $vars); 
+                /**
+                *  Set session cookie, which allows us to run front-end and back-end
+                *  go-cms user sessions in the same browser on one php session
+                */
+
+                    $this->ci->input->set_cookie(
+                        "go-admin-hash", 
+                        $_SESSION['admin']['hash'], 
+                        60*60*24*7 // 1 week, needs to be a config
+                    );                
+
+
+                /** Update users table with login meta-data */
+
+                    $TS = date('Y-m-d H:i:s'); 
+                    $vars = array(
+                        'LastLogin' => $TS
+                    );
+
+                    $this->ci->db
+                        ->where('ID', $user->ID)
+                        ->update('go_users', $vars); 
+
 
                 /**
                  *  Set a cookie here so that we can refer back if someone has known the ?go=key at some point
                  *  within the last 7 days, take them to the login page instead of show_404();
                  */
 
-                    // cookie is not already set
-                    if(!$this->ci->input->cookie($this->ci->config->item('go_admin_login_cookie'))) {
+                    // setting is on in application/config/go_config.php      
 
-                        // setting is on in application/config/go_config.php
-                        if(!empty($this->ci->config->item('go_admin_login_cookie'))) { 
+                        if(!empty($this->ci->config->item('go_admin_login_cookie'))) {
 
-                            // bake that cookie!!  Cookie MONSTER NOM NOM NOM
-
-                            $this->ci->input->set_cookie(
-                                $this->ci->config->item('go_admin_login_cookie'), 
-                                rand() * rand(), 
-                                60*60*24*7 // 1 week, needs to be a config
-                            );
-
-                            $this->ci->input->set_cookie(
-                                $this->ci->config->item('go_admin_login_cookie') . "-admin_session", 
-                                $session_id, 
-                                60*60*24*7 // 1 week, needs to be a config
-                            );
-
-                            // from here we need to check on every page request that the user cookie session matches the $_SESSION, if so
-                            // then the users cookie matches the session, therefor it's a valid session.  This also allows us to segregate
-                            // the sessions, else you can't really run the front and backend sesions without stepping on each other.
-                        }
-                    }
-
+                                $this->ci->input->set_cookie(
+                                    "go-vetted-" . md5($this->ci->config->item('go_admin_login_cookie')), 
+                                    rand() * rand(), // nothing here, just random value
+                                    60*60*24*7*35 // 35 days, needs to be a config
+                                );
+                        }  
+                exit;
                 redirect($this->ci->config->item('go_admin_login_default_route'), 'refresh');
             } 
             else {
