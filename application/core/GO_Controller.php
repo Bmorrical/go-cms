@@ -115,7 +115,11 @@ class GO_Controller extends CI_Controller
 
 	public function logout() {
 
-		if(!empty($_SESSION['admin'])) unset($_SESSION['admin']);
+		// if(!empty($_SESSION['admin'])) {
+		//nneds some more work here
+		// }
+		$_SESSION = array();
+		session_destroy();
 
 		if($this->input->get('go') == $this->config->item('go_login_key')) {
 			redirect(base_url() . 'admin/login?go=' . $this->config->item('go_login_key'), 'refresh');
@@ -348,6 +352,8 @@ class GO_Home_Controller extends GO_Controller
 
 	/**
 	 *  This is the slug router function to load the pages of the website.
+	 *  If you do not use dynamic Pages, then you should have a partial with a filename
+	 *  that matches the route in application/views/home/partials
 	 */
 
 	public function page($route) {
@@ -361,10 +367,13 @@ class GO_Home_Controller extends GO_Controller
 
         $row = $query->row();
 
+        if(!$row) $page = 'home/partials/' . $route; // is a partial
+        else $page = 'home/go_router'; // is dynamic content from router
+
 		$this->load->model('home_model','home');
 		$this->go_load_page(
 			array(
-				'page' => 'home/go_router',
+				'page' => $page,
 				'title' => (!empty($row->MetaTitle)) ? $row->MetaTitle : "",
 				'template' => 'home',
 				'activeClass' => '$route',

@@ -217,14 +217,13 @@ class GO_Admin_model extends GO_model
             $the_file = "https://api.go-cms.org/request/get-file?file=" . urlencode($file);
             $new_file = file_get_contents($the_file);
 
-            // Write
-
-            // NEEDS A CHECK HERE BECAUSE IF THE FOLDER ISN'T PRESENT, THEN file_put_contents() DOESNT WORK
+            // Write - Makes directory first if does not exist
             
-                // $path = explode('.', string)
-                // if (!is_dir('upload/promotions/' . $month)) {
+                // $file_path = explode('.', $the_file);
+
+                // if (!is_dir(FCPATH . $file_path[0])) {
                 //   // dir doesn't exist, make it
-                //   mkdir('upload/promotions/' . $month);
+                //   mkdir(FCPATH . $file_path[0]);
                 // }            
 
             file_put_contents(FCPATH . $file, $new_file);
