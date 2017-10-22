@@ -56,7 +56,7 @@ class GO_Admin_model extends GO_model
                 'Username'  => $post['username'],
                 'Firstname' => $post['firstname'],
                 'Lastname'  => $post['lastname'],
-                'Type'      => 1,
+                'UserTypeID' => 1,
                 'Status'    => 1,
                 'Created'   => date('Y-m-d H:i:s'),
                 'Updated'   => date('Y-m-d H:i:s')

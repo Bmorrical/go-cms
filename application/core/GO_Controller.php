@@ -370,7 +370,7 @@ class GO_Home_Controller extends GO_Controller
         if(!$row) $page = 'home/partials/' . $route; // is a partial
         else $page = 'home/go_router'; // is dynamic content from router
 
-        $route_string = str_replace("-", " ", $route); // if no meta title because of partial, then use the route instead
+        $route_string = str_replace("-", " ", $route);
 
         $meta_title = (!empty($row->MetaTitle)) ? $row->MetaTitle : ucwords($route_string);
 

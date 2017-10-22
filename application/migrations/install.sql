@@ -111,6 +111,32 @@ INSERT INTO `go_pages` VALUES (1,'Home','','','home','<p style=\"text-align: cen
 UNLOCK TABLES;
 
 --
+-- Table structure for table `go_sessions`
+--
+
+DROP TABLE IF EXISTS `go_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `go_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `go_sessions`
+--
+
+LOCK TABLES `go_sessions` WRITE;
+/*!40000 ALTER TABLE `go_sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `go_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `go_user_types`
 --
 
@@ -166,7 +192,7 @@ CREATE TABLE `go_users` (
 
 LOCK TABLES `go_users` WRITE;
 /*!40000 ALTER TABLE `go_users` DISABLE KEYS */;
-INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-15 16:12:40'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
+INSERT INTO `go_users` VALUES (1,'super-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Super','Admin',1,1,NULL,NULL,'2017-10-15 16:44:45'),(2,'user-admin','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','User','Admin',2,1,NULL,NULL,NULL),(3,'home-user','$2y$10$YOelcNvH5gjpn4zYQCt3qO0Tw/hGWa2uklYfYW6UVXPu31dVE/gR6','Home','User',3,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `go_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-15 11:13:46
+-- Dump completed on 2017-10-22 17:09:34
