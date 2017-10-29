@@ -28,6 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/dropzone/dropzone.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/bootstrap-toggle.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_default.css">			
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/admin/css/styles.css">
 
     	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
