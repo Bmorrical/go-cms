@@ -26,6 +26,7 @@ class GO_Controller extends CI_Controller
 		$this->load->model('go_admin_model','admin');
 
 		require_once(APPPATH . 'go_inc/helpers/helper__functions.php');
+		require_once(APPPATH . 'go_inc/helpers/helper__go_functions.php');
 		require_once(APPPATH . 'go_inc/classes/class__go_login.php');		
 		require_once(APPPATH . 'go_inc/classes/class__go_lab.php');
 		require_once(APPPATH . 'go_inc/classes/class__go_postal.php');		
