@@ -36,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="<?php echo base_url(); ?>assets/go/dropzone/dropzone.js"></script>
 		<script src="<?php echo base_url(); ?>assets/go/js/bootstrap-toggle.js"></script>
+		<script src="<?php echo base_url(); ?>assets/go/js/waiting-dialogue.js"></script>
 
 		<title><?php echo htmlspecialchars($title); ?></title>
 
