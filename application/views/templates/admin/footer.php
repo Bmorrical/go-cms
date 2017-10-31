@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         } 
     </script>
 
-    <script language="javascript" type="text/javascript" src="<?php echo base_url();?>/assets/admin/js/tinymce/tinymce.min.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo base_url();?>/assets/go/tinymce/tinymce.min.js"></script>
     <script>
     // Start TinyMCE
         tinyMCE.init({
