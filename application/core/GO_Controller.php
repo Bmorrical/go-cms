@@ -188,7 +188,7 @@ class GO_Admin_Controller extends GO_Controller
 			go_verify_user_session("admin");
 
 			$queries = array(
-				'users' => $this->admin->go_get_users()
+				'users' => $this->admin->go_get_users($this->admin->users_page_id())
 			);	
 			$this->go_load_page(
 				array(
@@ -252,6 +252,14 @@ class GO_Admin_Controller extends GO_Controller
 				)
 			);
 		}
+
+		/**
+		 *  When updating Active/Inactive menu from Users page
+		 */
+
+		public function ajax_users_update_display_status() {
+			echo json_encode($this->admin->ajax_users_update_display_status($this->input->post()));
+		}		
 
 		/**
 		 *  Requires Documentation

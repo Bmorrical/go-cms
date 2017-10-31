@@ -11,16 +11,24 @@
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
 <script>
-	var menu_item_id = "<?= $this->session->userdata('menu_item_id'); ?>"; // gets set in controller sizes()
+
 	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
+
 	var base_url = '<?= base_url(); ?>';
+
+	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
+	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in controller
+
 	$(window).on('load', function(){
-		$('#status').val(display_status).prop('selected', true); // set Active/Inactive drop down
+
+		$('#status').val(menu_active_inactive).prop('selected', true); // set Active/Inactive drop down
+
 		if(display_status == 0) {
 			var d = $('#toggleDisplay');
 			d.removeClass('btn-danger').addClass('btn-success');
 			d.text(d.text().trim().replace(/Disable/i, "Enable"));
 		}
+
 		$('#toggle-all-master').on('change', function () {
 			if($(this).is(':checked')) {
 				$('input.check-toggle').each(function () {
@@ -32,6 +40,7 @@
 				})				
 			}
 		});
+
 		$('.check-toggle, #toggle-all-master').on('change', function() {
 			if ($('input[type=checkbox]').is(":checked")) {
 				$('#toggleDisplay').removeClass('hidden');
@@ -41,20 +50,21 @@
 				$('#emailBtn, #printBtn').hide();							
 			}
 		});
+
 		$('#status').on('change', function() {
 			if($("#status").val() == 0) { var new_value = 0; } else { var new_value = 1; }
 			$.ajax({
-				url  : base_url + '<?= $this_page_plural; ?>/update_display_status',
+				url  : base_url + 'admin/ajax_users_update_display_status',
 				type : 'POST',
 				data: {
-					NewValue : new_value,
-					ID : menu_item_id
+					NewValue : new_value
 				},
 				success: function(d) {
 					location.reload();	
 				}
 			})
-		});		
+		});	
+
 	});
 </script>
 

@@ -56,7 +56,7 @@ class GO_Admin_model extends GO_model
                 'Username'  => $post['username'],
                 'Firstname' => $post['firstname'],
                 'Lastname'  => $post['lastname'],
-                'UserTypeID' => 1,
+                'UserTypeID' => 2,
                 'Status'    => 1,
                 'Created'   => date('Y-m-d H:i:s'),
                 'Updated'   => date('Y-m-d H:i:s')
@@ -88,24 +88,70 @@ class GO_Admin_model extends GO_model
     }            
 
     /**
-     *  Requires Documentation
+     *  Returns the row of the Users Menu, so it can be matched in Active/Inactive cookie toggle on Users Page
      */
 
-    public function go_get_users() {
+    public function users_page_id() {
+
+        $query = $this->db
+            ->select('MenuItemID')
+            ->where('MenuItemUrl', 'admin/users')
+            ->limit(1)
+            ->get('go_menu_items');   
+
+        $row = $query->row();
+        
+        return $row->MenuItemID;
+
+    }
+
+    public function ajax_users_update_display_status($post) {
+
+        $this->input->set_cookie(
+            "go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie')), 
+            $post['NewValue'], // New Value
+            60*60*24*7*35 // 35 days, needs to be a config
+        );
+    }
+
+    /**
+     *  Query for Users on Admin/Users page
+     */
+
+    public function go_get_users($users_page_id) {
         $return = array();
         $return['rows'] = array();
 
+        // if no cookie, set one to Active
+        if (is_null($this->input->cookie("go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie'))))) {
+            $this->input->set_cookie(
+                "go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')), 
+                1, // New Value
+                60*60*24*7*35 // 35 days, needs to be a config
+            );
+            $status = 1;
+        } else {
+            $status = $this->input->cookie("go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')));
+        }
+
         $query = $this->db
             ->select('ID, Username, Firstname, Lastname, Status, LastLogin')
-            ->where('UserTypeID', 1)
-            ->or_where('UserTypeID', 2)
+            ->group_start()
+                ->where('UserTypeID', 1)
+                ->or_where('UserTypeID', 2)
+            ->group_end()
+            ->where('Status', $status)
             ->get('go_users');   
 
             foreach($query->result() as $result) {
                 $return['rows'][$result->ID] = get_object_vars($result);
             }
 
+        // echo $this->db->last_query(); 
+
+        // exit;
      return $return;
+
     }
 
     /**
@@ -143,7 +189,8 @@ class GO_Admin_model extends GO_model
             if($post['password'] === $post['verify-password']) {
                 $params['Password'] = password_hash($post['password'], PASSWORD_BCRYPT);
             } else {
-                // passwords don't match
+                $this->session->set_flashdata('flashWarning', 'Passwords do not match.  Please try again.');
+                redirect(base_url() . 'admin/user/add?username=' . $post['username'] . '&firstname=' . $post['firstname'] . '&lastname=' . $post['lastname']);
             }
         }
 
@@ -271,6 +318,7 @@ class GO_Admin_model extends GO_model
 
       return true;
     }
+
 
 }
 
