@@ -27,13 +27,20 @@ class GO_Postal {
      * $data should contains the following $key => $value
      * 
      * REQUIRED Params
+     *
      * @param SendTo  => email recipients
      * @param Subject => email subject
      * @param Message => email message
      *
      * OPTIONAL Params
-     * @param FromName => From Name, useful in contact forms
-     * @param FromEmail => From Email, useful in contact forms
+     *
+     * @param FromName => From Name, useful in contact forms | String
+     * @param FromEmail => From Email, useful in contact forms | String
+     * @param Attachments => Any attachements for the message | Array of attachment paths
+     *      $invoicePDF = array(
+     *          $_SERVER['DOCUMENT_ROOT'] . 'tmp/some_file.pdf',
+     *          $_SERVER['DOCUMENT_ROOT'] . 'tmp/some__other_file.pdf'
+     *      );
      *
      */
 
@@ -71,20 +78,37 @@ class GO_Postal {
         $sendTo = explode(",", $sendTo);
 
         foreach ($sendTo as $email) {  // loop recipients
+
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {        
                 $mailer = Swift_Mailer::newInstance($transport);
 
                 if(empty($this->data["FromEmail"])) { // no FromName in Params, good for system emails
+
                     $message = Swift_Message::newInstance($this->data["Subject"])
                         ->setFrom(array($this->ci->config->item('go_company_email') => $this->ci->config->item('go_company_name')))
                         ->setTo($email)
                         ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
+
+                    if(!empty($attachments)) {
+                        foreach($attachments as $attachment) {  // loop attachments
+                            $message->attach(Swift_Attachment::fromPath($attachment));
+                        }                           
+                    } 
+
                     $mailer->send($message);  
+
                 } else { // good for recipient emails such as contact forms
                     $message = Swift_Message::newInstance($this->data["Subject"])
                         ->setFrom(array($this->data["FromEmail"] => (!empty($this->data["FromName"]) ? $this->data["FromName"] : "")))
                         ->setTo($email)
                         ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
+
+                    if(!empty($attachments)) {
+                        foreach($attachments as $attachment) {  // loop attachments
+                            $message->attach(Swift_Attachment::fromPath($attachment));
+                        }                           
+                    } 
+
                     $mailer->send($message);        
                 }    
             }

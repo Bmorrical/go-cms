@@ -67,6 +67,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
     // Start TinyMCE
         tinyMCE.init({
+        protect: [
+            /\<\/?(if|else|endif)\>/g,  // Protect <if> & </endif>
+            /<\?php.*?\?>/g  // Protect php code
+        ],            
         theme : "modern",
         mode: "exact",
         elements : "Content",

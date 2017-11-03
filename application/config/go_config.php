@@ -20,7 +20,7 @@ $config['base_url'] = 'http://localhost/' . $config['go_base_folder']; // Base U
 $_SERVER['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'] . '/' . $config['go_base_folder']; // localhost needs this for extra folder
 
 $config['go_admin_email'] = 'your_email@email.com'; // DEVELOPMENT Admin Email
-$config['go_enable_go_postman_admin_emails'] = true;  // System should dispatch Admin emails
+$config['go_enable_go_postal_admin_emails'] = false;  // System should dispatch Admin emails
 
 /** SMTP */
 
