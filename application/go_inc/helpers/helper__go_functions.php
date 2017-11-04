@@ -135,3 +135,19 @@ function go_get_menu_items($menu_id) {
 
 }
 
+/**
+ *  Protects AJAX requests to ensure that the request is AJAX
+ *
+ *  @return bool
+ */
+
+function go__is_ajax_request() {
+
+    /** Is AJAX? **/
+
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') return true;  
+    
+    else return false;
+
+}
