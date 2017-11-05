@@ -64,25 +64,33 @@ function go_debug($on, $exit, $args) {
 }
 
 /**
- *  Requires Documentation
+ *  Sets the go_flash function for Codeigniter flashdata
+ *
+ *  Ensure you use 'refresh' in your redirect, else it won't work
+ *
+ *  Step 1) $this->session->set_flashdata('flashSuccess', 'Email has been sent.');
+ *  Step 2) redirect(base_url() . 'my-account', 'refresh');
+ *  Step 3) <?= go__flash(); ?>
+ *
+ *  @return string
  */
 
-function go_flash() {
+function go__flash() {
 
     if(isset($_SESSION['flashSuccess'])) {
-        echo "<div class='flash alert alert-success' role='alert'>" . $_SESSION['flashSuccess'] . "</div>";
+        return "<div class='flash alert alert-success' role='alert'>" . $_SESSION['flashSuccess'] . "</div>";
     }
 
     if(isset($_SESSION['flashInfo'])) {
-        echo "<div class='flash alert alert-info' role='alert'>" . $_SESSION['flashInfo'] . "</div>";
+        return "<div class='flash alert alert-info' role='alert'>" . $_SESSION['flashInfo'] . "</div>";
     }
 
     if(isset($_SESSION['flashWarning'])) {
-        echo "<div class='flash alert alert-warning' role='alert'>" . $_SESSION['flashWarning'] . "</div>";
+        return "<div class='flash alert alert-warning' role='alert'>" . $_SESSION['flashWarning'] . "</div>";
     }
 
     if(isset($_SESSION['flashDanger'])) {
-        echo "<div class='flash alert alert-danger' role='alert'>" . $_SESSION['flashDanger'] . "</div>";
+        return "<div class='flash alert alert-danger' role='alert'>" . $_SESSION['flashDanger'] . "</div>";
     }
 }    
 
