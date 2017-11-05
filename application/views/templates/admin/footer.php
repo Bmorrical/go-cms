@@ -47,20 +47,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('.side_menu_ul').slideToggle('fast');
         });
 
-        positionFooter();
-        $('li[class^="menu-"] .active').removeClass('active');
-        if(menuActiveClass != "") $('.menu-' + menuActiveClass).addClass('active');
 
-        $(window).on('resize', function() {
+        /** Position Footer **/
+
             positionFooter();
-        });
+            $('li[class^="menu-"] .active').removeClass('active');
+            if(menuActiveClass != "") $('.menu-' + menuActiveClass).addClass('active');
 
-        function positionFooter() {
-            var docHeight = $(window).height();
-            var footerHeight = $('#footer').height();
-            var footerTop = $('#footer').position().top + footerHeight;
-            if(footerTop < docHeight) $('#footer').css('margin-top', -24 + (docHeight - footerTop) + 'px');
-        } 
+            $(window).on('resize', function() {
+                positionFooter();
+            });
+
+            function positionFooter() {
+                var docHeight = $(window).height();
+                var footerHeight = $('#footer').height();
+                var footerTop = $('#footer').position().top + footerHeight;
+                if(footerTop < docHeight) $('#footer').css('margin-top', -24 + (docHeight - footerTop) + 'px');
+            } 
+
+        /** Animate Flashblock **/
+        
+            setTimeout(function() {
+
+                $("#flashBlock").effect("bounce", "slow", function() {
+
+                    setTimeout(function() {
+                        $("#flashBlock").toggle("scale");
+                    }, 1000);  
+
+                });
+            }, 4000);
+
     </script>
 
     <script language="javascript" type="text/javascript" src="<?php echo base_url();?>/assets/go/tinymce/tinymce.min.js"></script>
