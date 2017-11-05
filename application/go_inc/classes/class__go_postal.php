@@ -37,7 +37,7 @@ class GO_Postal {
      * @param FromName => From Name, useful in contact forms | String
      * @param FromEmail => From Email, useful in contact forms | String
      * @param Attachments => Any attachements for the message | Array of attachment paths
-     *      $invoicePDF = array(
+     *      $data['Attachments'] = array(
      *          $_SERVER['DOCUMENT_ROOT'] . 'tmp/some_file.pdf',
      *          $_SERVER['DOCUMENT_ROOT'] . 'tmp/some__other_file.pdf'
      *      );
@@ -89,8 +89,8 @@ class GO_Postal {
                         ->setTo($email)
                         ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
 
-                    if(!empty($attachments)) {
-                        foreach($attachments as $attachment) {  // loop attachments
+                    if(!empty($this->data['Attachments'])) {
+                        foreach($this->data['Attachments'] as $attachment) {  // loop attachments
                             $message->attach(Swift_Attachment::fromPath($attachment));
                         }                           
                     } 
@@ -103,8 +103,8 @@ class GO_Postal {
                         ->setTo($email)
                         ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
 
-                    if(!empty($attachments)) {
-                        foreach($attachments as $attachment) {  // loop attachments
+                    if(!empty($this->data['Attachments'])) {
+                        foreach($this->data['Attachments'] as $attachment) {  // loop attachments
                             $message->attach(Swift_Attachment::fromPath($attachment));
                         }                           
                     } 
@@ -115,13 +115,23 @@ class GO_Postal {
         }
 
         if(true == $this->admin_emails) {
+
             $email = $this->ci->config->item('go_admin_email');
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {        
+
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {   
+                 
                 $mailer = Swift_Mailer::newInstance($transport);
                 $message = Swift_Message::newInstance($this->data["Subject"])
                     ->setFrom(array($this->ci->config->item('go_company_email') => $this->ci->config->item('go_company_name')))
                     ->setTo($email)
                     ->setBody($this->template(), 'text/html'); // n12br is required, otherwise line breaks from JavaScript don't show
+
+                    if(!empty($this->data['Attachments'])) {
+                        foreach($this->data['Attachments'] as $attachment) {  // loop attachments
+                            $message->attach(Swift_Attachment::fromPath($attachment));
+                        }                           
+                    } 
+
                 $mailer->send($message);            
             }
         }
