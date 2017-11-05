@@ -86,7 +86,18 @@ class GO_Controller extends CI_Controller
 
 	public function login() {
 
+		/** Detect if user is already signed in **/
+
 		if(
+			!empty($_SESSION['admin']['hash']) &&
+			$this->input->cookie("go-admin-hash") === $_SESSION['admin']['hash']) 
+		{ 
+			redirect($this->config->item("go_admin_login_default_route"), 'refresh');
+		}
+
+		/** Not signed in **/
+
+		else if(
 			$this->input->get('go') == $this->config->item('go_login_key') || // used the ?go={key} param in the URL string
 			$this->input->cookie("go-vetted-" . md5($this->config->item('go_admin_login_cookie'))) // had already signed in previously
 		){
@@ -105,6 +116,9 @@ class GO_Controller extends CI_Controller
 				);
 			}
 		} 
+
+		/** No Authorization **/
+		
 		else {
 			show_404();
 		}
