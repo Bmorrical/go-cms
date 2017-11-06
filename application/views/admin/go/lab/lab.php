@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="flashBlock">
-						<?php go_flash(); ?>
+						<?= go__flash(); ?>
 					</div>
 				</div>
 			</div>			
