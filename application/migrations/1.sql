@@ -1,4 +1,14 @@
 # 10-30-2017
+
+CREATE TABLE `go_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ALTER TABLE `go_menu_items` 
 ADD INDEX `menu_items__MenuItemURL` (`MenuItemURL` ASC);
 

@@ -57,6 +57,8 @@ class GO_Login extends GO_Controller
 
     public function process_home_login() {
 
+        /** ADMIN LOGIN OVERRIDE */
+
         /**
          *  This function is found in Home_model.php and offers a place to inject a custom process into the login 
          *  or a place to return additional meta-data about the logged in user.
@@ -65,9 +67,10 @@ class GO_Login extends GO_Controller
          *  in login_helper().
          */
 
-            $helper_data = $this->ci->home->login_helper($this->post);   
+            $helper_data = $this->ci->home->login_helper($this->post);  
 
-        /** End Helper */      
+        /** END ADMIN LOGIN OVERRIDE */   
+
 
         $query = $this->ci->db
             ->select('*')
@@ -153,6 +156,8 @@ class GO_Login extends GO_Controller
 
         if($user) {
 
+            /** ADMIN LOGIN OVERRIDE */
+
             /**
              *  This function is found in Home_model.php and offers a place to inject a custom process into the login 
              *  or a place to return additional meta-data about the logged in user.
@@ -161,10 +166,19 @@ class GO_Login extends GO_Controller
              *  in login_helper().
              */
 
-                // On hold, can't get admin to hook to go_model, works ok for Home
-                    // $helper_data = $this->ci->admin->login_helper($user, $this->post);   
 
-            /** End Helper */              
+                /***
+                 *  To Do <go-cms roadmap> wrap this in a go-config var so we don't
+                 *  have to load go_model for instances not using this feature.
+                 */
+
+                $this->ci->load->model('Home_model','home');
+                $helper_data = $this->ci->home->login_helper($user, $this->post);   
+
+                /***/
+
+
+            /** END ADMIN LOGIN OVERRIDE */              
 
             if(password_verify($this->post['password'], $user->Password)) {
 
