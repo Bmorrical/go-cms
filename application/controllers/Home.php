@@ -8,7 +8,11 @@ class Home extends GO_Home_Controller {
 		$this->load->model('home_model','home');
 	}
 
-	public function login_helper($data) {
+    /**
+     *  This function fires in HOME login process, so that additional application 
+     *  specific logic can be injected at login runtime.
+     */
+	public function home_login_helper($data) {
 
 	}
 

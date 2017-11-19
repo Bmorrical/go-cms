@@ -67,7 +67,7 @@ class GO_Login extends GO_Controller
          *  in login_helper().
          */
 
-            $helper_data = $this->ci->home->login_helper($this->post);  
+            $helper_data = $this->ci->home->home_login_helper($this->post);  
 
         /** END ADMIN LOGIN OVERRIDE */   
 
@@ -173,7 +173,7 @@ class GO_Login extends GO_Controller
                  */
 
                 $this->ci->load->model('Home_model','home');
-                $helper_data = $this->ci->home->login_helper($user, $this->post);   
+                $helper_data = $this->ci->home->admin_login_helper($user, $this->post);   
 
                 /***/
 

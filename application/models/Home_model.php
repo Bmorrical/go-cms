@@ -7,12 +7,12 @@ class Home_model extends GO_Home_model {
 		parent::__construct();
 	}
 
-	/**
-	 *  This function fires in home login process, so that additional application 
-	 *  specific logic can be injected at login runtime.
-	 */
-	public function login_helper($post = false) {
-		return false;
+    /**
+     *  This function fires in ADMIN login process, so that additional application 
+     *  specific logic can be injected at login runtime.
+     */
+    public function admin_login_helper($user, $post) {
+		return;
 	}
 
     /**
