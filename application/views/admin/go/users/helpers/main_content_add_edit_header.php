@@ -16,28 +16,27 @@
 		<h1><?= ucfirst($this_page_type) . " " . ucfirst($this_page_singular); ?></h1>
 	</div>
 	<div class="col-md-8">
-		<a href="<?= base_url(); ?>admin/<?= $this_page_plural; ?>">
-			<button type="button" name="save" class="btn btn-primary actions" form="form1">
-				Cancel
-			</button>
-		</a>
-		<button type="submit" name="save-and-close" class="btn btn-primary actions" form="form1">
-			Save and Close
-		</button>	
-		<button type="submit" name="save-and-new" class="btn btn-primary actions" form="form1">
-			Save and New
-		</button>		
+
+		<?php if($_SESSION['admin']['session_type'] == 1) : ?>
+
+			<a href="<?= base_url(); ?>admin/<?= $this_page_plural; ?>">
+				<button type="button" name="save" class="btn btn-primary actions" form="form1">
+					Cancel
+				</button>
+			</a>
+			<button type="submit" name="save-and-close" class="btn btn-primary actions" form="form1">
+				Save and Close
+			</button>	
+			<button type="submit" name="save-and-new" class="btn btn-primary actions" form="form1">
+				Save and New
+			</button>		
+
+		<?php endif; ?>
+
 		<button type="submit" name="save" class="btn btn-primary actions" form="form1">
 			Save <?= ucfirst($this_page_singular); ?>
-		</button>			
+		</button>	
+
 	</div>					
 </div>				
 <div class="clear"></div>
-
-<?php 
-	/** $save_route = (!empty($this->input->get('id'))) ? "?id=" . $this->input->get('id') : "";
-
-<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural . $save_route; ?>">
-*/
-
-?>	

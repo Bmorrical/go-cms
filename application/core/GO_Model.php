@@ -36,6 +36,26 @@ class GO_Admin_model extends GO_model
         parent::__construct();
     }    
     
+
+    public function users_activate_inactivate($post) {
+
+        ($this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))) == 1) ? $new_status = 0 : $new_status = 1;
+
+        foreach ($post as $key => $value) {
+            $data = array(
+                'Status'    => $new_status,
+                'Updated'   => date('Y-m-d H:i:s'),
+                'UpdatedBy' => $_SESSION['admin']['user_id']
+            );
+            $this->db->where('ID', $key);
+            $this->db->update('go_users', $data);
+        }
+
+        $this->session->set_flashdata('flashSuccess', 'Records have been successfully updated.');
+
+        redirect(base_url() . 'admin/users');
+    }   
+
     /**
      *  Requires Documentation
      */
@@ -49,26 +69,28 @@ class GO_Admin_model extends GO_model
 
         if($query->num_rows() > 0) {
             $this->session->set_flashdata('flashWarning', 'Username is already in use.  Please try again.');
-                redirect(base_url() . 'admin/user/add?firstname=' . $post['firstname'] . '&lastname=' . $post['lastname']);
+                redirect(base_url() . 'admin/user/add?firstname=' . $post['Firstname'] . '&lastname=' . $post['Lastname']);
         } else {
 
             $params = array(
-                'Username'  => $post['username'],
-                'Firstname' => $post['firstname'],
-                'Lastname'  => $post['lastname'],
+                'Username'  => $post['Username'],
+                'Firstname' => $post['Firstname'],
+                'Lastname'  => $post['Lastname'],
                 'UserTypeID' => 2,
                 'Status'    => 1,
                 'Created'   => date('Y-m-d H:i:s'),
                 'Updated'   => date('Y-m-d H:i:s')
             );
 
-            if($post['password'] != "" || $post['verify-password'] != "") {
-                if($post['password'] === $post['verify-password']) {
-                    $params['Password'] = password_hash($post['password'], PASSWORD_BCRYPT);
+            if($post['Password'] != "" || $post['Verify-Password'] != "") {
+
+                if($post['Password'] === $post['Verify-Password']) {
+                    $params['Password'] = password_hash($post['Password'], PASSWORD_BCRYPT);
                 } else {
                     $this->session->set_flashdata('flashWarning', 'Passwords do not match.  Please try again.');
-                    redirect(base_url() . 'admin/user/add?username=' . $post['username'] . '&firstname=' . $post['firstname'] . '&lastname=' . $post['lastname']);
+                    redirect(base_url() . 'admin/user/add?username=' . $post['Username'] . '&firstname=' . $post['Firstname'] . '&lastname=' . $post['Lastname'] . '&email=' . $post['Email']);
                 }
+
             }
 
             $this->db->insert('go_users', $params);
@@ -157,17 +179,15 @@ class GO_Admin_model extends GO_model
      */
 
     public function go_get_user($id) {
+
         $return = array();
+        
         $query = $this->db
-            ->select('ID, Username, Firstname, Lastname')
+            ->select('ID, Username, Firstname, Lastname, Email')
             ->where('ID', $id)
             ->get('go_users');   
 
-            foreach($query->result() as $result) {
-                $return[] = get_object_vars($result);
-            }
-
-     return $return;
+        return $query->row();
     }
 
     /**
@@ -177,20 +197,30 @@ class GO_Admin_model extends GO_model
     public function put_user($post) {
        
         $params = array(
-            'Username'  => $post['username'],
-            'Firstname' => $post['firstname'],
-            'Lastname'  => $post['lastname'],
-            'Updated'   => date('Y-m-d H:i:s')
+            'Username'  => $post['Username'],
+            'Firstname' => $post['Firstname'],
+            'Lastname'  => $post['Lastname'],
+            'Updated'   => date('Y-m-d H:i:s'),
+            'Email' => $post['Email']
         );
 
-        if($post['password'] != "" || $post['verify-password'] != "") {
-            if($post['password'] === $post['verify-password']) {
-                $params['Password'] = password_hash($post['password'], PASSWORD_BCRYPT);
+        if($post['Password'] != "" || $post['Verify-Password'] != "") {
+
+            if($post['Password'] === $post['Verify-Password']) {
+                $params['Password'] = password_hash($post['Password'], PASSWORD_BCRYPT);
             } else {
                 $this->session->set_flashdata('flashWarning', 'Passwords do not match.  Please try again.');
-                redirect(base_url() . 'admin/user/add?username=' . $post['username'] . '&firstname=' . $post['firstname'] . '&lastname=' . $post['lastname']);
+                redirect(base_url() . 'admin/user/add?username=' . $post['Username'] . '&firstname=' . $post['Firstname'] . '&lastname=' . $post['Lastname'] . '&email=' . $post['Email']);
             }
+
         }
+
+        /** If the user is Super Admin, we will honor the GET param for user ID */
+
+            if($_SESSION['admin']['session_type'] == 1) $user_id = $this->input->get('id');
+
+            else $user_id = $_SESSION['admin']['user_id'];             
+
 
         $this->db->where('ID', $this->input->get('id'));
         $this->db->update('go_users', $params);

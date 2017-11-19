@@ -24,7 +24,7 @@
 		<div class="col-md-9">
 
 			<?php include_once(APPPATH . 'views/admin/go/users/helpers/main_content_header.php'); ?>
-			
+
 			<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural; ?>">	
 
 				<?php if(empty($this_page_results['rows'])) : ?>
@@ -113,46 +113,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-
-	var userID = "<?= $this->session->userdata('user_id'); ?>";
-	var base_url = '<?= base_url(); ?>';
-
-	$(window).on("load", function() {
-
-		$('.status').on('click', function() {
-
-			$('#flashBlock').empty();
-			
-			var id = $(this).attr('id').split('-');
-			
-			if(id[1] == userID) {
-
-				$('#flashBlock').append(
-					$('<div>', {
-						class: 'flash alert alert-warning', 
-						text: 'You are not allowed to disable your own user account.  Please contact a site administrator for assistance.'
-					}
-				))
-
-			} else {
-
-				if($(this).hasClass('published')) {var status = 0 } else { var status = 1};
-				
-				$.ajax({
-					url : base_url + 'admin/ajax_set_user_status',
-					type : 'POST',
-					dataType : 'JSON',
-					data : {
-						UserID : id[1],
-						Status : status
-					},
-					success 	: function(d) {	
-						location.reload(); 
-					}
-				})
-			}
-		})
-	})
-</script>

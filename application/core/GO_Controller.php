@@ -202,7 +202,10 @@ class GO_Admin_Controller extends GO_Controller
 
 			go_verify_user_session("admin");
 
-			if($_SESSION['admin']['session_type'] !== 1) show_404(); // let's look and see if better method here than 404
+			/** Deny access if not Super Admin */			
+			if($_SESSION['admin']['session_type'] != 1) show_404();		
+
+			if(($_POST && isset($_POST['menu_activate_inactivate']))) $this->admin->users_activate_inactivate($_POST);  // Toggle Active/Inactive
 
 
 			$queries = array(
@@ -231,9 +234,21 @@ class GO_Admin_Controller extends GO_Controller
 				$this->admin->put_user($_POST); 
 			}
 
-			$queries = array(
-				'user' => $this->admin->go_get_user($this->input->get('id'))
-			);	
+			/** If the user is Super Admin, we will honor the GET param for user ID */
+
+			if($_SESSION['admin']['session_type'] == 1) {
+			
+				$queries = array(
+					'user' => (array)$this->admin->go_get_user($this->input->get('id'))
+				);	
+
+			} else {
+
+				$queries = array(
+					'user' => (array)$this->admin->go_get_user($_SESSION['admin']['user_id'])
+				);				
+			}
+
 
 			$this->go_load_page(
 				array(
@@ -251,6 +266,9 @@ class GO_Admin_Controller extends GO_Controller
 		 */
 
 		public function user_add() {
+
+			/** Deny access if not Super Admin */
+			if($_SESSION['admin']['session_type'] != 1) show_404();
 
 			go_verify_user_session("admin");
 

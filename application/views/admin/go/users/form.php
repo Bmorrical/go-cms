@@ -15,13 +15,17 @@
 		Username
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="username" type="text" value="<?php 
-			if(isset($user[0]['Username'])) {
-				echo $user[0]['Username']; 
-			} else if (null !== $this->input->get('username')) {
-				echo $this->input->get('username');
-			}
-		?>">
+		<input 
+			class='form-control' 
+			name='Username' 
+			type='text' 
+			value='<?php if(isset($user['Username'])) echo $user['Username']; ?>'
+
+			<?php if($_SESSION['admin']['session_type'] != 1) : ?>	
+				disabled='true'
+			<?php endif; ?>
+
+		>
 	</div>
 </div>
 <div class="row">
@@ -29,7 +33,7 @@
 		Password
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="password" type="password">
+		<input class="form-control" name="Password" type="password">
 	</div>
 </div>
 <div class="row">
@@ -37,7 +41,7 @@
 		Verify Password
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="verify-password" type="password">
+		<input class="form-control" name="Verify-Password" type="password">
 	</div>
 </div>
 <div class="row">
@@ -45,13 +49,7 @@
 		First Name
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="firstname" type="text" value="<?php 
-			if(isset($user[0]['Firstname'])) {
-				echo $user[0]['Firstname']; 
-			} else if (null !== $this->input->get('firstname')) {
-				echo $this->input->get('firstname');
-			}
-		?>">
+		<input class='form-control' name='Firstname' type='text' value='<?php if(isset($user['Firstname'])) echo $user['Firstname']; ?>'>
 	</div>
 </div>
 <div class="row">
@@ -59,12 +57,16 @@
 		Last Name
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="lastname" type="text" value="<?php 
-			if(isset($user[0]['Lastname'])) {
-				echo $user[0]['Lastname']; 
-			} else if (null !== $this->input->get('lastname')) {
-				echo $this->input->get('lastname');
-			}
-		?>">
+		<input class='form-control' name='Lastname' type='text' value='<?php if(isset($user['Lastname'])) echo $user['Lastname']; ?>'>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-2">
+		Email
+	</div>
+	<div class="col-md-6">
+		<input class='form-control' name='Email' type='text' value='<?php if(isset($user['Email'])) echo $user['Email']; ?>'>
+	</div>
+</div>
+<?php var_dump($user); ?>
+<?php var_dump($_SESSION); ?>

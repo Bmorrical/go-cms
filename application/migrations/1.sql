@@ -18,3 +18,9 @@ ADD INDEX `users__username` (`Username` ASC);
 ALTER TABLE `go_users` 
 CHANGE COLUMN `Username` `Username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL ,
 ADD UNIQUE INDEX `Username_UNIQUE` (`Username` ASC);
+
+ALTER TABLE `go_users` 
+ADD COLUMN `Email` VARCHAR(255) NULL AFTER `Status`;
+
+ALTER TABLE `go_users` 
+ADD COLUMN `UpdatedBy` DATETIME NULL AFTER `LastLogin`;

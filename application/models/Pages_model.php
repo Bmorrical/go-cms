@@ -65,20 +65,20 @@ class Pages_model extends GO_Admin_model {
 
 	// GET (Read)
 
-		public function get_display_status($id) {
-			$return = array();
-			$query = $this->db
-				->select('DisplayStatus')
-				->where('MenuItemID', $id)
-				->limit(1)
-				->get('go_menu_items');
+		// public function get_display_status($id) {
+		// 	$return = array();
+		// 	$query = $this->db
+		// 		->select('DisplayStatus')
+		// 		->where('MenuItemID', $id)
+		// 		->limit(1)
+		// 		->get('go_menu_items');
 
-			foreach($query->result() as $d) {
-				$return = get_object_vars($d);
-			}
+		// 	foreach($query->result() as $d) {
+		// 		$return = get_object_vars($d);
+		// 	}
 
-			$this->session->set_userdata('display_status', $return['DisplayStatus']);
-		}
+		// 	$this->session->set_userdata('display_status', $return['DisplayStatus']);
+		// }
 
 		public function go_get_all() {
 			$return = array();

@@ -12,10 +12,18 @@
 ?>
 <script>
 	var menu_item_id = "<?= $this->session->userdata('menu_item_id'); ?>"; // gets set in controller sizes()
-	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
+
+	// var display_status = "<?php //= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
+
 	var base_url = '<?= base_url(); ?>';
+	
+	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
+	
+	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in model
+
 	$(window).on('load', function(){
-		$('#status').val(display_status).prop('selected', true); // set Active/Inactive drop down
+
+		$('#status').val(menu_active_inactive).prop('selected', true); // set Active/Inactive drop down
 		if(display_status == 0) {
 			var d = $('#toggleDisplay');
 			d.removeClass('btn-danger').addClass('btn-success');

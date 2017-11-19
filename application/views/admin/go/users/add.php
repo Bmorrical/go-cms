@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-			<form id="form1" class="" method="post" action="<?php echo base_url() . 'admin/user/add'; ?>">
+			<form id="form1" class="" method="post" action="<?php echo base_url() . 'admin/users'; ?>">
 				<?php include_once(APPPATH . 'views/admin/go/users/form.php'); ?>
 			</form>
 		</div>

@@ -29,31 +29,36 @@
 			<button type="button" class="btn btn-primary actions">
 				Add New <?= ucfirst($this_page_singular); ?>
 			</button>
-		</a>		
-		<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
-			Disable <?= ucfirst($this_page_singular); ?>(s)
-		</button>		
+		</a>	 
+
+		<?php if($this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))) == 1) : ?>
+
+			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-danger hidden actions" form="form1">
+				Disable <?= ucfirst($this_page_singular); ?>(s)
+			</button>	
+
+		<?php else : ?>
+
+			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-success hidden actions" form="form1">
+				Enable <?= ucfirst($this_page_singular); ?>(s)
+			</button>		
+
+		<?php endif; ?>
+
 	</div>					
 </div>				
 
 <script>
 
-	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
-
 	var base_url = '<?= base_url(); ?>';
 
 	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
-	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in controller
+
+	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in model
 
 	$(window).on('load', function(){
 
 		$('#status').val(menu_active_inactive).prop('selected', true); // set Active/Inactive drop down
-
-		if(display_status == 0) {
-			var d = $('#toggleDisplay');
-			d.removeClass('btn-danger').addClass('btn-success');
-			d.text(d.text().trim().replace(/Disable/i, "Enable"));
-		}
 
 		$('#toggle-all-master').on('change', function () {
 			if($(this).is(':checked')) {
@@ -69,10 +74,10 @@
 
 		$('.check-toggle, #toggle-all-master').on('change', function() {
 			if ($('input[type=checkbox]').is(":checked")) {
-				$('#toggleDisplay').removeClass('hidden');
+				$('#menu_activate_inactivate').removeClass('hidden');
 				$('#emailBtn, #printBtn').show();
 			} else {
-				$('#toggleDisplay').addClass('hidden');	
+				$('#menu_activate_inactivate').addClass('hidden');	
 				$('#emailBtn, #printBtn').hide();							
 			}
 		});

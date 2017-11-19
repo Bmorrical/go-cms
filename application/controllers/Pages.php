@@ -46,8 +46,9 @@ class Pages extends GO_Admin_Controller {
 			}
 			$menu_item_id = 6; // INT is set on SQL of Class creation from LAB
 			$this->session->set_userdata('menu_item_id', $menu_item_id);
-			$this->page->get_display_status($menu_item_id);
+
 			if(($_POST && isset($_POST['toggleDisplay']))) $this->page->toggle_display($_POST);  // Toggle Active/Inactive
+			
 			$data = array(
 				'pages' => $this->page->go_get_all()
 			);
