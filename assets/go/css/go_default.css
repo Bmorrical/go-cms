@@ -127,17 +127,23 @@
         padding-top: 22px;
     }
     .main-content-top-pad {
-        padding-top: 32px;
-        margin-bottom: -50px;
+        padding-top: 20px;
+        margin-bottom: 20px;
     }    
     button.actions {
         margin: 15px 0px 5px 15px;
         float: right;      
     }
-    .flash {
-/*        margin-left: 25px;*/
+    #flash-block-container {
+        margin-top: 30px;
+        height: 25px;    
     }
-
+    #flashBlock {
+        text-align: center;
+        float: left;
+        width: 100%;
+    }
+    
 /* End Main Content Header */
 
 

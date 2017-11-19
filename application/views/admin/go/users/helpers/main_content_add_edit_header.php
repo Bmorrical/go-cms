@@ -10,6 +10,7 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
+
 <div class="row main-content-top-pad">
 	<div class="col-md-4">
 		<h1><?= ucfirst($this_page_type) . " " . ucfirst($this_page_singular); ?></h1>
@@ -31,14 +32,12 @@
 		</button>			
 	</div>					
 </div>				
-<div class="row">
-	<div class="col-md-12">
-		<div id="flashBlock">
-			<?= go__flash(); ?>
-		</div>
-	</div>
-</div>
+<div class="clear"></div>
+
 <?php 
-	$save_route = (!empty($this->input->get('id'))) ? "?id=" . $this->input->get('id') : "";
-?>
-<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural . $save_route; ?>">	
+	/** $save_route = (!empty($this->input->get('id'))) ? "?id=" . $this->input->get('id') : "";
+
+<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural . $save_route; ?>">
+*/
+
+?>	

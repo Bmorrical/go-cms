@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
-	/**
-	 *  Requires Documentation to
-	 *  ever update your go-cms version.  Changes would be lost.
-	 */
+
+    /**
+     *  This is a core go-cms file.  Do not edit if you plan to
+     *  ever update your go-cms version.  Changes would be lost.
+     */
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
@@ -131,7 +132,7 @@ class GO_Controller extends CI_Controller
 	public function logout() {
 
 		// if(!empty($_SESSION['admin'])) {
-		//nneds some more work here
+		// needs some more work here
 		// }
 		$_SESSION = array();
 		session_destroy();
@@ -200,6 +201,9 @@ class GO_Admin_Controller extends GO_Controller
 		public function users() {
 
 			go_verify_user_session("admin");
+
+			if($_SESSION['admin']['session_type'] !== 1) show_404(); // let's look and see if better method here than 404
+
 
 			$queries = array(
 				'users' => $this->admin->go_get_users($this->admin->users_page_id())
@@ -390,14 +394,15 @@ class GO_Home_Controller extends GO_Controller
 
         $row = $query->row();
 
-        if(!$row) $page = 'home/partials/' . $route; // is a partial
-        else $page = 'home/go_router'; // is dynamic content from router
+        if(!$row) $page = 'home/partials/' . $route; /** Is a partial */
+        else $page = 'home/go_router'; /** Is dynamic content from router */
 
         $route_string = str_replace("-", " ", $route);
 
         $meta_title = (!empty($row->MetaTitle)) ? $row->MetaTitle : ucwords($route_string);
 
 		$this->load->model('home_model','home');
+
 		$this->go_load_page(
 			array(
 				'page' => $page,

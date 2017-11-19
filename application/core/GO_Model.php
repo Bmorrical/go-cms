@@ -73,7 +73,7 @@ class GO_Admin_model extends GO_model
 
             $this->db->insert('go_users', $params);
 
-            $this->session->set_flashdata('flashSuccess', 'User: ' . $post['username'] . '<br /><br />Record has been successfully created.');
+            $this->session->set_flashdata('flashSuccess', 'Record has been successfully created.');
 
             if(array_key_exists('save', $post)) {
                 redirect(base_url() . 'admin/user/edit?id=' . $this->db->insert_id());
@@ -119,10 +119,13 @@ class GO_Admin_model extends GO_model
      */
 
     public function go_get_users($users_page_id) {
+
         $return = array();
         $return['rows'] = array();
 
-        // if no cookie, set one to Active
+        /**
+         *  If there is no cookie for menu preference, set one to Active.  
+         */
         if (is_null($this->input->cookie("go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie'))))) {
             $this->input->set_cookie(
                 "go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')), 
@@ -134,22 +137,17 @@ class GO_Admin_model extends GO_model
             $status = $this->input->cookie("go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')));
         }
 
+
         $query = $this->db
-            ->select('ID, Username, Firstname, Lastname, Status, LastLogin')
-            ->group_start()
-                ->where('UserTypeID', 1)
-                ->or_where('UserTypeID', 2)
-            ->group_end()
-            ->where('Status', $status)
-            ->get('go_users');   
+            ->select('u.*, ut.UserType')
+            ->join('go_user_types ut', 'ut.UserTypeID = u.UserTypeID')
+            ->where('u.Status', $status)
+            ->get('go_users u');   
 
             foreach($query->result() as $result) {
-                $return['rows'][$result->ID] = get_object_vars($result);
+                $return['rows'][$result->ID] = get_object_vars($result);                   
             }
 
-        // echo $this->db->last_query(); 
-
-        // exit;
      return $return;
 
     }
@@ -197,7 +195,7 @@ class GO_Admin_model extends GO_model
         $this->db->where('ID', $this->input->get('id'));
         $this->db->update('go_users', $params);
 
-        $this->session->set_flashdata('flashSuccess', 'User: ' . $post['username'] . '<br /><br />Record has been successfully updated.');
+        $this->session->set_flashdata('flashSuccess', 'Record has been successfully updated.');
 
         if(array_key_exists('save', $post)) {
             redirect(base_url() . 'admin/user/edit?id=' . $this->input->get('id'));
@@ -303,12 +301,10 @@ class GO_Admin_model extends GO_model
         return $ipaddress;
     }       
 
-    /*
-    *
+    /**
     * Set Version of Go CMS to updated Version
     *
-    * @return boolean
-    *
+    * @return bool
     */
 
     public function go_set_version($newVersion){

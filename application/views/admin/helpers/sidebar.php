@@ -31,5 +31,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php endif; ?>
 		</div>	
 		<?php go_get_menu_items(2); ?>
+
+		<div id="flash-block-container">
+			<div id="flashBlock">
+				<?= go__flash(); ?>
+			</div>
+		</div>	
+
 	</div>
 <?php endif; ?>	

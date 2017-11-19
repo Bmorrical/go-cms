@@ -72,11 +72,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $("#flashBlock").effect("bounce", "slow", function() {
 
                     setTimeout(function() {
-                        $("#flashBlock").toggle("scale");
-                    }, 1000);  
+                        $("#flashBlock").toggle('fast')
+                    }, 1000)
 
-                });
-            }, 4000);
+                })
+                
+            }, 4000)
 
     </script>
 

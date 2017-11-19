@@ -10,6 +10,32 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
+
+<div class="row main-content-top-pad">
+	<div class="col-md-9">
+		<h1>Manage <?= ucfirst($this_page_plural); ?></h1>
+	</div>
+	<div class="col-md-3 search">
+		<select class="form-control" id="status">
+			<option value="1">Active</option>
+			<option value="0">Inactive</option>
+		</select>
+	</div>
+</div>	
+
+<div class="row">
+	<div class="col-md-12">
+		<a href="<?= base_url(); ?>admin/<?= $this_page_singular; ?>/add">
+			<button type="button" class="btn btn-primary actions">
+				Add New <?= ucfirst($this_page_singular); ?>
+			</button>
+		</a>		
+		<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
+			Disable <?= ucfirst($this_page_singular); ?>(s)
+		</button>		
+	</div>					
+</div>				
+
 <script>
 
 	var display_status = "<?= $this->session->userdata('display_status'); ?>"; // gets set in model get_display_status()
@@ -63,52 +89,8 @@
 					location.reload();	
 				}
 			})
-		});	
+		})
 
-	});
+	})
+
 </script>
-
-<div class="row main-content-top-pad">
-	<div class="col-md-9">
-		<h1>Manage <?= ucfirst($this_page_plural); ?></h1>
-	</div>
-	<div class="col-md-3 search">
-		<select class="form-control" id="status">
-			<option value="1">Active</option>
-			<option value="0">Inactive</option>
-		</select>
-	</div>
-<!-- 	<div class="col-md-3 search">
-		<form id="form-search" method="post" action="<?php // echo base_url() . 'admin/' . $this_page_plural; ?>">
-			<input type="text" class="form-control search-field" placeholder="Search..." name="search-text">
-		</form>
-	</div> -->
-</div>	
-<div class="row">
-	<div class="col-md-12">
-		<a href="<?= base_url(); ?>admin/<?= $this_page_singular; ?>/add">
-			<button type="button" class="btn btn-primary actions">
-				Add New <?= ucfirst($this_page_singular); ?>
-			</button>
-		</a>		
-		<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
-			Disable <?= ucfirst($this_page_singular); ?>(s)
-		</button>		
-	</div>					
-</div>				
-<div class="row">
-	<div class="col-md-12">
-		<div id="flashBlock">
-			<?= go__flash(); ?>
-		</div>
-	</div>
-</div>
-<?php
-	if(empty($this_page_results['rows'])) { ?>
-		<div class="row">
-			<div class="col-md-12">
-				<p>No records found!</p>
-			</div>
-		</div>
-<?php } ?>
-<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural; ?>">	

@@ -31,13 +31,7 @@
 		</button>			
 	</div>					
 </div>				
-<div class="row">
-	<div class="col-md-12">
-		<div id="flashBlock">
-			<?= go__flash(); ?>
-		</div>
-	</div>
-</div>
+
 <?php 
 	$save_route = (!empty($this->input->get('id'))) ? "?id=" . $this->input->get('id') : "";
 ?>

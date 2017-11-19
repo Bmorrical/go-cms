@@ -86,13 +86,7 @@
 		</button>		
 	</div>					
 </div>				
-<div class="row">
-	<div class="col-md-12">
-		<div id="flashBlock">
-			<?= go__flash(); ?>
-		</div>
-	</div>
-</div>
+
 <?php
 	if(empty($this_page_results['rows'])) { ?>
 		<div class="row">

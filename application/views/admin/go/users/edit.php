@@ -10,23 +10,21 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
-<div class="container-fluid">
-	<div class="row">
+	<?php
+// Start Page Config
+    	$this_page_singular = 'user'; // defined for text html
+    	$this_page_plural = 'users';
+    	$this_page_type = 'edit';
+    	$this_page_results = $page; // defined as result array back from controller
+// End Page Config
+	?>
+<div class='container-fluid'>
+	<div class='row'>
 		<?php include_once(APPPATH . 'views/admin/helpers/sidebar.php'); ?>
-		<div class="col-md-9">
-			<div class="row">
-				<div class="col-md-3">
-					<h1>Edit User</h1>
-				</div>
-				<div class="col-md-9">
-					<div class="row actions pull-right">
-						<button name="save" class="btn btn-primary" type="submit" form="form1">Save User</button>
-						<button name="save-and-new" class="btn btn-primary" type="submit" form="form1">Save and New</button>
-						<button name="save-and-close" class="btn btn-primary" type="submit" form="form1">Save and Close</button>
-						<a href="<?php echo base_url(); ?>admin/users"><button type="button" class="btn btn-primary">Cancel</button></a>
-					</div>
-				</div>
-			</div>
+		<div class='col-md-9'>
+			<?php
+				include_once(APPPATH . 'views/admin/go/users/helpers/main_content_add_edit_header.php');
+			?>
 			<form id="form1" class="" method="post" action="<?php echo base_url() . 'admin/user/edit?id=' . $this->input->get('id'); ?>">			
 				<?php include_once(APPPATH . 'views/admin/go/users/form.php'); ?>
 			</form>
