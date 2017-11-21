@@ -55,9 +55,18 @@
 	</div><!-- end row -->
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4 login-copyright">
+
 			<p>&copy; <?php echo date('Y') . " " . $this->config->item('go_company_name'); ?> | All Rights Reserved</p>
-			<?php echo "<p>Powered by <a href='http://go-cms.org' target='_blank'>go-cms</a> built on <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a></p>"; 
-			?>
+
+			<?php if( null === $this->config->item('go_admin_login_originator_links') 
+			      || $this->config->item('go_admin_login_originator_links') == true ) : ?>
+
+				<?php echo "<p>Powered by <a href='http://go-cms.org' target='_blank'>go-cms</a> built on <a href='https://github.com/bcit-ci/CodeIgniter' target='_blank'>CodeIgniter</a></p>"; ?>
+
+			<?php endif; ?>
+
+
+
 		</div>
 	</div>
 </div>

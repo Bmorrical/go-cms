@@ -243,14 +243,15 @@
     font-size: .7em;
     padding-left: 15px;
 }
-[class*="has-error-"], [class*=" has-error-"] {
+
+/*[class*="has-error-"], [class*=" has-error-"] {
     border: 1px solid #a94442;
     background-color: #fbeded;
-}
+}*/
 
 .has-error {
     border: 1px solid #ff0500;
-    background-color: #ffbbba;
+    background-color: #fff;
 }
 
 

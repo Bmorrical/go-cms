@@ -195,7 +195,8 @@ class GO_Admin_Controller extends GO_Controller
 	// Start Users
 
 		/**
-		 *  Requires Documentation
+		 *  User Page
+		 *  Only accessible to Super Admins user status
 		 */
 
 		public function users() {
@@ -223,21 +224,38 @@ class GO_Admin_Controller extends GO_Controller
 		}
 
 		/**
-		 *  Requires Documentation
+		 *  User Edit Page
 		 */
 
 		public function user_edit() {
 
 			go_verify_user_session("admin");
 
-			if($_POST) {
-				$this->admin->put_user($_POST); 
-			}
+			/** Admin User can only load their own account for editing */
+
+			if( $_SESSION['admin']['session_type'] != 1 && 
+			    $this->input->get('id') != $_SESSION['admin']['session_type'] ) show_404();
+
+			/** Request for User Update */
+
+			if($_POST) $this->admin->put_user($_POST); 
 
 			/** If the user is Super Admin, we will honor the GET param for user ID */
 
 			if($_SESSION['admin']['session_type'] == 1) {
-			
+
+				/** If Super Admin is editing, make sure they can't access and edit page where a user does not exist */
+
+				$query = $this->db
+					->select('ID')
+					->where('ID', $this->input->get('id'))
+					->limit(1)
+					->get('go_users');
+
+				if(!$query->row()) show_404();
+
+				/** All checks are passed, process user load request */
+
 				$queries = array(
 					'user' => (array)$this->admin->go_get_user($this->input->get('id'))
 				);	
@@ -246,7 +264,8 @@ class GO_Admin_Controller extends GO_Controller
 
 				$queries = array(
 					'user' => (array)$this->admin->go_get_user($_SESSION['admin']['user_id'])
-				);				
+				);		
+
 			}
 
 
@@ -262,7 +281,7 @@ class GO_Admin_Controller extends GO_Controller
 		}
 
 		/**
-		 *  Requires Documentation
+		 *  User Add Page
 		 */
 
 		public function user_add() {

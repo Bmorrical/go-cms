@@ -120,15 +120,79 @@ function go_get_menu_items($menu_id) {
                 }
             }
 
-            if($result->Level >= $_SESSION['admin']['user_type']) { // Page has miniumum level to restrict or allows acceess
+            if($result->Level >= $_SESSION['admin']['session_type']) { // Page has miniumum level to restrict or allows acceess
+
                 $return .= "<li class='menu-" . $result->ActiveClass . "'>";  // set active class for menu
+
                 if($result->MenuItemURL != "") { // setup child LI's
-                    ($result->MenuItemID == 1) ? $key = '?go=' . $ci->config->item('go_login_key') : $key = "";
-                    if($result->Icon != "" || !is_null($result->Icon)) {
+
+
+                    /** START LOGOUT TAB */
+
+                        /** Add go-cms ?key to the href if this iteration is for the Logout row */
+
+                        if ($result->MenuItemID == 1) {
+                            $key = '?go=' . $ci->config->item('go_login_key');
+                        } else {
+                            $key = "";
+                        } 
+
+
+                    /** START USERS TAB */
+
+                        /** Users Tab for Super Admin */
+
+                            if ($result->MenuItemID == 3 && $_SESSION['admin']['session_type'] == 1) {
+
+                                if(!empty($result->Icon)) {
+
+                                    $return .= "<a class='menu-contents menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'><i class='" .  $result->Icon . "'></i> " . $result->MenuItemName . "</a>";
+
+                                } else {
+
+                                    $return .= "<a class='menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'>" . $result->MenuItemName . "</a>";
+
+                                }              
+
+                                continue;          
+
+                            } 
+
+                        /** Users Tab for Admin User */
+
+                            elseif ($result->MenuItemID == 3 && $_SESSION['admin']['session_type'] == 2) {
+
+                                /** ?id=<user_id> not required here, because we handle the user id from the $_SESSION in GO_CONTROLLER */
+
+                                    $route = 'user/edit';
+
+                                if(!empty($result->Icon)) {
+
+                                    $return .= "<a class='menu-contents menu-id-" . $result->MenuID . "' href='" . base_url() . $route . "'><i class='" .  $result->Icon . "'></i> " . $result->MenuItemName . "</a>";
+
+                                } else {
+
+                                    $return .= "<a class='menu-id-" . $result->MenuID . "' href='" . base_url() . $route . "'>" . $result->MenuItemName . "</a>";
+
+                                }  
+
+                                continue;
+
+                            }
+
+
+                    /** Show Icon Span or not based on whether its set or not */
+
+                    if(!empty($result->Icon)) {
+
                         $return .= "<a class='menu-contents menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'><i class='" .  $result->Icon . "'></i> " . $result->MenuItemName . "</a>";
+
                     } else {
+
                         $return .= "<a class='menu-id-" . $result->MenuID . "' href='" . base_url() . $result->MenuItemURL . $key ."'>" . $result->MenuItemName . "</a>";
+
                     }
+
                 } else {
                     $return .= $result->MenuItemName;
                 }

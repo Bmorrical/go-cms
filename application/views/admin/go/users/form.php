@@ -16,7 +16,7 @@
 	</div>
 	<div class="col-md-6">
 		<input 
-			class='form-control' 
+			class='form-control required' 
 			name='Username' 
 			type='text' 
 			value='<?php if(isset($user['Username'])) echo $user['Username']; ?>'
@@ -24,7 +24,6 @@
 			<?php if($_SESSION['admin']['session_type'] != 1) : ?>	
 				disabled='true'
 			<?php endif; ?>
-
 		>
 	</div>
 </div>
@@ -33,7 +32,7 @@
 		Password
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="Password" type="password">
+		<input id="password" class="form-control" name="Password" type="password">
 	</div>
 </div>
 <div class="row">
@@ -41,7 +40,7 @@
 		Verify Password
 	</div>
 	<div class="col-md-6">
-		<input class="form-control" name="Verify-Password" type="password">
+		<input id="verify-password" class="form-control" name="Verify-Password" type="password">
 	</div>
 </div>
 <div class="row">
@@ -49,7 +48,7 @@
 		First Name
 	</div>
 	<div class="col-md-6">
-		<input class='form-control' name='Firstname' type='text' value='<?php if(isset($user['Firstname'])) echo $user['Firstname']; ?>'>
+		<input class='form-control required' name='Firstname' type='text' value='<?php if(isset($user['Firstname'])) echo $user['Firstname']; ?>'>
 	</div>
 </div>
 <div class="row">
@@ -57,7 +56,7 @@
 		Last Name
 	</div>
 	<div class="col-md-6">
-		<input class='form-control' name='Lastname' type='text' value='<?php if(isset($user['Lastname'])) echo $user['Lastname']; ?>'>
+		<input class='form-control required' name='Lastname' type='text' value='<?php if(isset($user['Lastname'])) echo $user['Lastname']; ?>'>
 	</div>
 </div>
 <div class="row">
@@ -68,5 +67,7 @@
 		<input class='form-control' name='Email' type='text' value='<?php if(isset($user['Email'])) echo $user['Email']; ?>'>
 	</div>
 </div>
-<?php var_dump($user); ?>
-<?php var_dump($_SESSION); ?>
+
+<input type="hidden" id="post-action" name='Dynamic'>
+
+<?php var_dump($_SESSION);
