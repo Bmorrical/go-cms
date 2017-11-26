@@ -65,20 +65,51 @@ class Pages_model extends GO_Admin_model {
 
 	// GET (Read)
 
-		// public function get_display_status($id) {
-		// 	$return = array();
-		// 	$query = $this->db
-		// 		->select('DisplayStatus')
-		// 		->where('MenuItemID', $id)
-		// 		->limit(1)
-		// 		->get('go_menu_items');
+    public function activate_inactivate($post) {
 
-		// 	foreach($query->result() as $d) {
-		// 		$return = get_object_vars($d);
-		// 	}
+        ($this->input->cookie("go-menu-" . $this->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))) == 1) ? $new_status = 0 : $new_status = 1;
 
-		// 	$this->session->set_userdata('display_status', $return['DisplayStatus']);
-		// }
+        foreach ($post as $key => $value) {
+            $data = array(
+                'Status'    => $new_status,
+                'Updated'   => date('Y-m-d H:i:s'),
+                'UpdatedBy' => $_SESSION['admin']['user_id']
+            );
+            $this->db->where('ID', $key);
+            $this->db->update('go_users', $data);
+        }
+
+        $this->session->set_flashdata('flashSuccess', 'Records have been successfully updated.');
+
+        redirect(base_url() . 'admin/users');
+    }  
+
+    public function ajax_update_display_status($post) {
+
+        $this->input->set_cookie(
+            "go-menu-" . $this->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie')), 
+            $post['NewValue'], // New Value
+            60*60*24*7*35 // 35 days, needs to be a config
+        );
+    }
+
+    /**
+     *  Returns the row of the Users Menu, so it can be matched in Active/Inactive cookie toggle on Users Page
+     */
+
+    public function users_page_id() {
+
+        $query = $this->db
+            ->select('MenuItemID')
+            ->where('MenuItemUrl', 'admin/users')
+            ->limit(1)
+            ->get('go_menu_items');   
+
+        $row = $query->row();
+        
+        return $row->MenuItemID;
+
+    }
 
 		public function go_get_all() {
 			$return = array();
@@ -87,9 +118,26 @@ class Pages_model extends GO_Admin_model {
 			$return['keys']['key'] = array('Title','Slug');
 			$return['keys']['col'] = array('1', '4','2'); // quantitiy for cols should be 1 more than keys, max 12
 
+	        /**
+	         *  If there is no cookie for menu preference, set one to Active.  
+	         */
+
+	        $page_id = $this->users_page_id(); 
+
+	        if (is_null($this->input->cookie("go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie'))))) {
+	            $this->input->set_cookie(
+	                "go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie')), 
+	                1, // New Value
+	                60*60*24*7*35 // 35 days, needs to be a config
+	            );
+	            $status = 1;
+	        } else {
+	            $status = $this->input->cookie("go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie')));
+	        }
+
 			$query = $this->db
 				->select('ID,Title,Slug')
-				->where('Status', $this->session->userdata('display_status'))
+				->where('Status', $status)
 				->get('go_pages');
 
 				foreach($query->result() as $d) {

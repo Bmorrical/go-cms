@@ -70,4 +70,5 @@
 
 <input type="hidden" id="post-action" name='Dynamic'>
 
-<?php var_dump($_SESSION);
+<?php 
+// var_dump($_SESSION);

@@ -69,3 +69,4 @@ $route['admin/user/add'] = 'admin/user_add';
 $route['admin/pages'] = 'pages/pages';
 $route['admin/page/add'] = 'pages/page_add';
 $route['admin/page/edit'] = 'pages/page_edit';
+$route['admin/page/update_display_status'] = 'pages/ajax_update_display_status';

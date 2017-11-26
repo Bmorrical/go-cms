@@ -25,7 +25,7 @@
 			<?php
 				include_once(APPPATH . 'views/admin/go/users/helpers/main_content_add_edit_header.php');
 			?>
-			<form id="form-users" method="post" action="<?php echo base_url() . 'admin/add'; ?>">			
+			<form id="form-users" method="post" action="<?php echo base_url() . 'admin/user/add'; ?>">			
 				<?php include_once(APPPATH . 'views/admin/go/users/form.php'); ?>
 			</form>
 		</div>

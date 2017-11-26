@@ -208,10 +208,10 @@ class GO_Admin_Controller extends GO_Controller
 
 			if(($_POST && isset($_POST['menu_activate_inactivate']))) $this->admin->users_activate_inactivate($_POST);  // Toggle Active/Inactive
 
-
 			$queries = array(
 				'users' => $this->admin->go_get_users($this->admin->users_page_id())
 			);	
+			
 			$this->go_load_page(
 				array(
 					'page' => 'admin/go/users/users',
@@ -231,10 +231,13 @@ class GO_Admin_Controller extends GO_Controller
 
 			go_verify_user_session("admin");
 
-			/** Admin User can only load their own account for editing */
+			/** Prevent that Admin Users can't access other users from ur:  /admin/user/edit?id=?<some unauthorized id> */
 
-			if( $_SESSION['admin']['session_type'] != 1 && 
-			    $this->input->get('id') != $_SESSION['admin']['session_type'] ) show_404();
+			if( $_SESSION['admin']['session_type'] != 1) {
+				if(null != $this->input->get('id') && $this->input->get('id') != $_SESSION['admin']['user_id']) {
+					show_404();
+				}
+			}
 
 			/** Request for User Update */
 

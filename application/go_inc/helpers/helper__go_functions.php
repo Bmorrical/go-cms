@@ -164,7 +164,7 @@ function go_get_menu_items($menu_id) {
 
                                 /** ?id=<user_id> not required here, because we handle the user id from the $_SESSION in GO_CONTROLLER */
 
-                                    $route = 'user/edit';
+                                    $route = 'admin/user/edit';
 
                                 if(!empty($result->Icon)) {
 

@@ -197,12 +197,15 @@ class GO_Admin_model extends GO_model
     public function put_user($post) {
        
         $params = array(
-            'Username'  => $post['Username'],
             'Firstname' => $post['Firstname'],
             'Lastname'  => $post['Lastname'],
             'Updated'   => date('Y-m-d H:i:s'),
-            'Email' => $post['Email']
+            'Email' => (filter_var($post['Email'], FILTER_VALIDATE_EMAIL)) ? $post['Email'] : null
         );
+
+        /** Admin User can not change their username */
+
+        if($_SESSION['admin']['session_type'] == 1 ) $params['Username'] = $post['Username'];
 
         if($post['Password'] != "" || $post['Verify-Password'] != "") {
 
@@ -222,13 +225,20 @@ class GO_Admin_model extends GO_model
             else $user_id = $_SESSION['admin']['user_id'];             
 
 
-        $this->db->where('ID', $this->input->get('id'));
+        $this->db->where('ID', $user_id);
         $this->db->update('go_users', $params);
 
         $this->session->set_flashdata('flashSuccess', 'Record has been successfully updated.');
 
         if(array_key_exists('save', $post)) {
-            redirect(base_url() . 'admin/user/edit?id=' . $this->input->get('id'));
+
+            if($_SESSION['admin']['session_type'] == 1) {
+                redirect(base_url() . 'admin/user/edit?id=' . $this->input->get('id'));
+            } else {
+                redirect(base_url() . 'admin/user/edit');
+            }
+
+            
         }
         if(array_key_exists('save-and-new', $post)) {
             redirect(base_url() . 'admin/user/add');

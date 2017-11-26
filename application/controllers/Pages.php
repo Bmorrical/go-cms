@@ -44,14 +44,18 @@ class Pages extends GO_Admin_Controller {
 				if(!empty($this->input->get('id'))) $id = $this->input->get('id'); 
 				$this->page->post_data($_POST, $id);
 			}
-			$menu_item_id = 6; // INT is set on SQL of Class creation from LAB
-			$this->session->set_userdata('menu_item_id', $menu_item_id);
 
-			if(($_POST && isset($_POST['toggleDisplay']))) $this->page->toggle_display($_POST);  // Toggle Active/Inactive
+			// $menu_item_id = 6; // INT is set on SQL of Class creation from LAB
+			// $this->session->set_userdata('menu_item_id', $menu_item_id);
+
+			// if(($_POST && isset($_POST['toggleDisplay']))) $this->page->toggle_display($_POST);  // Toggle Active/Inactive
 			
+			if(($_POST && isset($_POST['menu_activate_inactivate']))) $this->page->activate_inactivate($_POST);  // Toggle Active/Inactive
+
 			$data = array(
 				'pages' => $this->page->go_get_all()
 			);
+
 			$this->go_load_page(array('page'=>'admin/pages/pages','title'=>'Pages','template'=>'admin','activeClass'=>'pages','queries'=>$data));
 		}
 
@@ -65,9 +69,12 @@ class Pages extends GO_Admin_Controller {
 		}
 
 	// AJAX
+		/**
+		 *  When updating Active/Inactive menu from Users page
+		 */
 
-		public function update_display_status() {
-			echo json_encode($this->page->update_display_status($this->input->post()));
+		public function ajax_update_display_status() {
+			echo json_encode($this->page->ajax_update_display_status($this->input->post()));
 		}
 
 }

@@ -10,19 +10,52 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
+
+<div class="row main-content-top-pad">
+	<div class="col-md-9">
+		<h1>Manage <?= ucfirst($this_page_plural); ?></h1>
+	</div>
+	<div class="col-md-3 search">
+		<select class="form-control" id="status">
+			<option value="1">Active</option>
+			<option value="0">Inactive</option>
+		</select>
+	</div>
+</div>	
+
+<div class="row">
+	<div class="col-md-12">
+		<a href="<?= base_url(); ?>admin/<?= $this_page_singular; ?>/add">
+			<button type="button" class="btn btn-primary actions">
+				Add New <?= ucfirst($this_page_singular); ?>
+			</button>
+		</a>	 
+
+
+			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-danger hidden actions" form="form1">
+				Disable <?= ucfirst($this_page_singular); ?>(s)
+			</button>	
+
+
+			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-success hidden actions" form="form1">
+				Enable <?= ucfirst($this_page_singular); ?>(s)
+			</button>		
+
+
+	</div>					
+</div>			
+
 <script>
-	var menu_item_id = "<?= $this->session->userdata('menu_item_id'); ?>"; // gets set in controller sizes()
-	
+
 	var base_url = '<?= base_url(); ?>';
 
-	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
-	
+	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->page->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
+
 	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in model
 
 	$(window).on('load', function(){
 
 		$('#status').val(menu_active_inactive).prop('selected', true); // set Active/Inactive drop down
-
 
 		$('#toggle-all-master').on('change', function () {
 			if($(this).is(':checked')) {
@@ -35,67 +68,31 @@
 				})				
 			}
 		});
+
 		$('.check-toggle, #toggle-all-master').on('change', function() {
 			if ($('input[type=checkbox]').is(":checked")) {
-				$('#toggleDisplay').removeClass('hidden');
+				$('#menu_activate_inactivate').removeClass('hidden');
 				$('#emailBtn, #printBtn').show();
 			} else {
-				$('#toggleDisplay').addClass('hidden');	
+				$('#menu_activate_inactivate').addClass('hidden');	
 				$('#emailBtn, #printBtn').hide();							
 			}
 		});
+
 		$('#status').on('change', function() {
 			if($("#status").val() == 0) { var new_value = 0; } else { var new_value = 1; }
 			$.ajax({
-				url  : base_url + '<?= $this_page_plural; ?>/update_display_status',
+				url  : base_url + 'admin/page/ajax_update_display_status',
 				type : 'POST',
 				data: {
-					NewValue : new_value,
-					ID : menu_item_id
+					NewValue : new_value
 				},
 				success: function(d) {
 					location.reload();	
 				}
 			})
-		});		
-	});
+		})
+
+	})
+
 </script>
-
-<div class="row main-content-top-pad">
-	<div class="col-md-9">
-		<h1>Manage <?= ucfirst($this_page_plural); ?></h1>
-	</div>
-	<div class="col-md-3 search">
-		<select class="form-control" id="status">
-			<option value="1">Active</option>
-			<option value="0">Inactive</option>
-		</select>
-	</div>
-<!-- 	<div class="col-md-3 search">
-		<form id="form-search" method="post" action="<?php // echo base_url() . 'admin/' . $this_page_plural; ?>">
-			<input type="text" class="form-control search-field" placeholder="Search..." name="search-text">
-		</form>
-	</div> -->
-</div>	
-<div class="row">
-	<div class="col-md-12">
-		<a href="<?= base_url(); ?>admin/<?= $this_page_singular; ?>/add">
-			<button type="button" class="btn btn-primary actions">
-				Add New <?= ucfirst($this_page_singular); ?>
-			</button>
-		</a>		
-		<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
-			Disable <?= ucfirst($this_page_singular); ?>(s)
-		</button>		
-	</div>					
-</div>				
-
-<?php
-	if(empty($this_page_results['rows'])) { ?>
-		<div class="row">
-			<div class="col-md-12">
-				<p>No records found!</p>
-			</div>
-		</div>
-<?php } ?>
-<form id="form1" name="data-list" class="" method="post" action="<?php echo base_url() . 'admin/' . $this_page_plural; ?>">	
