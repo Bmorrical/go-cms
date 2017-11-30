@@ -68,12 +68,17 @@ class GO_Controller extends CI_Controller
 	}   
 
 	/**
-	 *  Login User
+	 *  Login Home User - Usually routed from routes.php
 	 */
 
 	public function sign_in() {
-		if ($this->session->userdata('session_id')) $this->logout(); // user had a session, just log them out and start over
+
+		/* User had a session, and is not logged into admin, just log them out and start over */
+
+		if ($this->session->userdata('session_id') && !empty($_SESSION['admin'])) $this->logout(); 
+
 		if (!empty($_POST)) new GO_Login($_POST, "home");
+		
 		else $this->go_load_page(
 			array(
 				'page' => 'home/login',
@@ -84,6 +89,11 @@ class GO_Controller extends CI_Controller
 			)
 		);		
 	}
+
+
+	/**
+	 *  Login Admin User 
+	 */
 
 	public function login() {
 
