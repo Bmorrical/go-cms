@@ -16,6 +16,14 @@ class Home_model extends GO_Home_model {
 	}
 
     /**
+     *  This function fires in HOME login process, so that additional application 
+     *  specific logic can be injected at login runtime.
+     */
+    public function home_login_helper($data) {
+        return;
+    }    
+
+    /**
      *  Data queries for page load, any datasets for which you want to return result sets
      *  should have a matching route below and your requested data
      *
@@ -33,13 +41,5 @@ class Home_model extends GO_Home_model {
                 break;
         }
     }	
-
-	/**
-	 *  Home Logout
-	 */
-	public function logout() {			
-		unset($_SESSION['home']);
-		redirect(base_url() . 'login', 'refresh');
-	}
 
 }

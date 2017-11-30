@@ -21,17 +21,21 @@ $config['base_url'] = 'http://localhost/' . $config['go_base_folder']; // Base U
 
 $config['go_redirect_url'] = 'home';  // change the starting route
 
-
 $config['go_admin_login_default_route'] = '/admin/dashboard'; // after Admin login, which route should be served
 $config['go_home_login_default_route'] = '/index'; // after Home login, which route should be served
 $config['go_logo_default_route'] = 'admin/dashboard'; // when clicking logo, which route should be served, no starting slash
 
-$config['go_logo_location'] = '';
 $config['go_company_name'] = '{Your Company Name Here}';
+
+/* For Login/Dashboard, start here the rest of the path is built in the view, can be set to "" empty string for none */
+
+$config['go_logo_location'] = '';
+
+/* For Emails, pull from production URL */
+
 $config['go_logo_email_path'] = '//your-website.com/assets/images/logo.png';
 
-
-/** SMTP */
+/** Login */
 
 $config['go_dev_admin_login_username'] = "super-admin";
 $config['go_dev_admin_login_password'] = "secret";

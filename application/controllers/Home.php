@@ -8,16 +8,12 @@ class Home extends GO_Home_Controller {
 		$this->load->model('home_model','home');
 	}
 
-    /**
-     *  This function fires in HOME login process, so that additional application 
-     *  specific logic can be injected at login runtime.
-     */
-	public function home_login_helper($data) {
 
-	}
-
+	/**
+	 *  Home Logout
+	 */
 	public function logout() {			
-		if(!empty($_SESSION['home'])) unset($_SESSION['home']);
+		unset($_SESSION['home']);
 		redirect(base_url() . 'login', 'refresh');
 	}
 
