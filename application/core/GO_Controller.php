@@ -75,7 +75,7 @@ class GO_Controller extends CI_Controller
 
 		/* User had a session, and is not logged into admin, just log them out and start over */
 
-		if ($this->session->userdata('session_id') && !empty($_SESSION['admin'])) $this->logout(); 
+		//if ($this->session->userdata('session_id') && !empty($_SESSION['admin'])) $this->logout(); 
 
 		if (!empty($_POST)) new GO_Login($_POST, "home");
 		
@@ -141,15 +141,14 @@ class GO_Controller extends CI_Controller
 
 	public function logout() {
 
-		// if(!empty($_SESSION['admin'])) {
-		// needs some more work here
-		// }
-		$_SESSION = array();
-		session_destroy();
-
+		/* ADMIN LOGOUT */
 		if($this->input->get('go') == $this->config->item('go_login_key')) {
+			unset($_SESSION['admin']);
 			redirect(base_url() . 'admin/login?go=' . $this->config->item('go_login_key'), 'refresh');
-		} else {
+		} 
+		/* HOME LOGOUT */
+		else {
+			unset($_SESSION['home']);
 			redirect(base_url() . 'login', 'refresh');
 		}
 
