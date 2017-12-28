@@ -31,16 +31,15 @@
 			</button>
 		</a>	 
 
-
-			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-danger hidden actions" form="form1">
-				Disable <?= ucfirst($this_page_singular); ?>(s)
+		<?php if($_SESSION['admin']['filters']['Pages-active-inactive'] == 1) : ?>
+			<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
+				Disable <?= parse_class_name_as_friendly($this_page_singular); ?>(s)
 			</button>	
-
-
-			<button id="menu_activate_inactivate" type="submit" name="menu_activate_inactivate" class="btn btn-success hidden actions" form="form1">
-				Enable <?= ucfirst($this_page_singular); ?>(s)
-			</button>		
-
+		<?php else : ?>
+			<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-success hidden actions" form="form1">
+				Enable <?= parse_class_name_as_friendly($this_page_singular); ?>(s)
+			</button>	
+		<?php endif; ?>	
 
 	</div>					
 </div>			
@@ -48,14 +47,11 @@
 <script>
 
 	var base_url = '<?= base_url(); ?>';
-
-	var menu_active_inactive = '<?= $this->input->cookie("go-menu-" . $this->page->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))); ?>';
-
-	if(menu_active_inactive == "") location.reload();  // force a reload so the cookie can be picked up, created in model
+	var display_status = "<?= $_SESSION['admin']['filters']['Pages-active-inactive']; ?>"; // gets set in model get_display_status()
 
 	$(window).on('load', function(){
 
-		$('#status').val(menu_active_inactive).prop('selected', true); // set Active/Inactive drop down
+		$('#status').val(display_status).prop('selected', true); // set Active/Inactive drop down
 
 		$('#toggle-all-master').on('change', function () {
 			if($(this).is(':checked')) {

@@ -193,7 +193,8 @@ class GO_Login extends GO_Controller
                         'created' => $user->Created,
                         'updated' => $user->Updated,
                         'last_login' => $user->LastLogin,
-                        'hash' => md5(uniqid(rand(), true)) // some random hash that we can refer to
+                        'hash' => md5(uniqid(rand(), true)), // some random hash that we can refer to
+                        'filters' => array()
                     )    
                 ));
 

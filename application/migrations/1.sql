@@ -24,3 +24,8 @@ ADD COLUMN `Email` VARCHAR(255) NULL AFTER `Status`;
 
 ALTER TABLE `go_users` 
 ADD COLUMN `UpdatedBy` DATETIME NULL AFTER `LastLogin`;
+
+# 12-12-2017
+
+ALTER TABLE `go_menu_items` 
+DROP COLUMN `DisplayStatus`;

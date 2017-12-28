@@ -36,12 +36,12 @@ class Pages_model extends GO_Admin_model {
 				}
 			if($id == 0) { // POST (Create)
 				$data['Created']   = date('Y-m-d H:i:s');
-				$data['CreatedBy'] = $this->session->userdata('user_id');
+				$data['CreatedBy'] = $_SESSION['admin']['user_id'];
 				$this->db->insert('go_pages', $data);
 				$id = $this->db->insert_id();
 			} else { // PUT (Update)
 				$data['Updated']   = date('Y-m-d H:i:s');
-				$data['UpdatedBy'] = $this->session->userdata('user_id');
+				$data['UpdatedBy'] = $_SESSION['admin']['user_id'];
 				$this->db->where('ID', $id);
 				$this->db->update('go_pages', $data);
 			}
@@ -63,26 +63,7 @@ class Pages_model extends GO_Admin_model {
 
 		}
 
-	// GET (Read)
-
-    public function activate_inactivate($post) {
-
-        ($this->input->cookie("go-menu-" . $this->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie'))) == 1) ? $new_status = 0 : $new_status = 1;
-
-        foreach ($post as $key => $value) {
-            $data = array(
-                'Status'    => $new_status,
-                'Updated'   => date('Y-m-d H:i:s'),
-                'UpdatedBy' => $_SESSION['admin']['user_id']
-            );
-            $this->db->where('ID', $key);
-            $this->db->update('go_users', $data);
-        }
-
-        $this->session->set_flashdata('flashSuccess', 'Records have been successfully updated.');
-
-        redirect(base_url() . 'admin/users');
-    }  
+	// GET (Read) 
 
     public function ajax_update_display_status($post) {
 
@@ -170,16 +151,19 @@ class Pages_model extends GO_Admin_model {
 
 		public function toggle_display($post) {
 
-			($this->session->userdata('display_status') == 1) ? $new_status = 0 : $new_status = 1;
+			$new_status = ($_SESSION['admin']['filters']['Pages-active-inactive'] == 1) ? 0 : 1;
+			
 			foreach ($post as $key => $value) {
 				$data = array(
 					'Status'    => $new_status,
 					'Updated'   => date('Y-m-d H:i:s'),
-					'UpdatedBy' => $this->session->userdata('user_id')
+					'UpdatedBy' => $_SESSION['admin']['user_id']
 				);
 				$this->db->where('ID', $key);
-				$this->db->update('go_pages', $data);
+				$this->db->update('pages', $data);
 			}
+
+			$this->session->set_flashdata('flashSuccess', 'Record(s) have been successfully updated.');
 
 			redirect(base_url() . 'admin/pages');
 		}
@@ -188,11 +172,7 @@ class Pages_model extends GO_Admin_model {
 
 		public function update_display_status($post) {
 
-			$data = array(
-				'DisplayStatus' => $post['NewValue']
-			);
-			$this->db->where('MenuItemID', $post['ID']);
-			$this->db->update('go_menu_items', $data);
+			$_SESSION['admin']['filters']['Pages-active-inactive'] = $post['NewValue'];
 
 		}
 

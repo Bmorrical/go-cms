@@ -62,11 +62,7 @@
 
 			})
 
-			
-
 			if($('.has-error').length == 0) {
-
-				console.log($(this).attr('name'));
 
 				switch($(this).attr('name')) {
 					case "save-and-close" :

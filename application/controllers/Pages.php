@@ -44,11 +44,6 @@ class Pages extends GO_Admin_Controller {
 				if(!empty($this->input->get('id'))) $id = $this->input->get('id'); 
 				$this->page->post_data($_POST, $id);
 			}
-
-			// $menu_item_id = 6; // INT is set on SQL of Class creation from LAB
-			// $this->session->set_userdata('menu_item_id', $menu_item_id);
-
-			// if(($_POST && isset($_POST['toggleDisplay']))) $this->page->toggle_display($_POST);  // Toggle Active/Inactive
 			
 			if(($_POST && isset($_POST['menu_activate_inactivate']))) $this->page->activate_inactivate($_POST);  // Toggle Active/Inactive
 
@@ -74,6 +69,7 @@ class Pages extends GO_Admin_Controller {
 		 */
 
 		public function ajax_update_display_status() {
+			if(!go__is_ajax_request()) return;
 			echo json_encode($this->page->ajax_update_display_status($this->input->post()));
 		}
 
