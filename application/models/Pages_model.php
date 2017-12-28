@@ -65,14 +65,6 @@ class Pages_model extends GO_Admin_model {
 
 	// GET (Read) 
 
-    public function ajax_update_display_status($post) {
-
-        $this->input->set_cookie(
-            "go-menu-" . $this->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie')), 
-            $post['NewValue'], // New Value
-            60*60*24*7*35 // 35 days, needs to be a config
-        );
-    }
 
     /**
      *  Returns the row of the Users Menu, so it can be matched in Active/Inactive cookie toggle on Users Page
@@ -93,38 +85,23 @@ class Pages_model extends GO_Admin_model {
     }
 
 		public function go_get_all() {
+			if(!isset($_SESSION['admin']['filters']['Pages-active-inactive'])) 
+				$_SESSION['admin']['filters']['Pages-active-inactive'] = 1;
+
 			$return = array();
 			$return['rows'] = array();
 			$return['keys'] = array();
 			$return['keys']['key'] = array('Title','Slug');
 			$return['keys']['col'] = array('1', '4','2'); // quantitiy for cols should be 1 more than keys, max 12
 
-	        /**
-	         *  If there is no cookie for menu preference, set one to Active.  
-	         */
-
-	        $page_id = $this->users_page_id(); 
-
-	        if (is_null($this->input->cookie("go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie'))))) {
-	            $this->input->set_cookie(
-	                "go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie')), 
-	                1, // New Value
-	                60*60*24*7*35 // 35 days, needs to be a config
-	            );
-	            $status = 1;
-	        } else {
-	            $status = $this->input->cookie("go-menu-" . $page_id . "-" . md5($this->config->item('go_admin_login_cookie')));
-	        }
-
 			$query = $this->db
 				->select('ID,Title,Slug')
-				->where('Status', $status)
+				->where('Status', $_SESSION['admin']['filters']['Pages-active-inactive'])
 				->get('go_pages');
 
 				foreach($query->result() as $d) {
 					$return['rows'][] = get_object_vars($d);
 				}
-
 			return $return;
 		}
 

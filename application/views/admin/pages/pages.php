@@ -16,6 +16,7 @@
     	$this_page_plural = 'pages';
     	$this_page_results = $pages; // defined as result array back from controller
 // End Page Config
+
 	?>
 <div class='container-fluid'>
 	<div class='row'>

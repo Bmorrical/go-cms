@@ -33,11 +33,11 @@
 
 		<?php if($_SESSION['admin']['filters']['Pages-active-inactive'] == 1) : ?>
 			<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-danger hidden actions" form="form1">
-				Disable <?= parse_class_name_as_friendly($this_page_singular); ?>(s)
+				Disable Pages(s)
 			</button>	
 		<?php else : ?>
 			<button id="toggleDisplay" type="submit" name="toggleDisplay" class="btn btn-success hidden actions" form="form1">
-				Enable <?= parse_class_name_as_friendly($this_page_singular); ?>(s)
+				Enable Pages(s)
 			</button>	
 		<?php endif; ?>	
 
