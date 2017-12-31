@@ -52,6 +52,10 @@ $config['go_smtp_development_host'] = "smtp.gmail.com";
 $config['go_smtp_development_port'] = 465;
 $config['go_smtp_development_crpt'] = "SSL";
 
+$config['go_smtp_staging_host'] = "smtp.gmail.com";
+$config['go_smtp_staging_port'] = 465;
+$config['go_smtp_staging_crpt'] = "SSL";
+
 $config['go_smtp_production_host'] = "smtp.gmail.com";
 $config['go_smtp_production_port'] = 465;
 $config['go_smtp_production_crpt'] = "SSL";

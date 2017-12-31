@@ -63,6 +63,14 @@ class GO_Postal {
             )->setUsername($this->ci->config->item('go_company_email'))
              ->setPassword($this->ci->config->item('go_company_email_password'));
         } 
+        elseif ($this->ci->config->item('go_environment') === 'STAGING') {
+            $transport = Swift_SmtpTransport::newInstance(
+                $this->ci->config->item('go_smtp_staging_host'), 
+                $this->ci->config->item('go_smtp_staging_port'), 
+                $this->ci->config->item('go_smtp_staging_crpt')
+            )->setUsername($this->ci->config->item('go_company_email'))
+             ->setPassword($this->ci->config->item('go_company_email_password'));
+        }         
         elseif ($this->ci->config->item('go_environment') === 'DEVELOPMENT') {
             $transport = Swift_SmtpTransport::newInstance(
                 $this->ci->config->item('go_smtp_development_host'), 
