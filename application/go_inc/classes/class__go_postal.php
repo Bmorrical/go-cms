@@ -42,6 +42,8 @@ class GO_Postal {
      *          $_SERVER['DOCUMENT_ROOT'] . 'tmp/some__other_file.pdf'
      *      );
      *
+     *   To generate array of files:  $files = glob($_SERVER['DOCUMENT_ROOT'] . 'tmp/*');
+     *
      */
 
     public function __construct($data){
