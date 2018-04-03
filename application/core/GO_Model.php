@@ -44,8 +44,7 @@ class GO_Admin_model extends GO_model
         foreach ($post as $key => $value) {
             $data = array(
                 'Status'    => $new_status,
-                'Updated'   => date('Y-m-d H:i:s'),
-                'UpdatedBy' => $_SESSION['admin']['user_id']
+                'Updated'   => date('Y-m-d H:i:s')
             );
             $this->db->where('ID', $key);
             $this->db->update('go_users', $data);
