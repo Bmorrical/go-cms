@@ -4,38 +4,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
 
-    /**
-     *  This is a core go-cms file.  Do not edit if you plan to
-     *  ever update your go-cms version.  Changes would be lost.
-     */
+/**
+ *  This is a core go-cms file.  Do not edit if you plan to
+ *  ever update your go-cms version.  Changes would be lost.
+ */
 
 //////////////////////////////// core file ///////////////////////////////
 ///////////////////////////////// go-cms /////////////////////////////////
 
-class GO_model extends CI_Model 
+class GO_model extends CI_Model
 {
 
     /**
      *  Construct
-     */ 
+     */
 
     public function __construct(){
         parent::__construct();
     }
-    
+
 }
 
-class GO_Admin_model extends GO_model 
-{ 
+class GO_Admin_model extends GO_model
+{
 
     /**
      *  Construct
-     */ 
+     */
 
     public function __construct(){
         parent::__construct();
-    }    
-    
+    }
+
 
     public function users_activate_inactivate($post) {
 
@@ -54,7 +54,7 @@ class GO_Admin_model extends GO_model
         $this->session->set_flashdata('flashSuccess', 'Records have been successfully updated.');
 
         redirect(base_url() . 'admin/users');
-    }   
+    }
 
     /**
      *  Requires Documentation
@@ -64,18 +64,19 @@ class GO_Admin_model extends GO_model
 
         $query = $this->db
             ->select('ID')
-            ->where('Username', $post['username'])
-            ->get('go_users');        
+            ->where('Username', $post['Username'])
+            ->get('go_users');
 
         if($query->num_rows() > 0) {
             $this->session->set_flashdata('flashWarning', 'Username is already in use.  Please try again.');
-                redirect(base_url() . 'admin/user/add?firstname=' . $post['Firstname'] . '&lastname=' . $post['Lastname']);
+            redirect(base_url() . 'admin/user/add?firstname=' . $post['Firstname'] . '&lastname=' . $post['Lastname']);
         } else {
 
             $params = array(
                 'Username'  => $post['Username'],
                 'Firstname' => $post['Firstname'],
                 'Lastname'  => $post['Lastname'],
+                'Email'     => (filter_var($post['Email'], FILTER_VALIDATE_EMAIL)) ? $post['Email'] : null,
                 'UserTypeID' => 2,
                 'Status'    => 1,
                 'Created'   => date('Y-m-d H:i:s'),
@@ -105,9 +106,9 @@ class GO_Admin_model extends GO_model
             }
             if(array_key_exists('save-and-close', $post)) {
                 redirect(base_url() . 'admin/users');
-            }     
+            }
         }
-    }            
+    }
 
     /**
      *  Returns the row of the Users Menu, so it can be matched in Active/Inactive cookie toggle on Users Page
@@ -119,10 +120,10 @@ class GO_Admin_model extends GO_model
             ->select('MenuItemID')
             ->where('MenuItemUrl', 'admin/users')
             ->limit(1)
-            ->get('go_menu_items');   
+            ->get('go_menu_items');
 
         $row = $query->row();
-        
+
         return $row->MenuItemID;
 
     }
@@ -130,7 +131,7 @@ class GO_Admin_model extends GO_model
     public function ajax_users_update_display_status($post) {
 
         $this->input->set_cookie(
-            "go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie')), 
+            "go-menu-" . $this->admin->users_page_id() . "-" . md5($this->config->item('go_admin_login_cookie')),
             $post['NewValue'], // New Value
             60*60*24*7*35 // 35 days, needs to be a config
         );
@@ -146,11 +147,11 @@ class GO_Admin_model extends GO_model
         $return['rows'] = array();
 
         /**
-         *  If there is no cookie for menu preference, set one to Active.  
+         *  If there is no cookie for menu preference, set one to Active.
          */
         if (is_null($this->input->cookie("go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie'))))) {
             $this->input->set_cookie(
-                "go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')), 
+                "go-menu-" . $users_page_id . "-" . md5($this->config->item('go_admin_login_cookie')),
                 1, // New Value
                 60*60*24*7*35 // 35 days, needs to be a config
             );
@@ -164,13 +165,13 @@ class GO_Admin_model extends GO_model
             ->select('u.*, ut.UserType')
             ->join('go_user_types ut', 'ut.UserTypeID = u.UserTypeID')
             ->where('u.Status', $status)
-            ->get('go_users u');   
+            ->get('go_users u');
 
-            foreach($query->result() as $result) {
-                $return['rows'][$result->ID] = get_object_vars($result);                   
-            }
+        foreach($query->result() as $result) {
+            $return['rows'][$result->ID] = get_object_vars($result);
+        }
 
-     return $return;
+        return $return;
 
     }
 
@@ -181,11 +182,11 @@ class GO_Admin_model extends GO_model
     public function go_get_user($id) {
 
         $return = array();
-        
+
         $query = $this->db
             ->select('ID, Username, Firstname, Lastname, Email')
             ->where('ID', $id)
-            ->get('go_users');   
+            ->get('go_users');
 
         return $query->row();
     }
@@ -195,7 +196,7 @@ class GO_Admin_model extends GO_model
      */
 
     public function put_user($post) {
-       
+
         $params = array(
             'Firstname' => $post['Firstname'],
             'Lastname'  => $post['Lastname'],
@@ -220,9 +221,9 @@ class GO_Admin_model extends GO_model
 
         /** If the user is Super Admin, we will honor the GET param for user ID */
 
-            if($_SESSION['admin']['session_type'] == 1) $user_id = $this->input->get('id');
+        if($_SESSION['admin']['session_type'] == 1) $user_id = $this->input->get('id');
 
-            else $user_id = $_SESSION['admin']['user_id'];             
+        else $user_id = $_SESSION['admin']['user_id'];
 
 
         $this->db->where('ID', $user_id);
@@ -238,16 +239,16 @@ class GO_Admin_model extends GO_model
                 redirect(base_url() . 'admin/user/edit');
             }
 
-            
+
         }
         if(array_key_exists('save-and-new', $post)) {
             redirect(base_url() . 'admin/user/add');
         }
         if(array_key_exists('save-and-close', $post)) {
             redirect(base_url() . 'admin/users');
-        }       
+        }
 
-    }  
+    }
 
     /**
      *  Requires Documentation
@@ -303,24 +304,24 @@ class GO_Admin_model extends GO_model
             $new_file = file_get_contents($the_file);
 
             // Write - Makes directory first if does not exist
-            
-                // $file_path = explode('.', $the_file);
 
-                // if (!is_dir(FCPATH . $file_path[0])) {
-                //   // dir doesn't exist, make it
-                //   mkdir(FCPATH . $file_path[0]);
-                // }            
+            // $file_path = explode('.', $the_file);
+
+            // if (!is_dir(FCPATH . $file_path[0])) {
+            //   // dir doesn't exist, make it
+            //   mkdir(FCPATH . $file_path[0]);
+            // }
 
             file_put_contents(FCPATH . $file, $new_file);
-           
+
         }
 
         // update the current version
-            
-            $this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
 
-            $return = array();
-            return $return["message"] = "Success";
+        $this->db->update('go_version', array('Tag' => $latest_version), "id = 1");
+
+        $return = array();
+        return $return["message"] = "Success";
 
     }
 
@@ -339,40 +340,40 @@ class GO_Admin_model extends GO_model
         else if(isset($_SERVER['REMOTE_ADDR'])) $ipaddress = $_SERVER['REMOTE_ADDR'];
         else $ipaddress = 'UNKNOWN';
         return $ipaddress;
-    }       
+    }
 
     /**
-    * Set Version of Go CMS to updated Version
-    *
-    * @return bool
-    */
+     * Set Version of Go CMS to updated Version
+     *
+     * @return bool
+     */
 
     public function go_set_version($newVersion){
 
-      $currentVersion = $this->db->where('meta_key','current_version')
-        ->update('go_system_info',["meta_value" => $newVersion]);
+        $currentVersion = $this->db->where('meta_key','current_version')
+            ->update('go_system_info',["meta_value" => $newVersion]);
 
-      return true;
+        return true;
     }
 
 
 }
 
-class GO_Home_model extends GO_model 
-{ 
+class GO_Home_model extends GO_model
+{
 
     /**
      *  Construct
-     */ 
+     */
 
     public function __construct(){
         parent::__construct();
-    }    
+    }
 
     /**
      *  Pages Router for Home
      */
-    
+
     public function go_router() {
 
         $last = explode("/", $_SERVER['REQUEST_URI']);
@@ -396,5 +397,5 @@ class GO_Home_model extends GO_model
         }
         else return "<h1>Page Not Found</h1><p>404 error</p>";
     }
-        
+
 }
