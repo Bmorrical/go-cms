@@ -10,9 +10,9 @@
 	//////////////////////////////// core file ///////////////////////////////
 	///////////////////////////////// go-cms /////////////////////////////////
 ?>
-<?php $session_key = $_SESSION['admin']['filters']['lead_sources-active-inactive']; ?>
+<?php // $session_key = $_SESSION['admin']['filters']['<<page plural>>-active-inactive']; ?>
 <script>
-    // var display_status = "<?= $session_key; ?>"; // gets set in model get_display_status()
+    var display_status = "<?= $session_key; ?>"; // gets set in model get_display_status()
 
 	$(window).on('load', function(){
 

@@ -351,6 +351,7 @@ class GO_Lab extends GO_Controller
                 $txt .=             "\t\t\t\t$" . "this->db->where('ID', $" . "id);\r\n";
                 $txt .=             "\t\t\t\t$" . "this->db->update('" . $this->post['table-name'] . "', $" . "data);\r\n";
                 $txt .=          "\t\t\t}\r\n\r\n";
+                $txt .=          "\t\t\t$" . "this->session->set_flashdata('flashSuccess', 'Record has been successfully updated.');\r\n\r\n";
                 $txt .=          "\t\t\tswitch($" . "return_route) {\r\n";
                 $txt .=          "\t\t\t\tcase 'save':\r\n";
                 $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $sef_single . "/edit?id=' . $" . "id);\r\n";

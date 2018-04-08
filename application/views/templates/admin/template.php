@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?php echo base_url(); ?>assets/go/js/bootstrap-toggle.js"></script>
 		<script src="<?php echo base_url(); ?>assets/go/js/waiting-dialogue.js"></script>
 
-		<title><?php echo htmlspecialchars($title); ?></title>
+		<title><?php echo htmlspecialchars(parse_class_name_as_friendly($title)); ?></title>
 
 		<?php 
 			$this->load->view('templates/admin/header'); 

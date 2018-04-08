@@ -41,7 +41,7 @@
 			</div>				
 				<div class="row">
 					<div class="col-md-6">
-						Class Name Plural<br /><span class="micro-1">(lowercase)</span>
+						Class Name Plural<br /><span class="micro-1">(lowercase, underscores ok)</span>
 					</div>
 					<div class="col-md-6">
 						<input name="class-name-plural" class="form-control" placeholder="clients" value="" />
@@ -49,7 +49,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Class Name Singular<br /><span class="micro-1">(lowercase)</span>
+						Class Name Singular<br /><span class="micro-1">(lowercase, underscores ok)</span>
 					</div>
 					<div class="col-md-6">
 						<input name="class-name-singular" class="form-control" placeholder="client" value="" />
@@ -63,7 +63,7 @@
 			</div>						
 				<div class="row">
 					<div class="col-md-6">
-						DB Table Name<br /><span class="micro-1">(lowercase)</span>
+						DB Table Name<br /><span class="micro-1">(lowercase, underscores ok)</span>
 					</div>
 					<div class="col-md-6">
 						<input name="table-name" class="form-control" placeholder="clients" value="" />
@@ -146,7 +146,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Menu URL<br />&nbsp;
+						Menu URL<br /><span class="micro-1">(hyphens ok)</span>
 					</div>
 					<div class="col-md-6">
 						<input name="menu-url" class="form-control" placeholder="admin/clients" value="" />
@@ -162,7 +162,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Active Class<br /><br /><br /><br />&nbsp;
+						Active Class<br /><span class="micro-1">(hyphens ok)</span><br /><br /><br />&nbsp;
 					</div>
 					<div class="col-md-6">
 						<input name="active-class" class="form-control" placeholder="clients" value="" />
