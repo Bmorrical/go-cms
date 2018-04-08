@@ -56,12 +56,6 @@ $route['default_controller'] = 'home';
 $route['404_override'] = ''; 
 $route['translate_uri_dashes'] = TRUE;
 
-/** All routes without a controller are passed to /home/page method.  From that point you can utilize cms page routing by
- *  adding a route/slug in Page builder.  Else you can specifiy a page partial, else if you require additional MVC control
- *  over the route, you can also define that route just above this factory method:
- */
-$route['(:any)'] = 'home/page/$1'; // any home route, to home/page/$url
-
 $route['login'] = 'home/sign_in';
 $route['logout'] = 'home/logout';
 
@@ -74,3 +68,10 @@ $route['admin/pages'] = 'pages/pages';
 $route['admin/page/add'] = 'pages/page_add';
 $route['admin/page/edit'] = 'pages/page_edit';
 $route['admin/page/update_display_status'] = 'pages/ajax_update_display_status';
+
+/** All routes without a controller are passed to /home/page method.  From that point you can utilize cms page routing by
+ *  adding a route/slug in Page builder.  Else you can specifiy a page partial, else if you require additional MVC control
+ *  over the route, you can also define that route just above this factory method:
+ */
+$route['(:any)'] = 'home/page/$1'; // any home route, to home/page/$url
+

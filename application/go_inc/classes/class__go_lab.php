@@ -129,11 +129,16 @@ class GO_Lab extends GO_Controller
                 mkdir(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers', 0775, true);
             }
 
-            $helper_file = file_get_contents(APPPATH . 'views/admin/helpers/main_content_add_edit_header.php');
-            file_put_contents(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers/', $helper_file);
+            $content = file_get_contents(APPPATH . 'views/admin/helpers/main_content_add_edit_header.php');
+            $file = fopen(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . "/helpers/main_content_add_edit_header.php", "w");
+            fwrite($file, $content);
+            fclose($file);
 
-            $helper_file = file_get_contents(APPPATH . 'views/admin/helpers/main_content_header.php');
-            file_put_contents(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . '/helpers/', $helper_file);
+            $content = file_get_contents(APPPATH . 'views/admin/helpers/main_content_header.php');
+            $file = fopen(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . "/helpers/main_content_header.php", "w");
+            fwrite($file, $content);
+            fclose($file);
+
 
         // Make index.html
             $file = fopen(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . "/index.html", "w");
@@ -330,6 +335,8 @@ class GO_Lab extends GO_Controller
                 $txt .=             "\t\t\t\t\t$" . "count++;\r\n";
                 $txt .=             "\t\t\t\t}\r\n";
                 $txt .=          "\t\t\tif($" . "id == 0) { // POST (Create)\r\n";
+                $txt .=          "\t\t\t\tunset($" . "data['ID']);\r\n";
+
                 $txt .=             "\t\t\t\t$" . "data['Created']   = date('Y-m-d H:i:s');\r\n";
                 $txt .=             "\t\t\t\t$" . "data['CreatedBy'] = $" . "this->session->userdata('user_id');\r\n";
                 $txt .=             "\t\t\t\t$" . "this->db->insert('" . $this->post['table-name'] . "', $" . "data);\r\n";
@@ -355,20 +362,13 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t\t\t\tbreak;\r\n";
                 $txt .=          "\t\t\t}\r\n\r\n";               
                 $txt .=          "\t\t}\r\n\r\n";
+
                 $txt .=          "\t// GET (Read)\r\n\r\n";
-                // $txt .=             "\t\tpublic function get_display_status($" . "id) {\r\n";
-                // $txt .=                 "\t\t\t$" . "return = array();\r\n";
-                // $txt .=                     "\t\t\t$" . "query = $" . "this->db\r\n";
-                // $txt .=                         "\t\t\t\t->select('DisplayStatus')\r\n";
-                // $txt .=                         "\t\t\t\t->where('MenuItemID', $" . "id)\r\n";
-                // $txt .=                         "\t\t\t\t->limit(1)\r\n";
-                // $txt .=                         "\t\t\t\t->get('go_menu_items');\r\n\r\n";
-                // $txt .=                     "\t\t\tforeach($" . "query->result() as $" . "d) {\r\n";
-                // $txt .=                         "\t\t\t\t$" . "return = get_object_vars($" . "d);\r\n";
-                // $txt .=                     "\t\t\t}\r\n\r\n";
-                // $txt .=                 "\t\t\t$" . "this->session->set_userdata('display_status', $" . "return['DisplayStatus']);\r\n";
-                // $txt .=                 "\t\t}\r\n\r\n";                   
                 $txt .=          "\t\tpublic function go_get_all() {\r\n";
+
+                $txt .=              "\t\t\t if(!isset($" . "_SESSION['admin']['filters']['" . $this->post['class-name-plural'] . "-active-inactive']))\r\n";
+                $txt .=              "\t\t\t\t$" . "_SESSION['admin']['filters']['" . $this->post['class-name-plural'] . "-active-inactive'] = 1;\r\n\r\n";
+
                 $txt .=              "\t\t\t$" . "return = array();\r\n";
                 $txt .=              "\t\t\t$" . "return['rows'] = array();\r\n";
                 $txt .=              "\t\t\t$" . "return['keys'] = array();\r\n";
@@ -376,7 +376,7 @@ class GO_Lab extends GO_Controller
                 $txt .=              "\t\t\t$" . "return['keys']['col'] = array('1', " . $this->post['column-layout'] . "); // quantitiy for cols should be 1 more than keys, max 12\r\n\r\n";
                 $txt .=              "\t\t\t$" . "query = $" . "this->db\r\n";            
                 $txt .=                  "\t\t\t\t->select('ID," . $this->post['overview-sql-cols'] . "')\r\n";
-                $txt .=                  "\t\t\t\t->where('Status', $" . "this->session->userdata('display_status'))\r\n";
+                $txt .=                  "\t\t\t\t->where('Status', $" . "_SESSION['admin']['filters']['" . $this->post['class-name-plural'] . "-active-inactive'])\r\n";
                 $txt .=                  "\t\t\t\t->get('" . $this->post['table-name'] . "');\r\n\r\n"; 
                 $txt .=                  "\t\t\t\tforeach($" . "query->result() as $" . "d) {\r\n";
                 $txt .=                      "\t\t\t\t\t$" . "return['rows'][] = get_object_vars($" . "d);\r\n";
@@ -400,7 +400,7 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t}\r\n\r\n";
                 $txt .=      "\t// MISC\r\n\r\n";
                 $txt .=          "\t\tpublic function toggle_display($" . "post) {\r\n\r\n";
-                $txt .=          "\t\t\t($" . "this->session->userdata('display_status') == 1) ? $" . "new_status = 0 : $" . "new_status = 1;\r\n";
+                $txt .=          "\t\t\t$" . "new_status = ($" . "_SESSION['admin']['filters']['" . $this->post['class-name-plural'] . "-active-inactive'] == 1) ? 0 : 1;\r\n";
                 $txt .=          "\t\t\tforeach ($" . "post as $" . "key => $" . "value) {\r\n";
                 $txt .=          "\t\t\t\t$" . "data = array(\r\n";
                 $txt .=          "\t\t\t\t\t'Status'    => $" . "new_status,\r\n";
@@ -410,16 +410,13 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t\t\t$" . "this->db->where('ID', $" . "key);\r\n";
                 $txt .=          "\t\t\t\t$" . "this->db->update('" . $this->post['table-name'] . "', $" . "data);\r\n";
                 $txt .=          "\t\t\t}\r\n\r\n";
-                $txt .=          "\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-plural'] . "');\r\n";              
+                $txt .=          "\t\t\t$" . "this->session->set_flashdata('flashSuccess', 'Record(s) have been successfully updated.');\r\n\r\n";
+                $txt .=          "\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-plural'] . "');\r\n";
                 $txt .=          "\t\t}\r\n\r\n";
                 $txt .=     "\t// AJAX\r\n\r\n";
                 $txt .=         "\t\tpublic function update_display_status($" . "post) {\r\n\r\n";
-                $txt .=             "\t\t\t$" . "data = array(\r\n"; 
-                $txt .=                 "\t\t\t\t'DisplayStatus' => $" . "post['NewValue']\r\n"; 
-                $txt .=             "\t\t\t);\r\n"; 
-                $txt .=             "\t\t\t$" . "this->db->where('MenuItemID', $" . "post['ID']);\r\n"; 
-                $txt .=             "\t\t\t$" . "this->db->update('go_menu_items', $" . "data);\r\n\r\n";
-                $txt .=         "\t\t}\r\n\r\n";      
+                $txt .=             "\t\t\t$" . "_SESSION['admin']['filters']['" . $this->post['class-name-plural'] . "-active-inactive'] = $" . "post['NewValue'];\r\n";
+                $txt .=         "\t\t}\r\n\r\n";
                 $txt .=      "\t// DESTROY (Delete)\r\n\r\n";                          
                 $txt .=  "}\r\n";
             fwrite($file, $txt);
@@ -431,11 +428,16 @@ class GO_Lab extends GO_Controller
                 $txt .= "<?php\r\n";
                 $txt .= "defined('BASEPATH') OR exit('No direct script access allowed');\r\n\r\n";
                 $txt .= "class " . ucfirst($this->post['class-name-plural']) . " extends GO_Admin_Controller {\r\n\r\n";
+
                 $txt .=     "\tpublic function __construct(){\r\n";
-                $txt .=         "\t\tparent::__construct();\r\n";
-                $txt .=         "\t\tif(!$" . "this->session->has_userdata('logged_in')) show_404();\r\n";
-                $txt .=         "\t\t$" . "this->load->model('" . $this->post['class-name-plural'] . "_model','" . $this->post['class-name-singular'] . "');\r\n\r\n";      
+                $txt .=         "\t\tparent::__construct();\r\n\r\n";
+                $txt .=         "\t\t/** Validate the user should be able to access this resource */\r\n\r\n";
+                $txt .=         "\t\t\tif(empty($" . "_SESSION['admin']) || $" . "this->input->cookie('go-admin-hash') !== $" . "_SESSION['admin']['hash']) {\r\n";
+                $txt .=         "\t\t\t\tredirect(base_url() . 'admin/login');\r\n";
+                $txt .=         "\t\t\t}\r\n\r\n";
+                $txt .=         "\t\t$" . "this->load->model('" . $this->post['class-name-plural'] . "_model','" . $this->post['class-name-singular'] . "');\r\n\r\n";
                 $txt .=     "\t}\r\n\r\n";
+
                 $txt .=     "\t// PUT (Create)\r\n\r\n";
                 $txt .=         "\t\tpublic function " . $this->post['class-name-singular'] . "_add() {\r\n";    
                 $txt .=             "\t\t\t$" . "data = array(\r\n";
@@ -443,24 +445,24 @@ class GO_Lab extends GO_Controller
                 $txt .=             "\t\t\t);\r\n";  
                 $txt .=             "\t\t\t$" . "this->go_load_page(array('page'=>'admin/" . $this->post['class-name-plural'] . "/add','title'=>'Add " . ucfirst($this->post['class-name-singular']) . "','template'=>'admin','activeClass'=>'" . $this->post['active-class'] . "','queries'=>$" . "data));\r\n";
                 $txt .=         "\t\t}\r\n\r\n";
+
                 $txt .=     "\t// GET (Read)\r\n\r\n"; 
                 $txt .=         "\t\tpublic function " . $this->post['class-name-plural'] . "() {\r\n";
                 $txt .=             "\t\t\tif($" . "_POST && (isset($" . "_POST['save']) || isset($" . "_POST['save-and-new']) || isset($" . "_POST['save-and-close']))) {\r\n";
-                // $txt .=             "\t\t\tif(($" . "_POST && isset($" . "_POST['save'])) || ($" . "_POST && isset($" . "_POST['save-and-new'])) || ($" . "_POST && isset($" . "_POST['save-and-close']))) {\r\n";
                 $txt .=             "\t\t\t\t$" . "id = 0;\r\n";
                 $txt .=             "\t\t\t\tif(!empty($" . "this->input->get('id'))) $" . "id = $" . "this->input->get('id'); \r\n";
                 $txt .=             "\t\t\t\t$" . "this->" . $this->post['class-name-singular'] . "->post_data($" . "_POST, $" . "id);\r\n";
                 $txt .=             "\t\t\t}\r\n";
-                $txt .=             "\t\t\t$" . "menu_item_id = " . $menu_item_id . "; // INT is set on SQL of Class creation from LAB\r\n";
-                $txt .=             "\t\t\t$" . "this->session->set_userdata('menu_item_id', $" . "menu_item_id);\r\n";   
-                // $txt .=             "\t\t\t$" . "this->" . $this->post['class-name-singular'] . "->get_display_status($" . "menu_item_id);\r\n";      
+
                 $txt .=             "\t\t\tif(($" . "_POST && isset($" . "_POST['toggleDisplay']))) $" . "this->" . $this->post['class-name-singular'] . "->toggle_display($" . "_POST);  // Toggle Active/Inactive\r\n";
+
                 $txt .=             "\t\t\t$" . "data = array(\r\n";
                 $txt .=                 "\t\t\t\t'" . $this->post['class-name-plural'] . "' => $" . "this->" . $this->post['class-name-singular'] . "->go_get_all()\r\n";
                 $txt .=             "\t\t\t);\r\n";
 
                 $txt .=             "\t\t\t$" . "this->go_load_page(array('page'=>'admin/" . $this->post['class-name-plural'] . "/" . $this->post['class-name-plural'] . "','title'=>'" . ucfirst($this->post['class-name-plural']) . "','template'=>'admin','activeClass'=>'" . $this->post['active-class'] . "','queries'=>$" . "data));\r\n";     
                 $txt .=         "\t\t}\r\n\r\n";
+
                 $txt .=     "\t// PUT (Update)\r\n\r\n";
                 $txt .=         "\t\tpublic function " . $this->post['class-name-singular'] . "_edit() {\r\n";   
                 $txt .=             "\t\t\t$" . "data = array(\r\n";
@@ -468,8 +470,10 @@ class GO_Lab extends GO_Controller
                 $txt .=             "\t\t\t);\r\n"; 
                 $txt .=             "\t\t\t$" . "this->go_load_page(array('page'=>'admin/" . $this->post['class-name-plural'] . "/edit','title'=>'Edit " . ucfirst($this->post['class-name-singular']) . "','template'=>'admin','activeClass'=>'" . $this->post['active-class'] . "','queries'=>$" . "data));\r\n";
                 $txt .=         "\t\t}\r\n\r\n";
+
                 $txt .=     "\t// AJAX\r\n\r\n";
                 $txt .=         "\t\tpublic function update_display_status() {\r\n";
+                $txt .=         "\t\t\tif(!go__is_ajax_request()) return;\r\n";
                 $txt .=             "\t\t\techo json_encode($" . "this->" . $this->post['class-name-singular'] . "->update_display_status($" . "this->input->post()));\r\n";
                 $txt .=         "\t\t}\r\n\r\n";
                 $txt .= "}\r\n";
