@@ -38,10 +38,12 @@ class GO_Lab extends GO_Controller
 
         // Routes         
             $file = fopen(APPPATH . "/config/routes.php", "a"); // a for append
+                $sef_plural = str_replace("_","-", $this->post['class-name-plural']);
+                $sef_single = str_replace("_", "-", $this->post['class-name-singular']);
                 $txt  = "\r\n";
-                $txt .= "$" . "route['admin/" . $this->post['class-name-plural'] . "'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-plural'] . "';\r\n";
-                $txt .= "$" . "route['admin/" . $this->post['class-name-singular'] . "/add'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-singular'] . "_add';\r\n";
-                $txt .= "$" . "route['admin/" . $this->post['class-name-singular'] . "/edit'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-singular'] . "_edit';\r\n";
+                $txt .= "$" . "route['admin/" . $sef_plural . "'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-plural'] . "';\r\n";
+                $txt .= "$" . "route['admin/" . $sef_single . "/add'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-singular'] . "_add';\r\n";
+                $txt .= "$" . "route['admin/" . $sef_single . "/edit'] = '" . $this->post['class-name-plural'] . "/" . $this->post['class-name-singular'] . "_edit';\r\n";
             fwrite($file, $txt);
             fclose($file);        
 
@@ -139,6 +141,8 @@ class GO_Lab extends GO_Controller
             fwrite($file, $content);
             fclose($file);
 
+            $sef_plural = str_replace("_","-", $this->post['class-name-plural']);
+            $sef_single = str_replace("_", "-", $this->post['class-name-singular']);
 
         // Make index.html
             $file = fopen(APPPATH . 'views/admin/' . $this->post['class-name-plural'] . "/index.html", "w");
@@ -349,16 +353,16 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t\t}\r\n\r\n";
                 $txt .=          "\t\t\tswitch($" . "return_route) {\r\n";
                 $txt .=          "\t\t\t\tcase 'save':\r\n";
-                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-singular'] . "/edit?id=' . $" . "id);\r\n";
+                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $sef_single . "/edit?id=' . $" . "id);\r\n";
                 $txt .=          "\t\t\t\t\tbreak;\r\n";
                 $txt .=          "\t\t\t\tcase 'save-and-close':\r\n";
-                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-plural'] . "');\r\n";
+                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $sef_plural . "');\r\n";
                 $txt .=          "\t\t\t\t\tbreak;\r\n";
                 $txt .=          "\t\t\t\tcase 'save-and-new':\r\n";
-                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-singular'] . "/add');\r\n";
+                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $sef_single . "/add');\r\n";
                 $txt .=          "\t\t\t\t\tbreak;\r\n";
                 $txt .=          "\t\t\t\tdefault:\r\n";
-                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-plural'] . "');\r\n";
+                $txt .=          "\t\t\t\t\tredirect(base_url() . 'admin/" . $sef_plural . "');\r\n";
                 $txt .=          "\t\t\t\t\tbreak;\r\n";
                 $txt .=          "\t\t\t}\r\n\r\n";               
                 $txt .=          "\t\t}\r\n\r\n";
@@ -411,7 +415,7 @@ class GO_Lab extends GO_Controller
                 $txt .=          "\t\t\t\t$" . "this->db->update('" . $this->post['table-name'] . "', $" . "data);\r\n";
                 $txt .=          "\t\t\t}\r\n\r\n";
                 $txt .=          "\t\t\t$" . "this->session->set_flashdata('flashSuccess', 'Record(s) have been successfully updated.');\r\n\r\n";
-                $txt .=          "\t\t\tredirect(base_url() . 'admin/" . $this->post['class-name-plural'] . "');\r\n";
+                $txt .=          "\t\t\tredirect(base_url() . 'admin/" . $sef_plural . "');\r\n";
                 $txt .=          "\t\t}\r\n\r\n";
                 $txt .=     "\t// AJAX\r\n\r\n";
                 $txt .=         "\t\tpublic function update_display_status($" . "post) {\r\n\r\n";
