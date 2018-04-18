@@ -210,7 +210,7 @@ class GO_Lab extends GO_Controller
                 $txt .=                                         "\t\t\t\t\t\t\t\t\t\t<div class=\"truncate col-md-<?= $" . "this_page_results['keys']['col'][$" . "column_count]; ?>\">\r\n";
                 $txt .=                                             "\t\t\t\t\t\t\t\t\t\t\t<?php\r\n"; 
                 $txt .=                                                 "\t\t\t\t\t\t\t\t\t\t\t\tif($" . "column_count == 1) {\r\n";
-                $txt .=                                                     "\t\t\t\t\t\t\t\t\t\t\t\t\techo '<a href=\"' . base_url() . 'admin/' . $" . "this_page_singular . '/edit?id=' .  $" . "val['ID'] . '\">';\r\n";
+                $txt .=                                                     "\t\t\t\t\t\t\t\t\t\t\t\t\techo '<a href=\"' . base_url() . 'admin/' . str_replace(\"_\", \"-\", $" . "this_page_singular) . '/edit?id=' .  $" . "val['ID'] . '\">';\r\n";
                 $txt .=                                                         "\t\t\t\t\t\t\t\t\t\t\t\t\t\techo $" . "val[$" . "array_keys[$" . "column_count]];\r\n";
                 $txt .=                                                     "\t\t\t\t\t\t\t\t\t\t\t\t\techo '</a>';\r\n";
                 $txt .=                                                 "\t\t\t\t\t\t\t\t\t\t\t\t} else {\r\n";

@@ -59,7 +59,7 @@
 										<div class="truncate col-md-<?= $this_page_results['keys']['col'][$column_count]; ?>">
 											<?php
 												if($column_count == 1) {
-													echo '<a href="' . base_url() . 'admin/' . $this_page_singular . '/edit?id=' .  $val['ID'] . '">';
+													echo '<a href="' . base_url() . 'admin/' . str_replace("_", "-", $this_page_singular) . '/edit?id=' .  $val['ID'] . '">';
 														echo $val[$array_keys[$column_count]];
 													echo '</a>';
 												} else {

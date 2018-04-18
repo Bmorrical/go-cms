@@ -24,8 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"> -->
-
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!---->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/css/go_normalize.css">	
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/go/dropzone/dropzone.css">
@@ -43,6 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?php echo base_url(); ?>assets/go/dropzone/dropzone.js"></script>
 		<script src="<?php echo base_url(); ?>assets/go/js/bootstrap-toggle.js"></script>
 		<script src="<?php echo base_url(); ?>assets/go/js/waiting-dialogue.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 
 		<title><?php echo htmlspecialchars(parse_class_name_as_friendly($title)); ?></title>
 

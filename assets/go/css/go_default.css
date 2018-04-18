@@ -31,7 +31,11 @@
 .clear {
     clear: both;
 }
-
+/* Font Awesome v5 compatibility tweaks */
+.svg-inline--fa {
+    font-size:inherit!important;
+    margin-top: 0px!important;
+}
 /* Start Menu */
 
     #menu-id-1 li.active {
